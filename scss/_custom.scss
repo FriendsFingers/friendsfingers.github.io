@@ -1,0 +1,208 @@
+// Bootstrap overrides for this template
+.bg-primary {
+  background: $theme-primary;
+  background: -webkit-linear-gradient($theme-primary, darken($theme-primary, 15%));
+  background: linear-gradient($theme-primary, darken($theme-primary, 15%));
+}
+
+.bg-secondary {
+  background: $theme-secondary;
+  background: -webkit-linear-gradient($theme-secondary, darken($theme-secondary, 15%));
+  background: linear-gradient($theme-secondary, darken($theme-secondary, 15%));
+}
+
+.bg-tertiary {
+  background: $theme-tertiary;
+  background: -webkit-linear-gradient($theme-tertiary, darken($theme-tertiary, 15%));
+  background: linear-gradient($theme-tertiary, darken($theme-tertiary, 15%));
+}
+
+.text-primary {
+  color: $theme-primary !important;
+}
+
+.text-secondary {
+  color: $theme-secondary !important;
+}
+
+.text-tertiary {
+  color: $theme-tertiary !important;
+}
+
+.no-gutter > [class*='col-'] {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.btn-outline {
+  color: white;
+  border: 1px solid;
+  border-color: white;
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    color: $theme-blue;
+    border-color: $theme-primary;
+    background-color: $theme-primary;
+  }
+}
+
+.btn {
+  cursor: pointer;
+  border-radius: 300px;
+  @include alt-font;
+}
+
+.btn-xl {
+  font-size: 11px;
+  padding: 15px 45px;
+}
+
+.btn-action {
+  color: $theme-blue;
+  border-color: $theme-primary;
+  background: $theme-primary;
+  background: -webkit-linear-gradient($theme-primary, darken($theme-primary, 5%));
+  background: linear-gradient($theme-primary, darken($theme-primary, 5%));
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    color: $theme-blue;
+    background: darken($theme-primary, 15%);
+    background: -webkit-linear-gradient($theme-primary, darken($theme-primary, 15%));
+    background: linear-gradient($theme-primary, darken($theme-primary, 15%));
+  }
+}
+
+.btn-secondary {
+  color: $gray-lightest;
+  border-color: $theme-secondary;
+  background-color: $theme-secondary;
+  background: -webkit-linear-gradient($theme-secondary, darken($theme-secondary, 5%));
+  background: linear-gradient($theme-secondary, darken($theme-secondary, 5%));
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    border-color: $theme-secondary;
+    background: -webkit-linear-gradient($theme-secondary, darken($theme-secondary, 15%));
+    background: linear-gradient($theme-secondary, darken($theme-secondary, 15%));
+  }
+}
+
+.btn-tertiary {
+  color: $gray-lightest;
+  border-color: $theme-tertiary;
+  background-color: $theme-tertiary;
+  background: -webkit-linear-gradient($theme-tertiary, darken($theme-tertiary, 5%));
+  background: linear-gradient($theme-tertiary, darken($theme-tertiary, 5%));
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    border-color: $theme-tertiary;
+    background: -webkit-linear-gradient($theme-tertiary, darken($theme-tertiary, 15%));
+    background: linear-gradient($theme-tertiary, darken($theme-tertiary, 15%));
+  }
+}
+
+ul.list-social {
+  text-align: center;
+  margin-bottom: 0;
+  li {
+    a {
+      font-size: 15px;
+      line-height: 30px;
+      display: block;
+      width: 30px;
+      height: 30px;
+      color: white;
+      border-radius: 100%;
+    }
+    &.social-twitter {
+      a {
+        background-color: $brand-twitter;
+        &:hover {
+          background-color: darken($brand-twitter, 5%);
+        }
+      }
+    }
+    &.social-facebook {
+      a {
+        background-color: $brand-facebook;
+        &:hover {
+          background-color: darken($brand-facebook, 5%);
+        }
+      }
+    }
+    &.social-instagram {
+      a {
+        background-color: $brand-instagram;
+        &:hover {
+          background-color: darken($brand-instagram, 5%);
+        }
+      }
+    }
+    &.social-telegram {
+      a {
+        background-color: $brand-telegram;
+        &:hover {
+          background-color: darken($brand-telegram, 5%);
+        }
+      }
+    }
+    &.social-google-plus {
+      a {
+        background-color: $brand-google-plus;
+        &:hover {
+          background-color: darken($brand-google-plus, 5%);
+        }
+      }
+    }
+    &.social-medium {
+      a {
+        background-color: $brand-medium;
+        &:hover {
+          background-color: darken($brand-medium, 5%);
+        }
+      }
+    }
+    &.social-github {
+      a {
+        background-color: $brand-github;
+        &:hover {
+          background-color: darken($brand-github, 5%);
+        }
+      }
+    }
+  }
+}
+
+.content {
+  a {
+    color: $theme-secondary;
+    &:hover {
+      color: $theme-tertiary;
+    }
+  }
+}
+
+.mailchimp {
+  .input-group {
+    input {
+      border-bottom-left-radius: 300px;
+      border-top-left-radius: 300px;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .btn {
+      margin-left: -20px;
+      border-radius: 300px !important;
+      z-index: 3;
+    }
+  }
+}

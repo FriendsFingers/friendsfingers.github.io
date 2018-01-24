@@ -1,0 +1,19 @@
+// Styling for the token section
+section.token {
+  position: relative;
+  padding: 100px 0;
+  i {
+    font-size: 80px;
+    display: block;
+    margin-bottom: 15px;
+  }
+  h2 {
+    font-size: 40px;
+    margin-top: 0;
+  }
+  @media(min-width: 768px) {
+    h2 {
+      font-size: 50px;
+    }
+  }
+}

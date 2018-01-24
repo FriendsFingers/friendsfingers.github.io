@@ -1,0 +1,57 @@
+// Styling for the navbar
+#mainNav {
+  border-bottom: 1px solid;
+  border-color: fade-out($gray-darker, .95);
+  background-color: white;
+  @include transition-all;
+  @include heading-font;
+  .navbar-brand {
+    font-size: 1.5rem;
+    color: $theme-tertiary;
+    @include heading-font;
+    &:hover,
+    &:focus {
+      color: darken($theme-primary, 10%);
+    }
+  }
+  .navbar-toggler {
+    font-size: 12px;
+    padding: 8px 10px;
+    color: $gray-darker;
+  }
+  .navbar-nav {
+    > li {
+      > a {
+        font-size: 11px;
+        @include alt-font;
+        @media (max-width: 991px) {
+          padding: 0.5rem 1.2rem;
+        }
+        &.active {
+          color: $theme-tertiary !important;
+          background-color: transparent;
+          &:hover {
+            background-color: transparent;
+          }
+        }
+        &.evidence {
+          color: $theme-blue;
+          padding: 0.5rem 1.2rem;
+          @media(min-width: 992px) {
+            border-radius: 20px;
+          }
+        }
+      }
+      > a,
+      > a:focus {
+        color: $theme-blue;
+        &:hover {
+          color: $theme-primary;
+        }
+        &.bg-primary:hover {
+          color: $gray-darker;
+        }
+      }
+    }
+  }
+}

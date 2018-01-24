@@ -1,0 +1,67 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="author" content="">
+    <meta name="robots" content="{% if page.robots %}{{ page.robots }}{% else %}index,follow{% endif %}">
+
+    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{% if page.permalink %}{{ page.permalink | absolute_url }}{% else %}{{ '/' | absolute_url }}{% endif %}">
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:image" content="{% if page.social_image %}{{ page.social_image | absolute_url }}{% else %}{{ site.social_image | absolute_url }}{% endif %}" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="twitter:image" content="{% if page.social_image %}{{ page.social_image | absolute_url }}{% else %}{{ site.social_image | absolute_url }}{% endif %}" />
+
+
+    <link rel="icon" href="{{ 'img/favicon.png' | absolute_url }}">
+    <!--[if IE]><link rel="shortcut icon" href="{{ 'img/favicon.ico' | absolute_url }}"><![endif]-->
+
+    <!-- Custom fonts for this template -->
+    <link rel="stylesheet" href="{{ 'vendor/font-awesome/css/font-awesome.min.css' | absolute_url }}">
+    <link rel="stylesheet" href="{{ 'vendor/simple-line-icons/css/simple-line-icons.css' | absolute_url }}">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <!--<link rel="stylesheet" href="{{ '/device-mockups/device-mockups.min.css' | absolute_url }}">-->
+
+    <!-- Custom styles for this template -->
+    <link href="{{ 'css/friends-fingers.min.css' | absolute_url }}" rel="stylesheet">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '{{ site.google_analytics }}');
+    </script>
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '{{ site.facebook_pixel }}');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id={{ site.facebook_pixel }}&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+</head>

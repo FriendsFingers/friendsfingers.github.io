@@ -1,0 +1,69 @@
+// Styling for the masthead
+header.masthead {
+  position: relative;
+
+  width: 100%;
+  padding-top: 150px;
+
+  color: white;
+  background: url('../img/pattern.png'), $theme-tertiary;
+  background: url('../img/pattern.png'), -webkit-linear-gradient(to right, $theme-tertiary, darken($theme-tertiary, 15%));
+  background: url('../img/pattern.png'), linear-gradient(to right, $theme-tertiary, darken($theme-tertiary, 15%));
+  @include background-cover;
+  .header-content {
+    //max-width: 500px;
+    margin-bottom: 100px;
+
+    text-align: center;
+    h1 {
+      font-size: 30px;
+    }
+
+    ul.social-links {
+      font-size: 30px;
+      a {
+        color: $theme-primary !important;
+        &:hover {
+          color:  darken($theme-primary, 15%) !important;
+        }
+      }
+    }
+
+    .mailchimp {
+      .input-group {
+        .btn {
+          color: $theme-blue;
+          border-color: $theme-primary;
+          background: $theme-primary;
+          background: -webkit-linear-gradient($theme-primary, darken($theme-primary, 15%));
+          background: linear-gradient($theme-primary, darken($theme-primary, 15%));
+        }
+      }
+    }
+  }
+  .device-container {
+    max-width: 325px;
+    margin-right: auto;
+    margin-left: auto;
+    .screen img {
+      border-radius: 3px;
+    }
+  }
+  @media (min-width: 992px) {
+    height: 100vh;
+    min-height: 775px;
+    padding-top: 0;
+    padding-bottom: 0;
+    .header-content {
+      margin-bottom: 0;
+
+      text-align: left;
+      h1 {
+        font-size: 50px;
+      }
+    }
+    .device-container {
+      max-width: 325px;
+    }
+  }
+}

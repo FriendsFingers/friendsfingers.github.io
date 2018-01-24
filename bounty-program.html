@@ -1,0 +1,188 @@
+---
+layout: default
+title: Get free Shaka (HAK) with our Bounty Program | FriendsFingers
+description: Support FriendsFingers and get free Shaka (HAK), an ERC20 Token based on Ethereum issued by FriendsFingers. Discover more about Shaka Tokens.
+social_image: img/social/bounty-social-image.png
+permalink: bounty-program
+---
+
+<script>
+    fbq('track', 'ViewContent', {
+        content_ids: 'bounty',
+    });
+</script>
+
+<section class="about bg-tertiary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 mx-auto text-center">
+                <img src="{{ 'img/logo/shaka.png' | absolute_url }}" width="60" height="60" alt="Shaka">
+                <h2 class="section-heading">Shaka</h2>
+                <h3>The Token for a new way crowdfunding</h3>
+            </div>
+            <div class="col-md-10 offset-md-1 mt-5 text-center">
+                <h6>Use the link builder below and start earning free Shaka.</h6>
+                <a href="{{ 'bounty-program#bounty-box' | absolute_url }}" class="btn btn-outline btn-xl mt-4 js-scroll-trigger">Get free Shaka</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about bg-primary" id="bounty-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <div class="text-center">
+                    <i class="icon-present"></i>
+                    <h2 class="section-heading">Enter our Bounty Program</h2>
+                    <h6>Only contributions between 1 February 2018 and our Crowdsale end will be accepted</h6>
+                </div>
+
+                <div id="bounty-program" class="mt-5">
+
+                    <div id="mc_embed_signup">
+                        <form v-on:submit.prevent="subscribeBounty"
+                              action="https://friendsfingers.us17.list-manage.com/subscribe/post?u=4dc19b4f2c2bf8c7ff4fad55b&amp;id=d2f2065d75"
+                              method="post"
+                              id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form">
+                            <div id="mc_embed_signup_scroll">
+
+                                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_4dc19b4f2c2bf8c7ff4fad55b_d2f2065d75" tabindex="-1" value=""></div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label class="col-form-label" for="mce-WALLET">Insert your Ethereum wallet address to build your link</label>
+                                        <input type="text" class="form-control form-control-lg"
+                                               v-validate="'required'"
+                                               :class="{'is-invalid': errors.has('WALLET')}"
+                                               v-model="wallet"
+                                               id="mce-WALLET"
+                                               name="WALLET"
+                                               placeholder="0x1234567891234567891234567891234567891234">
+                                        <div v-if="address_error" class="alert alert-danger mt-2">
+                                            Insert a valid Ethereum address
+                                        </div>
+                                        <div class="alert alert-warning mt-2">
+                                            <small>Enter your Ethereum wallet address. Use a valid address on Main network. There you will receive your rewards.<br>
+                                                If you enter our Crowdsale with the same address your reward will be multiplied.<br>
+                                                Do not use an exchange address like Coinbase, Bitfinex, Binance, GDAX or similar.
+                                                They don't give you any access to your wallet so you will lost your reward tokens and we can't do anything to help you recover them.
+                                                Try using <a class="text-secondary" href="https://metamask.io/" target="_blank">MetaMask</a>, <a class="text-secondary" href="https://www.myetherwallet.com/" target="_blank">MyEtherWallet</a>, <a class="text-secondary" href="https://github.com/ethereum/mist/releases" target="_blank">Mist</a> or your private wallet address.</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <h4>Your referral link</h4>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control"
+                                                   readonly="readonly"
+                                                   v-model="generateLink"
+                                                   name="LINK"
+                                                   id="mce-LINK">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-xl"
+                                                        v-on:click="copyLink"
+                                                        :class="copied ? 'btn-success' : 'btn-secondary'"
+                                                        type="button"><span v-html="copied ? 'Copied' : 'Copy'"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-success mt-2">
+                                            <small>Copy and share your link on your blog or social channels. You will get free HAK for each new user Google Analytics says is coming from your link.<br>
+                                                You can also short your link using <a class="text-secondary" href="https://bitly.com/" target="_blank">bitly.com</a> or <a class="text-secondary" href="https://goo.gl/" target="_blank">goo.gl</a>.</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <h3>Want to get more free HAK?</h3>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label class="col-form-label" for="mce-EMAIL">Your Email address</label>
+                                        <input type="text" class="form-control"
+                                               v-validate="'required|email'"
+                                               :class="{'is-invalid': errors.has('EMAIL')}"
+                                               v-model="email"
+                                               id="mce-EMAIL"
+                                               name="EMAIL"
+                                               placeholder="john@doe.com">
+                                        <div class="alert alert-warning mt-2">
+                                            <small>Subscribe to our Bounty list.<br>
+                                                <b>Your rewards will be doubled.</b></small>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label class="col-form-label" for="mce-TELEGRAM">Your Telegram username <small>(optional)</small></label>
+                                        <input type="text" class="form-control"
+                                               :class="{'is-invalid': errors.has('TELEGRAM')}"
+                                               v-model="telegram"
+                                               id="mce-TELEGRAM"
+                                               name="TELEGRAM"
+                                               placeholder="johndoe">
+                                        <div class="alert alert-warning mt-2">
+                                            <small>Join our <a target="_blank" class="text-secondary" href="https://t.me/{{ site.telegram_group }}">Telegram</a> group and then enter your username here.<br>
+                                                <b>Your rewards will be doubled again.</b></small>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label class="col-form-label" for="mce-POSTLINK">Your Medium or Steemit post link <small>(optional)</small></label>
+                                        <input type="url" class="form-control"
+                                               v-validate="'url:require_protocol'"
+                                               :class="{'is-invalid': errors.has('POSTLINK')}"
+                                               v-model="postlink"
+                                               name="POSTLINK"
+                                               id="mce-POSTLINK"
+                                                placeholder="https://steemit.com/ethereum/@friendsfingers/about-friendsfingers">
+                                        <div class="alert alert-warning mt-2">
+                                            <small>Write a quality content post about us on your Medium or Steemit blog and enter the link here. You can choose to use Medium or Steemit but they are not cumulative. You can also update this later based on your post success.<br>
+                                                <b>Each clap (from unique people) or upvote will give you a 1% bonus on your final free HAK number.</b></small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                           v-validate="'required'"
+                                           :class="{'is-invalid': errors.has('privacyAgreement')}"
+                                           value="1"
+                                           id="privacyAgreement"
+                                           name="privacyAgreement">
+                                    <label class="form-check-label" for="privacyAgreement">
+                                        <small>By entering our bounty program you confirm that you have read, understand and agree to the FriendsFingers <a class="text-dark" href="{{ 'terms' | absolute_url }}" target="_blank"><u>Terms of Use</u></a> and <a class="text-dark" href="{{ 'privacy' | absolute_url }}" target="_blank"><u>Privacy Policy</u></a>.</small>
+                                    </label>
+                                </div>
+
+                                <input type="submit" value="Subscribe to the Program" name="subscribe" id="mc-embedded-subscribe" class="btn btn-success btn-xl mt-3">
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about bg-secondary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 mx-auto">
+                <p>Shaka (HAK) is an ERC20 Token based on Ethereum issued by FriendsFingers and that will give holders rights to be active part of the platform like in a Decentralized Autonomous Organization (DAO).</p>
+                <p>We are starting a Bounty Program for users who want to support FriendsFingers platform development.<br>
+                    Subscribe our Bounty Program and get free HAK.</p>
+                <p>At the end of the crowdsale we will check Google Analytics referring to the bounty campaign, searching for your wallet address in our contributors, check our bounty Mailchimp list, search your username in our Telegram group and we will look at claps or upvotes on your Medium or Steemit post.</p>
+                <p>We will issue rewards using the following formula:</p>
+                <ul>
+                    <li>U = number of new users coming from participants' link</li>
+                    <li>F = max(1, 2, 3) if they entered respectively third, second or first round of FriendsFingers ICO, 0 otherwise</li>
+                    <li>N = 1 if they subscribed our bounty Mailchimp list, 0 otherwise</li>
+                    <li>T = 1 if they joined our Telegram group, 0 otherwise</li>
+                    <li>M = number of claps or upvotes on the Medium or Steemit post until a max of 300</li>
+                </ul>
+                <h4 class="mt-5 mb-5">Free HAK reward = (U * 5 / 100) * (1 + F) * (1 + N) * (1 + NT) * (1 + N(M / 100))</h4>
+                <small>Discover more in Whitepaper <a href="{{ 'whitepaper#bounty' | absolute_url }}">Bounty Program</a> section.</small>
+            </div>
+        </div>
+    </div>
+</section>

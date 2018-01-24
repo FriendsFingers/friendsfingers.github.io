@@ -1,0 +1,19 @@
+// Styling for the about section
+section.about {
+  position: relative;
+  padding: 100px 0;
+  h2 {
+    font-size: 50px;
+    margin-top: 0;
+  }
+  i {
+    font-size: 80px;
+    display: block;
+    margin-bottom: 15px;
+  }
+  @media(min-width: 768px) {
+    h2 {
+      font-size: 70px;
+    }
+  }
+}
