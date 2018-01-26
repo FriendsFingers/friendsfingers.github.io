@@ -24,7 +24,7 @@ url: "https://www.friendsfingers.com" # the base hostname & protocol for your si
 environment: "prod"
 facebook_pixel: "371003060028291"
 google_analytics: "UA-111269229-1"
-social_image: "img/social/friendsfingers-social-image.png"
+social_image: "img/brand-resources/friendsfingers_cover_square.png"
 info_email: "info@friendsfingers.com"
 contact_email: "info@friendsfingers.com"
 support_email: "info@friendsfingers.com"
