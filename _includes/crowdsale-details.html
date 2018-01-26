@@ -1,0 +1,200 @@
+<div id="crowdsale-details" class="content">
+    <div class="crowdsale-box card">
+        <div class="card-body text-center">
+            <img src="{{ 'img/loader.svg' | absolute_url }}">
+        </div>
+    </div>
+
+    <div class="crowdsale-box d-none">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-header">Project Details</div>
+                    <div class="card-body">
+                        <div class="media">
+                            <img class="align-self-start mr-3" :src="crowdsale.projectInfo.logo" :alt="crowdsale.projectInfo.title" style="max-width: 30%;">
+                            <div class="media-body">
+                                <h5 class="mt-0" v-html="crowdsale.projectInfo.title"></h5>
+                                <p v-html="crowdsale.projectInfo.about"></p>
+                                <h6 v-html="crowdsale.projectInfo.description"></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="social-links">
+                            <a :href="crowdsale.projectInfo.url" target="_blank" class="mr-3">Official link</a>
+                            <a :href="crowdsale.projectInfo.whitepaper" target="_blank" class="mr-3">Whitepaper</a>
+                            <a :href="'mailto:' + crowdsale.projectInfo.email" v-if="crowdsale.projectInfo.email" title="Email" target="_blank"><i class="fa fa-envelope"></i></a>
+                            <a :href="crowdsale.projectInfo.facebook" v-if="crowdsale.projectInfo.facebook" title="Facebook" target="_blank"><i class="fa fa-facebook-official"></i></a>
+                            <a :href="crowdsale.projectInfo.twitter" v-if="crowdsale.projectInfo.twitter" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a :href="crowdsale.projectInfo.instagram" v-if="crowdsale.projectInfo.instagram" title="Instagram" target="_blank"><i class="fa fa-instagram"></i></a>
+                            <a :href="crowdsale.projectInfo.telegram" v-if="crowdsale.projectInfo.telegram" title="Telegram" target="_blank"><i class="fa fa-telegram"></i></a>
+                            <a :href="crowdsale.projectInfo.medium" v-if="crowdsale.projectInfo.medium" title="Medium" target="_blank"><i class="fa fa-medium"></i></a>
+                            <a :href="crowdsale.projectInfo.bitcointalk" v-if="crowdsale.projectInfo.bitcointalk" title="BitcoinTalk" target="_blank"><i class="fa fa-btc"></i></a>
+                            <a :href="crowdsale.projectInfo.reddit" v-if="crowdsale.projectInfo.reddit" title="Reddit" target="_blank"><i class="fa fa-reddit"></i></a>
+                            <a :href="crowdsale.projectInfo.slack" v-if="crowdsale.projectInfo.slack" title="Slack" target="_blank"><i class="fa fa-slack"></i></a>
+                            <a :href="crowdsale.projectInfo.github" v-if="crowdsale.projectInfo.github" title="GitHub" target="_blank"><i class="fa fa-github"></i></a>
+                            <a :href="crowdsale.projectInfo.youtube" v-if="crowdsale.projectInfo.youtube" title="YouTube" target="_blank"><i class="fa fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-primary mb-3">
+                    <div class="card-header">Token Details</div>
+                    <div class="card-body">
+                        <h5>Name: <span v-html="token.name"></span></h5>
+                        <h5>Symbol: <span v-html="token.symbol"></span></h5>
+                        <h5>Decimals: <span v-html="token.decimals"></span></h5>
+                        <h6>Crowdsale Supply: <span v-html="token.crowdsaleSupply.toLocaleString()"></span></h6>
+                        <h6>Total Supply: <span v-html="token.totalSupply.toLocaleString()"></span></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-header">Crowdsale Details</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm text-md-left">
+                                <h5>Start time</h5>
+                                <h6 v-html="crowdsale.startTimeFormatted"></h6>
+                            </div>
+                            <div class="col-sm text-md-right">
+                                <h5>End time</h5>
+                                <h6 v-html="crowdsale.endTimeFormatted"></h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm text-md-left">
+                                <h5>Goal</h5>
+                                <h6><span v-html="crowdsale.goal"></span> ETH</h6>
+                            </div>
+                            <div class="col-sm text-md-right">
+                                <h5>Raised</h5>
+                                <h6><span v-html="crowdsale.weiRaised.toLocaleString()"></span>/<span v-html="crowdsale.cap.toLocaleString()"></span> ETH</h6>
+                            </div>
+
+                            <div class="col-sm-12 mt-2">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" v-bind:aria-valuenow="crowdsale.weiRaised" aria-valuemin="0" v-bind:aria-valuemax="crowdsale.cap" v-bind:style="'width:' + (crowdsale.weiRaised * 100 / crowdsale.cap) + '%'"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm text-md-left">
+                                <h5>Investor count</h5>
+                                <h6 v-html="crowdsale.investorCount"></h6>
+                            </div>
+                            <div class="col-sm text-md-center">
+                                <h5>Sold <span v-html="token.name"></span></h5>
+                                <h6><span v-html="crowdsale.soldTokens.toLocaleString()"></span> <span v-html="token.symbol"></span></h6>
+                            </div>
+                            <div class="col-sm text-md-right">
+                                <h5>Exchange Rate</h5>
+                                <h6><span v-html="crowdsale.rate"></span> <span v-html="token.symbol"></span>/ETH</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm text-md-left">
+                                <h5>Token address</h5>
+                                <h6 v-html="token.address"></h6>
+                            </div>
+                            <div class="col-sm text-md-right">
+                                <h5>Crowdsale address</h5>
+                                <h6 v-html="crowdsale.address"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-primary mb-3" role="alert">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input"
+                       v-validate="'required'"
+                       :class="{'is-invalid': errors.has('usAgreement')}"
+                       value="1"
+                       id="usAgreement"
+                       name="usAgreement">
+                <label class="form-check-label" for="usAgreement">
+                    Confirm that you are NOT a U.S. citizen, resident or entity (each a “U.S. Person”) nor are you purchasing Tokens or signing on behalf of a U.S. Person.
+                </label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input"
+                       v-validate="'required'"
+                       :class="{'is-invalid': errors.has('chinaAgreement')}"
+                       value="1"
+                       id="chinaAgreement"
+                       name="chinaAgreement">
+                <label class="form-check-label" for="chinaAgreement">
+                    Confirm that you are NOT a citizen of or resident of the People's Republic of China or an entity formed under the laws of the People's Republic of China (each a "Chinese Person") nor are you purchasing Tokens or signing on behalf of a Chinese Person.
+                </label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input"
+                       v-validate="'required'"
+                       :class="{'is-invalid': errors.has('globalAgreement')}"
+                       value="1"
+                       id="globalAgreement"
+                       name="globalAgreement">
+                <label class="form-check-label" for="globalAgreement">
+                    Confirm that you have read, understand and agree to the FriendsFingers <a href="{{ 'terms' | absolute_url }}" target="_blank">Terms of Use</a> and that <u>you have read, understand and agree to the Crowdsale's Terms and Conditions expressed in its Whitepaper and Official link above</u>.
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-header">Invest using MetaMask</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">ETH</span>
+                                </div>
+                                <input type="number" class="form-control"
+                                       v-validate="'required|decimal'"
+                                       :class="{'is-invalid': errors.has('fund')}"
+                                       v-model="funds"
+                                       min="0"
+                                       id="fund"
+                                       name="fund"
+                                       placeholder="Your fund value in Ether">
+                            </div>
+                            <small class="form-text text-muted">
+                                Select the amount you want to enter in crowdsale</small>
+                            <p>You will receive <span v-html="funds * crowdsale.rate"></span> <span v-html="token.symbol"></span></p>
+                        </div>
+                        <button type="button" class="btn btn-success btn-xl btn-block" v-on:click="fundCrowdsale">Invest</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-header">Invest using your preferred wallet</div>
+                    <div class="card-body">
+                        <p>Send the amount of ETH you want to invest to the Crowdsale address below</p>
+                        <h5 v-html="crowdsale.address"></h5>
+
+                        <div class="alert alert-warning mt-3" role="alert">
+                            <small>Do not send ETH from exchange like Coinbase, Bitfinex, GDAX or similar. They don't give you any access to your wallet so sending ETH from one of these means lost your reward tokens and we can't do anything to help you recover them.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

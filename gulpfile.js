@@ -28,7 +28,7 @@ gulp.task('minify-css', ['sass'], function() {
 
 // Minify custom JS
 gulp.task('minify-js', function() {
-    return gulp.src(['js/friends-fingers.js'])
+    return gulp.src(['js/friends-fingers.js', 'js/app.js'])
         .pipe(babel({presets: ['env'], plugins: ["transform-async-to-generator"]}))
         .pipe(uglify())
         .pipe(rename({

@@ -1,5 +1,8 @@
 <script>
     const page = "{{ page.permalink }}";
+    const abiPath = "{{ 'abi/' | absolute_url }}";
+    const web3Provider = "{{ site.web3_provider }}";
+    const crowdsaleBuilderAddress = "{{ site.crowdsale_builder }}";
 </script>
 
 <!-- Bootstrap core JavaScript -->
@@ -11,13 +14,16 @@
 
 <!-- ETH utilities -->
 <script src="{{ 'vendor/web3/web3.min.js' | absolute_url }}"></script>
+<script src="{{ 'vendor/truffle-contract/truffle-contract.js' | absolute_url }}"></script>
 
 <!-- Vue.js -->
 <script src="{{ 'vendor/vue/vue.min.js' | absolute_url }}"></script>
 <script src="{{ 'vendor/vee-validate/vee-validate.min.js' | absolute_url }}"></script>
 
 <!-- Custom scripts -->
+<script src="{{ 'js/app.js' | absolute_url }}"></script>
+<!--<script src="{{ 'js/app.min.js' | absolute_url }}"></script>-->
 <script src="{{ 'js/friends-fingers.min.js' | absolute_url }}"></script>
 
-
+<!-- Cookie bar -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?forceLang=en&tracking=1&thirdparty=1&scrolling=1&hideDetailsBtn=1&remember=30&privacyPage=https%3A%2F%2Fwww.friendsfingers.com%2Fprivacy"></script>
