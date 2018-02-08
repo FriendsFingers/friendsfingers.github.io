@@ -36,6 +36,7 @@ steemit_username: "@friendsfingers"
 github_username:  "friendsfingers"
 telegram_channel:  "friendsfingersupdates"
 telegram_group:  "friendsfingers"
+drift_widget:  ""
 web3_provider: "https://rinkeby.infura.io"
 
 # Build settings
