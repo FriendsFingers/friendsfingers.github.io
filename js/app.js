@@ -38,22 +38,22 @@ App = {
     },
 
     initBuilder: async function () {
-        return await $.getJSON(abiPath + 'CrowdsaleBuilder.json', function (data) {
+        return await $.getJSON(abiPath + 'FriendsFingersBuilder.json', function (data) {
             // Get the necessary contract artifact file and instantiate it with truffle-contract.
-            App.contracts.CrowdsaleBuilder = TruffleContract(data);
+            App.contracts.FriendsFingersBuilder = TruffleContract(data);
 
             // Set the provider for our contract.
-            App.contracts.CrowdsaleBuilder.setProvider(App.web3Provider);
+            App.contracts.FriendsFingersBuilder.setProvider(App.web3Provider);
         });
     },
 
     initCrowdsale: async function () {
-        return await $.getJSON(abiPath + 'FFCrowdsale.json', function (data) {
+        return await $.getJSON(abiPath + 'FriendsFingersCrowdsale.json', function (data) {
             // Get the necessary contract artifact file and instantiate it with truffle-contract.
-            App.contracts.FFCrowdsale = TruffleContract(data);
+            App.contracts.FriendsFingersCrowdsale = TruffleContract(data);
 
             // Set the provider for our contract.
-            App.contracts.FFCrowdsale.setProvider(App.web3Provider);
+            App.contracts.FriendsFingersCrowdsale.setProvider(App.web3Provider);
         });
     },
 
@@ -149,7 +149,7 @@ App = {
                 }
             },
             created: async function () {
-                const crowdsale = await App.contracts.FFCrowdsale.at(crowdsaleAddress);
+                const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
                 const token = await App.contracts.FriendsFingersToken.at(await crowdsale.token());
 
                 this.token.address = token.address;
@@ -181,7 +181,7 @@ App = {
                     this.$validator.validateAll().then(async (result) => {
 
                         if (result) {
-                            const crowdsale = await App.contracts.FFCrowdsale.at(crowdsaleAddress);
+                            const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
                             const value = web3.toWei(this.funds);
                             const result = await crowdsale.send(value);
                             console.log(result);
