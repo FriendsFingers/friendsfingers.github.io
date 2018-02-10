@@ -15,12 +15,6 @@ permalink: whitepaper
 <section class="content">
     <div class="container">
 
-        <div class="row mb-3">
-            <div class="col-md-12">
-                <img class="img-fluid" alt="{{ site.name }}" src="{{ 'img/brand-resources/friendsfingers_cover_rect.png' | absolute_url }}">
-            </div>
-        </div>
-
         <div class="card mb-3">
             <div class="card-header">{{ site.name }} Whitepaper</div>
             <div class="card-body">
@@ -51,6 +45,12 @@ permalink: whitepaper
                 No regulatory authority has examined or approved any of the information set out in this Whitepaper. The publication, distribution or dissemination of this Whitepaper does not imply that the applicable laws, regulatory requirements, or rules have been complied.
                 Contributors are advised to read this document carefully in full, and perform due diligence.
             </small>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <img class="img-fluid" alt="{{ site.name }}" src="{{ 'img/brand-resources/friendsfingers_cover_rect.png' | absolute_url }}">
+            </div>
         </div>
 
         <div id="abstract" class="card mb-3">
@@ -170,7 +170,7 @@ permalink: whitepaper
                 <ul>
                     <li>The accepted currency during the ICO is Ether (ETH)</li>
                     <li>Token Creation has an hard cap ("Target") for each round: once this cap is achieved, token creation will stop and no further contributions will be accepted</li>
-                    <li>Token Creation period will be splitted in 3 rounds of 24 days, if Target is not reached sooner</li>
+                    <li>Token Creation period will be splitted in 3 rounds of about 4 weeks, if Target is not reached sooner</li>
                     <li>The Target amount of the first round is 2000 ETH</li>
                     <li>Max supply of HAK created during first round is 9,600,000</li>
                     <li>Max supply of HAK created during entire ICO is 48,000,000</li>
@@ -278,17 +278,7 @@ permalink: whitepaper
         <div id="roadmap" class="card mb-3">
             <div class="card-header">Roadmap</div>
             <div class="card-body">
-                <h5 class="card-title">Q1 2018</h5>
-                <p>Any user will be able to start a Crowdsale using FriendsFingers.</p>
-
-                <h5 class="card-title">Q2 2018</h5>
-                <p>Voting, Incentive and Bounty program Smart Contracts released. Incentive program will be retroactive so also if a user started a crowdsale in Q1 he can claim his rewards.<br>Exchange listing.</p>
-
-                <h5 class="card-title">Q3 2018</h5>
-                <p>Platform improvements with filterable Crowdsale list and additional features like the rating system. Adding Swarm and/or IPFS to store any additional datas.</p>
-
-                <h5 class="card-title">Q4 2018</h5>
-                <p>More and different types of Crowdsale and Smart Contracts creation released.</p>
+                {% include sections/roadmap-table.html %}
             </div>
         </div>
 
