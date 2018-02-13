@@ -19,6 +19,31 @@ header.masthead {
       font-size: 30px;
     }
 
+    .timer {
+      text-align: center;
+      color: $theme-primary;
+      .j-timer {
+        div {
+          background: white;
+          color: $theme-tertiary;
+          padding: 10px;
+          font-size: 24px;
+          border-radius: 3px;
+          display: inline-block;
+          div {
+            width: 100%;
+            margin-top: 10px;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 14px;
+            background: $theme-primary;
+            color: $theme-tertiary;
+            display: inline-block;
+          }
+        }
+      }
+    }
+
     ul.social-links {
       font-size: 30px;
       a {

@@ -6296,6 +6296,25 @@ header.masthead {
     text-align: center; }
     header.masthead .header-content h1 {
       font-size: 30px; }
+    header.masthead .header-content .timer {
+      text-align: center;
+      color: #fae596; }
+      header.masthead .header-content .timer .j-timer div {
+        background: white;
+        color: #97168a;
+        padding: 10px;
+        font-size: 24px;
+        border-radius: 3px;
+        display: inline-block; }
+        header.masthead .header-content .timer .j-timer div div {
+          width: 100%;
+          margin-top: 10px;
+          padding: 5px;
+          border-radius: 3px;
+          font-size: 14px;
+          background: #fae596;
+          color: #97168a;
+          display: inline-block; }
     header.masthead .header-content ul.social-links {
       font-size: 30px; }
       header.masthead .header-content ul.social-links a {

@@ -10,3 +10,18 @@ layout: default
 {% include sections/roadmap.html %}
 {% include sections/cta.html %}
 {% include sections/contact.html %}
+
+<!-- Timer countdown -->
+<script src="{{ 'vendor/timezz/dist/TimezZ-es6.min.js' | absolute_url }}"></script>
+<script>
+    new TimezZ('.j-timer', {
+        date: 'February 24, 2018 12:00:00',
+        daysName: 'DD',
+        hoursName: 'HH',
+        minutesName: 'MM',
+        secondsName: 'SS',
+        tagNumber: 'div',
+        tagLetter: 'div',
+        stop: false,
+    });
+</script>
