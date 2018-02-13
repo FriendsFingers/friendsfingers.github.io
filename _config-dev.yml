@@ -39,6 +39,7 @@ telegram_group:  "friendsfingers"
 drift_widget:  ""
 disqus_widget:  "example.disqus.com"
 web3_provider: "https://rinkeby.infura.io"
+crowdsale_builder: "0xD4234d6546c825E1408ef3bD723a525192E63FBB"
 
 # Build settings
 markdown: kramdown
