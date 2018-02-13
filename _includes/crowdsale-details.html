@@ -1,7 +1,7 @@
 <div id="crowdsale-details" class="content">
     <div class="crowdsale-box card">
         <div class="card-body text-center">
-            <img src="{{ 'img/loader.svg' | absolute_url }}">
+            <img src="{{ 'img/loader.gif' | absolute_url }}">
         </div>
     </div>
 
@@ -12,12 +12,14 @@
                     <div class="card-header">Project Details</div>
                     <div class="card-body">
                         <div class="media">
-                            <img class="align-self-start mr-3" :src="crowdsale.projectInfo.logo" :alt="crowdsale.projectInfo.title" style="max-width: 30%;">
+                            <img class="align-self-start mr-3" :src="crowdsale.projectInfo.logo" :alt="crowdsale.projectInfo.title" style="max-width: 60px;">
                             <div class="media-body">
                                 <h5 class="mt-0" v-html="crowdsale.projectInfo.title"></h5>
                                 <p v-html="crowdsale.projectInfo.about"></p>
-                                <h6 v-html="crowdsale.projectInfo.description"></h6>
                             </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <h6 v-html="crowdsale.projectInfo.description"></h6>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -105,27 +107,18 @@
                         </div>
                     </div>
 
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm text-md-left">
-                                <h5>Token address</h5>
-                                <h6 v-html="token.address"></h6>
-                            </div>
-                            <div class="col-sm text-md-right">
-                                <h5>Crowdsale address</h5>
-                                <h6 v-html="crowdsale.address"></h6>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="alert alert-primary mb-3" role="alert">
+        <div class="alert alert-primary mb-3" role="alert" v-if="!crowdsale.paused && crowdsale.hasStarted && !crowdsale.hasEnded">
+            <p>Before invest please read the terms of use and confirm the facts in the checkboxes below in order to proceed.</p>
             <div class="form-check">
                 <input type="checkbox" class="form-check-input"
                        v-validate="'required'"
                        :class="{'is-invalid': errors.has('usAgreement')}"
+                       :disabled="usAgreement && chinaAgreement && globalAgreement"
                        value="1"
+                       v-model="usAgreement"
                        id="usAgreement"
                        name="usAgreement">
                 <label class="form-check-label" for="usAgreement">
@@ -136,7 +129,9 @@
                 <input type="checkbox" class="form-check-input"
                        v-validate="'required'"
                        :class="{'is-invalid': errors.has('chinaAgreement')}"
+                       :disabled="usAgreement && chinaAgreement && globalAgreement"
                        value="1"
+                       v-model="chinaAgreement"
                        id="chinaAgreement"
                        name="chinaAgreement">
                 <label class="form-check-label" for="chinaAgreement">
@@ -147,7 +142,9 @@
                 <input type="checkbox" class="form-check-input"
                        v-validate="'required'"
                        :class="{'is-invalid': errors.has('globalAgreement')}"
+                       :disabled="usAgreement && chinaAgreement && globalAgreement"
                        value="1"
+                       v-model="globalAgreement"
                        id="globalAgreement"
                        name="globalAgreement">
                 <label class="form-check-label" for="globalAgreement">
@@ -155,7 +152,7 @@
                 </label>
             </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="usAgreement && chinaAgreement && globalAgreement">
             <div class="col-md-4">
                 <div class="card mb-3">
                     <div class="card-header">Invest using MetaMask</div>
@@ -195,6 +192,13 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <div class="card-body">
+                    <h5>Token address</h5>
+                    <h6 v-html="token.address"></h6>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

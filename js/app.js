@@ -129,6 +129,9 @@ App = {
         new Vue({
             el: '#crowdsale-details',
             data: {
+                usAgreement: false,
+                chinaAgreement: false,
+                globalAgreement: false,
                 funds: 1,
                 crowdsale: {
                     cap: 0,
@@ -139,6 +142,9 @@ App = {
                     investorCount: 0,
                     startTime: 0,
                     endTime: 0,
+                    hasStarted: false,
+                    hasEnded: true,
+                    paused: true,
                     projectInfo: {}
                 },
                 token: {
@@ -163,7 +169,7 @@ App = {
                 this.crowdsale.goal = web3.fromWei(await crowdsale.goal()).valueOf();
                 this.crowdsale.weiRaised = web3.fromWei(await crowdsale.weiRaised()).valueOf();
                 this.crowdsale.rate = (await crowdsale.rate()).valueOf();
-                this.crowdsale.soldTokens = (await crowdsale.soldTokens()) / Math.pow(10, this.token.decimals);
+                this.crowdsale.soldTokens = (web3.toWei(this.crowdsale.weiRaised) * this.crowdsale.rate) / Math.pow(10, this.token.decimals);
                 this.crowdsale.investorCount = (await crowdsale.investorCount()).valueOf();
                 this.crowdsale.startTime = (await crowdsale.startTime()).valueOf() * 1000;
                 this.crowdsale.startTimeFormatted = new Date(this.crowdsale.startTime).toLocaleString();
@@ -171,6 +177,9 @@ App = {
                 this.crowdsale.endTimeFormatted = new Date(this.crowdsale.endTime).toLocaleString();
                 this.crowdsale.projectInfo = JSON.parse(await crowdsale.crowdsaleInfo());
                 this.crowdsale.friendsFingersRatePerMille = (await crowdsale.friendsFingersRatePerMille()).valueOf();
+                this.crowdsale.hasStarted = Date.now() > this.crowdsale.startTime;
+                this.crowdsale.hasEnded = await crowdsale.hasEnded();
+                this.crowdsale.paused = await crowdsale.paused();
 
                 this.token.crowdsaleSupply = this.crowdsale.cap * this.crowdsale.rate;
 
