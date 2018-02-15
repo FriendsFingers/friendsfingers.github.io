@@ -6194,6 +6194,16 @@ ul.list-social {
     ul.list-social li.social-github a:hover {
       background-color: #262626; }
 
+.whitepaper #team ul.social-links {
+  margin-bottom: 0; }
+  .whitepaper #team ul.social-links a {
+    color: #fae596 !important; }
+    .whitepaper #team ul.social-links a:hover {
+      color: #f7d34d !important;
+      text-decoration: none; }
+    .whitepaper #team ul.social-links a i {
+      font-size: 20px !important; }
+
 .content a {
   color: #05acf3; }
   .content a:hover {
@@ -6537,6 +6547,29 @@ section.token {
       border-right-width: 14px;
       left: -14px;
       right: auto; } }
+
+section.team {
+  position: relative;
+  padding: 100px 0; }
+  section.team h2 {
+    font-size: 50px;
+    margin-top: 0; }
+  section.team i {
+    font-size: 80px;
+    display: block;
+    margin-bottom: 15px; }
+  @media (min-width: 768px) {
+    section.team h2 {
+      font-size: 70px; } }
+  section.team .card-footer ul.social-links {
+    margin-bottom: 0; }
+    section.team .card-footer ul.social-links a {
+      color: #fae596 !important; }
+      section.team .card-footer ul.social-links a:hover {
+        color: #f7d34d !important;
+        text-decoration: none; }
+      section.team .card-footer ul.social-links a i {
+        font-size: 20px !important; }
 
 section.cta {
   position: relative;
