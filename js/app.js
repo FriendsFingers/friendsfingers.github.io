@@ -130,6 +130,8 @@ var App = {
         new Vue({
             el: '#crowdsale-details',
             data: {
+                qrcodeVisible: false,
+                copied: false,
                 usAgreement: false,
                 chinaAgreement: false,
                 globalAgreement: false,
@@ -182,6 +184,23 @@ var App = {
                 $('.crowdsale-box').toggleClass('d-none');
             },
             methods: {
+                viewQRCode: function () {
+                    if (!this.qrcodeVisible) {
+                        var qr = document.getElementById("crowdsale-qrcode");
+                        new QRCode(qr, this.crowdsale.address);
+                        this.qrcodeVisible = true;
+                    }
+                },
+                copyAddress: function () {
+                    if (this.wallet !== '' && !this.address_error) {
+                        document.querySelector("#crowdsale-address").select();
+                        try {
+                            this.copied = document.execCommand("copy");
+                        } catch (err) {
+                            this.copied = false;
+                        }
+                    }
+                },
                 fundCrowdsale: async function () {
                     this.$validator.validateAll().then(async (result) => {
 

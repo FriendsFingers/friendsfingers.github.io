@@ -1,0 +1,11 @@
+body.crowdsale {
+  .qrcode-button {
+    cursor: pointer;
+    color: $theme-secondary;
+  }
+  #crowdsale-qrcode {
+    img {
+      max-width: 100%;
+    }
+  }
+}
