@@ -148,10 +148,7 @@ App = {
                     projectInfo: {}
                 },
                 token: {
-                    crowdsaleSupply: 0,
-                    friendsFingersSupply: 0,
-                    maxSupply: 0,
-                    totalSupply: 0
+                    crowdsaleSupply: 0
                 }
             },
             created: async function () {
@@ -162,7 +159,6 @@ App = {
                 this.token.name = await token.name();
                 this.token.symbol = await token.symbol();
                 this.token.decimals = (await token.decimals()).valueOf();
-                this.token.totalSupply = (await token.totalSupply()) / Math.pow(10, this.token.decimals);
 
                 this.crowdsale.address = crowdsale.address;
                 this.crowdsale.cap = web3.fromWei(await crowdsale.cap()).valueOf();
@@ -176,7 +172,6 @@ App = {
                 this.crowdsale.endTime = (await crowdsale.endTime()).valueOf() * 1000;
                 this.crowdsale.endTimeFormatted = new Date(this.crowdsale.endTime).toLocaleString();
                 this.crowdsale.projectInfo = JSON.parse(await crowdsale.crowdsaleInfo());
-                this.crowdsale.friendsFingersRatePerMille = (await crowdsale.friendsFingersRatePerMille()).valueOf();
                 this.crowdsale.hasStarted = Date.now() > this.crowdsale.startTime;
                 this.crowdsale.hasEnded = await crowdsale.hasEnded();
                 this.crowdsale.paused = await crowdsale.paused();
