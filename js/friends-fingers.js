@@ -39,19 +39,4 @@
     // Collapse the navbar when page is scrolled
     $(window).scroll(navbarCollapse);
 
-    switch (page) {
-        case "bounty-program":
-            App.bountyProgram();
-            break;
-
-        case "crowdsale":
-            const pathArray = window.location.pathname.split( '/' );
-            if (typeof pathArray[2] !== "undefined" && pathArray[2] !== '') {
-                App.viewCrowdsale(pathArray[2]);
-            } else {
-                window.location.href = window.location.origin + '/not-found';
-            }
-            break;
-    }
-
 })(jQuery); // End of use strict

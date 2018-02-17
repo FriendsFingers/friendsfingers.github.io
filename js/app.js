@@ -1,4 +1,5 @@
-App = {
+var App = {
+    web3: null,
     web3Provider: null,
     contracts: {},
 
@@ -10,14 +11,14 @@ App = {
         // Initialize web3 and set the provider to the testRPC.
         if (typeof web3 !== 'undefined') {
             App.web3Provider = web3.currentProvider;
-            web3 = new Web3(App.web3Provider);
+            App.web3 = new Web3(App.web3Provider);
         } else {
             // set the provider you want from Web3.providers
             App.web3Provider = new Web3.providers.HttpProvider(web3Provider);
-            web3 = new Web3(App.web3Provider);
+            App.web3 = new Web3(App.web3Provider);
         }
 
-        web3.version.getNetwork(function (err, netId) {
+        App.web3.version.getNetwork(function (err, netId) {
             switch (netId) {
                 case "1":
                     console.log('This is mainnet');
@@ -84,7 +85,7 @@ App = {
             },
             methods: {
                 subscribeBounty: function () {
-                    this.address_error = (this.wallet !== '' && !web3.isAddress(this.wallet));
+                    this.address_error = (this.wallet !== '' && !App.web3.isAddress(this.wallet));
 
                     if (this.address_error) {
                         return;
@@ -112,7 +113,7 @@ App = {
             },
             computed: {
                 generateLink: function () {
-                    this.address_error = (this.wallet !== '' && !web3.isAddress(this.wallet));
+                    this.address_error = (this.wallet !== '' && !App.web3.isAddress(this.wallet));
                     return (this.wallet === '' || this.address_error) ? '' : "https://www.friendsfingers.com/?utm_campaign=bounty&utm_source=" + this.wallet;
                 }
             }
@@ -161,11 +162,11 @@ App = {
                 this.token.decimals = (await token.decimals()).valueOf();
 
                 this.crowdsale.address = crowdsale.address;
-                this.crowdsale.cap = web3.fromWei(await crowdsale.cap()).valueOf();
-                this.crowdsale.goal = web3.fromWei(await crowdsale.goal()).valueOf();
-                this.crowdsale.weiRaised = web3.fromWei(await crowdsale.weiRaised()).valueOf();
+                this.crowdsale.cap = App.web3.fromWei(await crowdsale.cap()).valueOf();
+                this.crowdsale.goal = App.web3.fromWei(await crowdsale.goal()).valueOf();
+                this.crowdsale.weiRaised = App.web3.fromWei(await crowdsale.weiRaised()).valueOf();
                 this.crowdsale.rate = (await crowdsale.rate()).valueOf();
-                this.crowdsale.soldTokens = (web3.toWei(this.crowdsale.weiRaised) * this.crowdsale.rate) / Math.pow(10, this.token.decimals);
+                this.crowdsale.soldTokens = (App.web3.toWei(this.crowdsale.weiRaised) * this.crowdsale.rate) / Math.pow(10, this.token.decimals);
                 this.crowdsale.investorCount = (await crowdsale.investorCount()).valueOf();
                 this.crowdsale.startTime = (await crowdsale.startTime()).valueOf() * 1000;
                 this.crowdsale.startTimeFormatted = new Date(this.crowdsale.startTime).toLocaleString();
@@ -186,7 +187,7 @@ App = {
 
                         if (result) {
                             const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
-                            const value = web3.toWei(this.funds);
+                            const value = App.web3.toWei(this.funds);
                             const result = await crowdsale.send(value);
                             console.log(result);
                         } else {
@@ -198,3 +199,23 @@ App = {
         });
     }
 };
+
+(function($) {
+    "use strict"; // Start of use strict
+
+    switch (page) {
+        case "bounty-program":
+            App.bountyProgram();
+            break;
+
+        case "crowdsale":
+            const pathArray = window.location.pathname.split( '/' );
+            if (typeof pathArray[2] !== "undefined" && pathArray[2] !== '') {
+                App.viewCrowdsale(pathArray[2]);
+            } else {
+                window.location.href = window.location.origin + '/not-found';
+            }
+            break;
+    }
+
+})(jQuery); // End of use strict

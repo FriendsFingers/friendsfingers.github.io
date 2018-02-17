@@ -21,7 +21,9 @@
   },
   "dependencies": {
     "babel-core": "^6.26.0",
+    "babel-runtime": "^6.26.0",
     "bootstrap": "^4.0.0",
+    "fast-async": "^6.3.0",
     "font-awesome": "4.7.0",
     "gulp-babel": "^7.0.0",
     "jquery": "^3.2.1",
@@ -36,14 +38,15 @@
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "gulp": "^3.9.1",
+    "gulp-babel-minify": "^0.3.0",
     "gulp-clean-css": "3.9.0",
     "gulp-header": "1.8.9",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-uglify": "3.0.0"
+    "gulp-sass": "^3.1.0"
   }
 }

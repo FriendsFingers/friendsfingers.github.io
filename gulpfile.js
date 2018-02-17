@@ -1,11 +1,11 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var header = require('gulp-header');
-var cleanCSS = require('gulp-clean-css');
-var rename = require("gulp-rename");
-var babel  = require('gulp-babel');
-var uglify = require('gulp-uglify');
-var pkg = require('./package.json');
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const header = require('gulp-header');
+const cleanCSS = require('gulp-clean-css');
+const rename = require("gulp-rename");
+const babel  = require('gulp-babel');
+const minify = require("gulp-babel-minify");
+const pkg = require('./package.json');
 
 // Compiles SCSS files from /scss into /css
 gulp.task('sass', function() {
@@ -29,8 +29,8 @@ gulp.task('minify-css', ['sass'], function() {
 // Minify custom JS
 gulp.task('minify-js', function() {
     return gulp.src(['js/friends-fingers.js', 'js/app.js'])
-        .pipe(babel({presets: ['env'], plugins: ["transform-async-to-generator"]}))
-        .pipe(uglify())
+        .pipe(babel())
+        .pipe(minify())
         .pipe(rename({
             suffix: '.min'
         }))
