@@ -1,0 +1,35 @@
+// Styling for the team section
+section.team {
+  position: relative;
+  padding: 100px 0;
+  h2 {
+    font-size: 50px;
+    margin-top: 0;
+  }
+  i {
+    font-size: 80px;
+    display: block;
+    margin-bottom: 15px;
+  }
+  @media(min-width: 768px) {
+    h2 {
+      font-size: 70px;
+    }
+  }
+
+  .card-footer {
+    ul.social-links {
+      margin-bottom: 0;
+      a {
+        color: $theme-primary !important;
+        &:hover {
+          color: darken($theme-primary, 15%) !important;
+          text-decoration: none;
+        }
+        i {
+          font-size: 20px !important;
+        }
+      }
+    }
+  }
+}

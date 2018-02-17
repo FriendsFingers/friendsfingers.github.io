@@ -180,6 +180,24 @@ ul.list-social {
   }
 }
 
+.whitepaper {
+  #team {
+    ul.social-links {
+      margin-bottom: 0;
+      a {
+        color: $theme-primary !important;
+        &:hover {
+          color: darken($theme-primary, 15%) !important;
+          text-decoration: none;
+        }
+        i {
+          font-size: 20px !important;
+        }
+      }
+    }
+  }
+}
+
 .content {
   a {
     color: $theme-secondary;

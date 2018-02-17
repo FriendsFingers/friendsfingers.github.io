@@ -1,0 +1,36 @@
+<section class="about team bg-secondary text-center text-white" id="team">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <i class="icon-people"></i>
+                <h2 class="section-heading">Team</h2>
+                <div class="row mt-5">
+                    {% include sections/team-list.html %}
+                </div>
+                <h4 class="mt-5">Join Us</h4>
+                <div class="row mt-5">
+                    <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3">
+                        <div class="card bg-secondary mb-3">
+                            <img class="card-img-top" src="{{ 'img/team/empty-user.jpg' | absolute_url }}">
+                            <div class="card-header text-primary">
+                                Want to join the project?
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Contact us</p>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <ul class="list-inline social-links">
+                                    <li class="list-inline-item">
+                                        <a target="_blank" href="mailto:hello@friendsfingers.com?subject=Join request">
+                                            <i class="fa fa-envelope"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
