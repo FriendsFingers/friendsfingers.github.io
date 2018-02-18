@@ -6615,9 +6615,5 @@ section.contact {
     section.contact h2 i {
       color: #dd4b39; }
 
-body.crowdsale .qrcode-button {
-  cursor: pointer;
-  color: #05acf3; }
-
 body.crowdsale #crowdsale-qrcode img {
   width: 100%; }

@@ -1,6 +1,8 @@
 var App = {
     web3: null,
     web3Provider: null,
+    netId: null,
+    metamask: false,
     contracts: {},
 
     init: function () {
@@ -12,6 +14,7 @@ var App = {
         if (typeof web3 !== 'undefined') {
             App.web3Provider = web3.currentProvider;
             App.web3 = new Web3(App.web3Provider);
+            App.metamask = true;
         } else {
             // set the provider you want from Web3.providers
             App.web3Provider = new Web3.providers.HttpProvider(web3Provider);
@@ -19,7 +22,8 @@ var App = {
         }
 
         App.web3.version.getNetwork(function (err, netId) {
-            switch (netId) {
+            App.netId = netId;
+            switch (App.netId) {
                 case "1":
                     console.log('This is mainnet');
                     break;
@@ -133,10 +137,11 @@ var App = {
                 qrcodeVisible: false,
                 copied: false,
                 usAgreement: false,
-                chinaAgreement: false,
                 countryAgreement: false,
                 globalAgreement: false,
                 funds: 1,
+                txHash: '',
+                makingTransaction: false,
                 crowdsale: {
                     cap: 0,
                     goal: 0,
@@ -203,14 +208,26 @@ var App = {
                     }
                 },
                 fundCrowdsale: async function () {
+                    if (!App.metamask) {
+                        alert("To use the invest button please install MetaMask extension for Chrome or Firefox!");
+                        return;
+                    }
+
                     this.$validator.validateAll().then(async (result) => {
 
                         if (result) {
                             const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
                             const value = App.web3.toWei(this.funds);
-                            const log = await crowdsale.send(value);
-                            console.log(log);
-                            alert("Tx id: " + log.tx);
+                            try {
+                                this.txHash = '';
+                                this.makingTransaction = true;
+                                const log = await crowdsale.send(value);
+                                this.txHash = log.tx;
+                                console.log(log);
+                            } catch (e) {
+                                alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
+                                this.makingTransaction = false;
+                            }
                         } else {
                             console.log("some errors");
                         }
