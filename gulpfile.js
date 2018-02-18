@@ -30,11 +30,7 @@ gulp.task('minify-css', ['sass'], function() {
 gulp.task('minify-js', function() {
     return gulp.src(['js/friends-fingers.js', 'js/app.js'])
         .pipe(babel())
-        .pipe(minify({
-            mangle: {
-                keepClassName: true
-            }
-        }))
+        .pipe(minify())
         .pipe(rename({
             suffix: '.min'
         }))

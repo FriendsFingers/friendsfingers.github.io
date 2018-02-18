@@ -1,73 +1,51 @@
 var App = {
     web3: null,
     web3Provider: null,
-    netId: null,
-    metamask: false,
+    metamask: {
+        installed: false,
+        netId: null
+    },
     contracts: {},
 
     init: function () {
-        App.initWeb3();
+        App.initWeb3(true);
     },
 
-    initWeb3: function () {
-        // Initialize web3 and set the provider to the testRPC.
-        if (typeof web3 !== 'undefined') {
+    initWeb3: function (checkWeb3) {
+        if (checkWeb3 && typeof web3 !== 'undefined') {
             App.web3Provider = web3.currentProvider;
             App.web3 = new Web3(App.web3Provider);
-            App.metamask = true;
+            App.metamask.installed = true;
+            App.web3.version.getNetwork(function (err, netId) {
+                App.metamask.netId = netId;
+                if (App.netId !== networkId) {
+                    App.initWeb3(false);
+                }
+            });
         } else {
             // set the provider you want from Web3.providers
             App.web3Provider = new Web3.providers.HttpProvider(web3Provider);
             App.web3 = new Web3(App.web3Provider);
         }
-
-        App.web3.version.getNetwork(function (err, netId) {
-            App.netId = netId;
-            switch (App.netId) {
-                case "1":
-                    console.log('This is mainnet');
-                    break;
-                case "2":
-                    console.log('This is the deprecated Morden test network.');
-                    break;
-                case "3":
-                    console.log('This is the ropsten test network.');
-                    break;
-                case "4":
-                    console.log('This is the rinkeby test network.');
-                    break;
-                default:
-                    console.log('This is an unknown network.');
-            }
-        });
     },
 
     initBuilder: async function () {
         return await $.getJSON(abiPath + 'FriendsFingersBuilder.json', function (data) {
-            // Get the necessary contract artifact file and instantiate it with truffle-contract.
             App.contracts.FriendsFingersBuilder = TruffleContract(data);
-
-            // Set the provider for our contract.
             App.contracts.FriendsFingersBuilder.setProvider(App.web3Provider);
         });
     },
 
     initCrowdsale: async function () {
         return await $.getJSON(abiPath + 'FriendsFingersCrowdsale.json', function (data) {
-            // Get the necessary contract artifact file and instantiate it with truffle-contract.
             App.contracts.FriendsFingersCrowdsale = TruffleContract(data);
-
-            // Set the provider for our contract.
             App.contracts.FriendsFingersCrowdsale.setProvider(App.web3Provider);
         });
     },
 
     initToken: async function () {
         return $.getJSON(abiPath + 'FriendsFingersToken.json', function (data) {
-            // Get the necessary contract artifact file and instantiate it with truffle-contract.
             App.contracts.FriendsFingersToken = TruffleContract(data);
-
-            // Set the provider for our contract.
             App.contracts.FriendsFingersToken.setProvider(App.web3Provider);
         });
     },
@@ -208,9 +186,14 @@ var App = {
                     }
                 },
                 fundCrowdsale: async function () {
-                    if (!App.metamask) {
+                    if (!App.metamask.installed) {
                         alert("To use the invest button please install MetaMask extension for Chrome or Firefox!");
                         return;
+                    } else {
+                        if (App.metamask.netId !== networkId) {
+                            alert("Your MetaMask extension in on the wrong network. Please switch on " + networkName + " and try again!");
+                            return;
+                        }
                     }
 
                     this.$validator.validateAll().then(async (result) => {
