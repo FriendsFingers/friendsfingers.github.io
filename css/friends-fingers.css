@@ -6144,7 +6144,7 @@ section {
     background: linear-gradient(#05acf3, #0377a8); }
 
 .btn-tertiary {
-  color: #fafafa;
+  color: #fafafa !important;
   border-color: #97168a;
   background-color: #97168a;
   background: -webkit-linear-gradient(#97168a, #811376);
@@ -6620,4 +6620,4 @@ body.crowdsale .qrcode-button {
   color: #05acf3; }
 
 body.crowdsale #crowdsale-qrcode img {
-  max-width: 100%; }
+  width: 100%; }

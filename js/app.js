@@ -134,6 +134,7 @@ var App = {
                 copied: false,
                 usAgreement: false,
                 chinaAgreement: false,
+                countryAgreement: false,
                 globalAgreement: false,
                 funds: 1,
                 crowdsale: {
@@ -207,8 +208,9 @@ var App = {
                         if (result) {
                             const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
                             const value = App.web3.toWei(this.funds);
-                            const result = await crowdsale.send(value);
-                            console.log(result);
+                            const log = await crowdsale.send(value);
+                            console.log(log);
+                            alert("Tx id: " + log.tx);
                         } else {
                             console.log("some errors");
                         }

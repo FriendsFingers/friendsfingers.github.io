@@ -93,7 +93,7 @@
 }
 
 .btn-tertiary {
-  color: $gray-lightest;
+  color: $gray-lightest !important;
   border-color: $theme-tertiary;
   background-color: $theme-tertiary;
   background: -webkit-linear-gradient($theme-tertiary, darken($theme-tertiary, 5%));
