@@ -6615,5 +6615,11 @@ section.contact {
     section.contact h2 i {
       color: #dd4b39; }
 
-body.crowdsale #crowdsale-qrcode img {
+body.crowdsale .card-footer .social-links i,
+body.shaka-token-sale .card-footer .social-links i {
+  margin-left: 5px;
+  margin-right: 5px; }
+
+body.crowdsale #crowdsale-qrcode img,
+body.shaka-token-sale #crowdsale-qrcode img {
   width: 100%; }

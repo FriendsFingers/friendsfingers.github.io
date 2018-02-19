@@ -222,11 +222,15 @@ var App = {
 };
 
 (function($) {
-    "use strict"; // Start of use strict
+    "use strict";
 
     switch (page) {
         case "bounty-program":
             App.bountyProgram();
+            break;
+
+        case "shaka-token-sale":
+            App.viewCrowdsale(FriendsFingersTokenSaleAddress);
             break;
 
         case "crowdsale":

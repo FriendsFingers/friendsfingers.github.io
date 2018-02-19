@@ -24,7 +24,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="social-links">
-                            <a :href="crowdsale.projectInfo.url" target="_blank" class="mr-3">Official link</a>
+                            <a :href="crowdsale.projectInfo.url" target="_blank" class="mr-3">Website</a>
                             <a :href="crowdsale.projectInfo.whitepaper" target="_blank" class="mr-3">Whitepaper</a>
                             <a :href="'mailto:' + crowdsale.projectInfo.email" v-if="crowdsale.projectInfo.email" title="Email" target="_blank"><i class="fa fa-envelope"></i></a>
                             <a :href="crowdsale.projectInfo.facebook" v-if="crowdsale.projectInfo.facebook" title="Facebook" target="_blank"><i class="fa fa-facebook-official"></i></a>
@@ -52,7 +52,7 @@
 
                         <div class="row mt-3" v-if="!crowdsale.paused && crowdsale.hasStarted && !crowdsale.hasEnded">
                             <div class="col-12">
-                                <a class="btn btn-tertiary btn-xl btn-block" href="#investment-box">Invest</a>
+                                <a class="btn btn-tertiary btn-xl btn-block" href="{{ page.permalink | absolute_url }}#investment-box">Invest</a>
                             </div>
                         </div>
                     </div>
