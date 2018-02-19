@@ -18,7 +18,7 @@ var App = {
             App.metamask.installed = true;
             App.web3.version.getNetwork(function (err, netId) {
                 App.metamask.netId = netId;
-                if (App.netId !== networkId) {
+                if (netId !== networkId) {
                     App.initWeb3(false);
                 }
             });
