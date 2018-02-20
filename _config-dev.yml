@@ -43,7 +43,7 @@ etherscan_link: "https://rinkeby.etherscan.io"
 network_id: "4"
 network_name: "Rinkeby Test Network"
 crowdsale_builder_address: "0xBef910f9C3f22044e20b9Eb5c43094a28E2C75ae"
-token_sale_address: "0x9dd9a6b260b38d36f0dcdd1b04a4861233009ac0"
+token_sale_address: "0x4d92c38aad14ee759215b44149d15cd0903587b9"
 
 # Build settings
 markdown: kramdown
