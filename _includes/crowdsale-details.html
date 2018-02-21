@@ -67,29 +67,29 @@
                     <div class="card-header">Crowdsale Details</div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm text-md-left">
+                            <div class="col-sm text-sm-left">
                                 <h5>Start time</h5>
-                                <h6 v-html="crowdsale.startTimeFormatted"></h6>
+                                <h3 v-html="crowdsale.startTimeFormatted"></h3>
                             </div>
-                            <div class="col-sm text-md-right">
+                            <div class="col-sm text-sm-right">
                                 <h5>End time</h5>
-                                <h6 v-html="crowdsale.endTimeFormatted"></h6>
+                                <h3 v-html="crowdsale.endTimeFormatted"></h3>
                             </div>
                         </div>
                     </div>
 
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm text-md-left">
-                                <h5>Goal</h5>
-                                <h6><span v-html="crowdsale.goal"></span> ETH</h6>
-                            </div>
-                            <div class="col-sm text-md-right">
+                            <!--<div class="col-sm text-md-left">-->
+                                <!--<h5>Goal</h5>-->
+                                <!--<h3><span v-html="crowdsale.goal"></span> ETH</h3>-->
+                            <!--</div>-->
+                            <div class="col-sm-12 text-center">
                                 <h5>Raised</h5>
-                                <h6><span v-html="crowdsale.weiRaised.toLocaleString()"></span>/<span v-html="crowdsale.cap.toLocaleString()"></span> ETH</h6>
+                                <h3><span v-html="crowdsale.weiRaised.toLocaleString()"></span>/<span v-html="crowdsale.cap.toLocaleString()"></span> ETH</h3>
                             </div>
 
-                            <div class="col-sm-12 mt-2">
+                            <div class="col-sm-8 offset-sm-2 mt-2">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" v-bind:aria-valuenow="crowdsale.weiRaised" aria-valuemin="0" v-bind:aria-valuemax="crowdsale.cap" v-bind:style="'width:' + (crowdsale.weiRaised * 100 / crowdsale.cap) + '%'"></div>
                                 </div>
@@ -99,17 +99,17 @@
 
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm text-md-left">
+                            <div class="col-sm text-sm-left">
                                 <h5>Investor count</h5>
-                                <h6 v-html="crowdsale.investorCount"></h6>
+                                <h3 v-html="crowdsale.investorCount"></h3>
                             </div>
-                            <div class="col-sm text-md-center">
+                            <div class="col-sm text-sm-center">
                                 <h5>Sold <span v-html="token.name"></span></h5>
-                                <h6><span v-html="crowdsale.soldTokens.toLocaleString()"></span> <span v-html="token.symbol"></span></h6>
+                                <h3><span v-html="crowdsale.soldTokens.toLocaleString()"></span> <span v-html="token.symbol"></span></h3>
                             </div>
-                            <div class="col-sm text-md-right">
+                            <div class="col-sm text-sm-right">
                                 <h5>Exchange Rate</h5>
-                                <h6><span v-html="crowdsale.rate"></span> <span v-html="token.symbol"></span>/ETH</h6>
+                                <h3><span v-html="crowdsale.rate"></span> <span v-html="token.symbol"></span>/ETH</h3>
                             </div>
                         </div>
                     </div>

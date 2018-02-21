@@ -15,6 +15,11 @@
         <priority>1.00</priority>
     </url>
     <url>
+        <loc>https://www.friendsfingers.com/shaka-token-sale</loc>
+        <changefreq>weekly</changefreq>
+        <priority>1.00</priority>
+    </url>
+    <url>
         <loc>https://www.friendsfingers.com/whitepaper</loc>
         <changefreq>weekly</changefreq>
         <priority>1.00</priority>
