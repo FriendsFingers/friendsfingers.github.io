@@ -193,7 +193,6 @@ var App = {
                     weiRaised: 0,
                     soldTokens: 0,
                     rate: 0,
-                    investorCount: 0,
                     startTime: 0,
                     endTime: 0,
                     hasStarted: false,
@@ -220,7 +219,6 @@ var App = {
                 this.crowdsale.weiRaised = App.web3.fromWei(await crowdsale.weiRaised()).valueOf();
                 this.crowdsale.rate = (await crowdsale.rate()).valueOf();
                 this.crowdsale.soldTokens = (App.web3.toWei(this.crowdsale.weiRaised) * this.crowdsale.rate) / Math.pow(10, this.token.decimals);
-                this.crowdsale.investorCount = (await crowdsale.investorCount()).valueOf();
                 this.crowdsale.startTime = (await crowdsale.startTime()).valueOf() * 1000;
                 this.crowdsale.startTimeFormatted = new Date(this.crowdsale.startTime).toLocaleString();
                 this.crowdsale.endTime = (await crowdsale.endTime()).valueOf() * 1000;
