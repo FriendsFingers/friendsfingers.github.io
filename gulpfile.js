@@ -92,5 +92,5 @@ gulp.task('default', ['sass', 'minify-css', 'minify-js', 'copy']);
 gulp.task('watch', ['sass', 'minify-css', 'minify-js'], function() {
     gulp.watch('scss/**/*.scss', ['sass']);
     gulp.watch('css/*.css', ['minify-css']);
-    gulp.watch('js/*.js', ['minify-js']);
+    gulp.watch(['js/friends-fingers.js', 'js/app.js'], ['minify-js']);
 });

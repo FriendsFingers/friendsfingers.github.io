@@ -50,6 +50,73 @@ var App = {
         });
     },
 
+    home: async function (crowdsaleAddress) {
+        App.init();
+
+        await App.initCrowdsale();
+
+        new Vue({
+            el: '#top-head',
+            data: {
+                contract: null,
+                crowdsale: {
+                    cap: 0,
+                    weiRaised: 0
+                }
+            },
+            methods: {
+                switchModule: async function () {
+                    if (this.crowdsale.hasStarted) {
+                        $('.timer').addClass('d-none');
+                        $('#top-head').removeClass('d-none');
+                        const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
+                        this.crowdsale.cap = App.web3.fromWei(await crowdsale.cap()).valueOf();
+
+                        this.getRaised();
+
+                        const self = this;
+                        setInterval(function () {
+                            self.getRaised();
+                        }, 5000);
+                    } else {
+                        new TimezZ('.j-timer', {
+                            date: 'February 24, 2018 12:00:00',
+                            daysName: 'DD',
+                            hoursName: 'HH',
+                            minutesName: 'MM',
+                            secondsName: 'SS',
+                            tagNumber: 'div',
+                            tagLetter: 'div',
+                            stop: false,
+                        });
+                        this.timeCheck();
+                    }
+                },
+                timeCheck: function () {
+                    this.crowdsale.hasStarted = Date.now() > this.crowdsale.startTime;
+
+                    if (!this.crowdsale.hasStarted) {
+                        const self = this;
+                        setTimeout(function () {
+                            self.timeCheck();
+                        }, 1000);
+                    } else {
+                        this.switchModule();
+                    }
+                },
+                getRaised: async function () {
+                    const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
+                    this.crowdsale.weiRaised = App.web3.fromWei(await crowdsale.weiRaised()).valueOf();
+                }
+            },
+            created: async function () {
+                this.crowdsale.startTime = 1519470000 * 1000;
+                this.crowdsale.hasStarted = Date.now() > this.crowdsale.startTime;
+                this.switchModule();
+            }
+        });
+    },
+
     bountyProgram: async function () {
         App.init();
 
@@ -240,6 +307,9 @@ var App = {
             } else {
                 window.location.href = window.location.origin + '/not-found';
             }
+            break;
+        default: //home
+            App.home(FriendsFingersTokenSaleAddress);
             break;
     }
 
