@@ -61,7 +61,8 @@ var App = {
                 contract: null,
                 crowdsale: {
                     cap: 0,
-                    weiRaised: 0
+                    weiRaised: 0,
+                    progress: 0
                 }
             },
             methods: {
@@ -107,6 +108,7 @@ var App = {
                 getRaised: async function () {
                     const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
                     this.crowdsale.weiRaised = App.web3.fromWei(await crowdsale.weiRaised()).valueOf();
+                    this.crowdsale.progress = this.crowdsale.weiRaised * 100 / this.crowdsale.cap;
                 }
             },
             created: async function () {
