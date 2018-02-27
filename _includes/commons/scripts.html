@@ -1,11 +1,21 @@
 <script>
     var page = "{{ page.permalink }}";
     var abiPath = "{{ 'abi/' | absolute_url }}";
+    var FriendsFingersTokenSaleAddress = "{{ site.token_sale_address }}";
+
     var web3Provider = "{{ site.web3_provider }}";
+    var etherscanLink = "{{ site.etherscan_link }}";
     var networkId = "{{ site.network_id }}";
     var networkName = "{{ site.network_name }}";
     var FriendsFingersBuilderAddress = "{{ site.crowdsale_builder_address }}";
-    var FriendsFingersTokenSaleAddress = "{{ site.token_sale_address }}";
+</script>
+
+<script>
+    var DEMO_web3Provider = "{{ site.demo_web3_provider }}";
+    var DEMO_etherscanLink = "{{ site.demo_etherscan_link }}";
+    var DEMO_networkId = "{{ site.demo_network_id }}";
+    var DEMO_networkName = "{{ site.demo_network_name }}";
+    var DEMO_FriendsFingersBuilderAddress = "{{ site.demo_crowdsale_builder_address }}";
 </script>
 
 <!-- Bootstrap core JavaScript -->
@@ -25,7 +35,7 @@
 
 <!-- Custom scripts -->
 <script src="{{ 'js/friends-fingers.min.js' | absolute_url }}"></script>
-<script src="{{ 'js/app.min.js' | absolute_url }}"></script>
+<script src="{{ 'js/app.js' | absolute_url }}"></script>
 
 <!-- Cookie bar -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?forceLang=en&tracking=1&thirdparty=1&scrolling=1&hideDetailsBtn=1&remember=30&privacyPage=https%3A%2F%2Fwww.friendsfingers.com%2Fprivacy"></script>

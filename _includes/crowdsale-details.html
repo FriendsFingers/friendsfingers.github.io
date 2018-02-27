@@ -171,7 +171,7 @@
                     <div>Making transaction. Do not refresh the page. Please wait...</div>
                     <div v-if="txHash !== ''">
                         <b>Well! Transaction done!</b><br>
-                        Transaction id <a :href="'{{ site.etherscan_link }}/tx/' + txHash" target="_blank"><span v-html="txHash"></span> <i class="fa fa-external-link"></i></a>
+                        Transaction id <a :href="trxLink" target="_blank"><span v-html="txHash"></span> <i class="fa fa-external-link"></i></a>
                     </div>
                 </div>
             </div>

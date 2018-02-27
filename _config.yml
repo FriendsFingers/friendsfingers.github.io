@@ -46,6 +46,12 @@ network_name: "Main Ethereum Network"
 crowdsale_builder_address: "0xF01EAB46ADe80e599209681a5AaA13260aE8735C"
 token_sale_address: "0xa5f5f3803f6174c94f71419834ab91dd2eb7963a"
 
+demo_web3_provider: "https://rinkeby.infura.io"
+demo_etherscan_link: "https://rinkeby.etherscan.io"
+demo_network_id: "4"
+demo_network_name: "Rinkeby Test Network"
+demo_crowdsale_builder_address: "0xBef910f9C3f22044e20b9Eb5c43094a28E2C75ae"
+
 # Build settings
 markdown: kramdown
 theme: minima
