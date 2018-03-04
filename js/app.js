@@ -190,6 +190,7 @@ const App = {
         new Vue({
             el: '#crowdsale-start',
             data: {
+                demo: true,
                 minStartDate: '',
                 maxStartDate: '',
                 minEndDate: '',
@@ -321,6 +322,7 @@ const App = {
         new Vue({
             el: '#crowdsale-details',
             data: {
+                demo: true,
                 qrcodeVisible: false,
                 copied: false,
                 usAgreement: false,
@@ -329,6 +331,7 @@ const App = {
                 funds: 1,
                 txHash: '',
                 makingTransaction: false,
+                crowdsaleAddress: 0,
                 crowdsale: {
                     cap: 0,
                     goal: 0,
@@ -349,14 +352,14 @@ const App = {
             created: async function () {
                 const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
 
-                const crowdsaleAddress = await builder.crowdsaleList(crowdsaleId);
+                this.crowdsaleAddress = await builder.crowdsaleList(crowdsaleId);
 
-                if (parseInt(crowdsaleAddress) === 0) {
+                if (parseInt(this.crowdsaleAddress) === 0) {
                     window.location.href = window.location.origin + '/not-found';
                     return;
                 }
 
-                const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
+                const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(this.crowdsaleAddress);
                 const token = await App.contracts.FriendsFingersToken.at(await crowdsale.token());
 
                 this.token.address = token.address;
@@ -415,14 +418,17 @@ const App = {
                     this.$validator.validateAll().then(async (result) => {
 
                         if (result) {
-                            const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
+                            const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(this.crowdsaleAddress);
                             const value = App.web3.toWei(this.funds);
                             try {
                                 this.txHash = '';
                                 this.makingTransaction = true;
                                 const log = await crowdsale.send(value);
-                                this.txHash = log.tx;
+
                                 console.log(log);
+
+                                this.txHash = log.tx;
+                                this.trxLink = App.etherscanLink + "/tx/" + this.txHash;
                             } catch (e) {
                                 alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
                                 this.makingTransaction = false;
@@ -446,6 +452,7 @@ const App = {
         new Vue({
             el: '#crowdsale-details',
             data: {
+                demo: false,
                 qrcodeVisible: false,
                 copied: false,
                 usAgreement: false,
@@ -569,11 +576,11 @@ const App = {
             App.shakaTokenSale(FriendsFingersTokenSaleAddress);
             break;
 
-        case "crowdsale-builder":
+        case "crowdsale-builder-demo":
             App.builder();
             break;
 
-        case "crowdsale":
+        case "crowdsale-demo":
             const pathArray = window.location.pathname.split( '/' );
             if (typeof pathArray[2] !== "undefined" && pathArray[2] !== '') {
                 App.viewCrowdsale(pathArray[2]);

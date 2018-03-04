@@ -485,7 +485,15 @@
                         </div>
                     </div>
 
-                    <div class="alert alert-success mt-3 mb-3" role="alert" v-if="makingTransaction">
+                    <div class="alert alert-danger mb-3" role="alert" v-if="demo">
+                        <p>This is a DEMO page</p>
+                        <small>
+                            <b>DO NOT SEND REAL ETHER!</b><br>
+                            Make sure to have your MetaMask set on Rinkeby Test Network.
+                        </small>
+                    </div>
+
+                    <div class="alert alert-success mb-3" role="alert" v-if="makingTransaction">
                         <div>Making transaction. Do not refresh the page. Please wait...</div>
                         <div v-if="txHash !== ''">
                             <b>Well! Transaction done!</b><br>
@@ -496,7 +504,7 @@
                                 Unable to create Crowdsale. Please check informations you have entered.
                             </div>
                             <div v-if="crowdsale.id !== ''">
-                                Your crowdsale page <a :href="'{{ 'crowdsale/' | absolute_url }}' + crowdsale.id">{{ 'crowdsale/' | absolute_url }}<span v-html="crowdsale.id"></span></a>
+                                Your crowdsale page <a :href="'{{ 'crowdsale-demo/' | absolute_url }}' + crowdsale.id">{{ 'crowdsale/' | absolute_url }}<span v-html="crowdsale.id"></span></a>
                             </div>
                         </div>
                     </div>

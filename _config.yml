@@ -50,7 +50,7 @@ demo_web3_provider: "https://rinkeby.infura.io"
 demo_etherscan_link: "https://rinkeby.etherscan.io"
 demo_network_id: "4"
 demo_network_name: "Rinkeby Test Network"
-demo_crowdsale_builder_address: "0xBef910f9C3f22044e20b9Eb5c43094a28E2C75ae"
+demo_crowdsale_builder_address: "0x1e12111e3afE5d1832308599dAd16D946Be268bA"
 
 # Build settings
 markdown: kramdown

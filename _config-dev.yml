@@ -42,14 +42,14 @@ web3_provider: "https://rinkeby.infura.io"
 etherscan_link: "https://rinkeby.etherscan.io"
 network_id: "4"
 network_name: "Rinkeby Test Network"
-crowdsale_builder_address: "0xBef910f9C3f22044e20b9Eb5c43094a28E2C75ae"
-token_sale_address: "0x4d92c38aad14ee759215b44149d15cd0903587b9"
+crowdsale_builder_address: "0x1e12111e3afE5d1832308599dAd16D946Be268bA"
+token_sale_address: "0x07c19733ed499733ad51a38639b1690a497d1b66"
 
 demo_web3_provider: "https://rinkeby.infura.io"
 demo_etherscan_link: "https://rinkeby.etherscan.io"
 demo_network_id: "4"
 demo_network_name: "Rinkeby Test Network"
-demo_crowdsale_builder_address: "0xBef910f9C3f22044e20b9Eb5c43094a28E2C75ae"
+demo_crowdsale_builder_address: "0x1e12111e3afE5d1832308599dAd16D946Be268bA"
 
 # Build settings
 markdown: kramdown
