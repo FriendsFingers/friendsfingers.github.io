@@ -194,8 +194,10 @@ const App = {
                 maxStartDate: '',
                 minEndDate: '',
                 maxEndDate: '',
+                txError: false,
                 txHash: '',
                 makingTransaction: false,
+                formDisabled: false,
                 crowdsale: {
                     id: '',
                     address: '',
@@ -256,7 +258,9 @@ const App = {
                             const crowdsaleInfo = JSON.stringify(this.crowdsale.projectInfo);
 
                             try {
+                                this.txError = false;
                                 this.txHash = '';
+                                this.formDisabled = true;
                                 this.makingTransaction = true;
 
                                 const log = await builder.startCrowdsale(
@@ -280,14 +284,22 @@ const App = {
 
                                 await App.initCrowdsale();
                                 const event = log.logs.find(e => e.event === 'CrowdsaleStarted');
+
+                                if (typeof event === 'undefined') {
+                                    this.txError = true;
+                                    this.formDisabled = false;
+                                    alert("Some error occurred. Maybe transaction failed for some reasons. Check your transaction id.");
+                                    return;
+                                }
+
                                 const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(event.args.ffCrowdsale);
 
                                 this.crowdsale.address = crowdsale.address;
-                                this.crowdsale.id = await crowdsale.id();
+                                this.crowdsale.id = parseInt(await crowdsale.id());
 
                             } catch (e) {
+                                this.formDisabled = false;
                                 alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
-                                this.makingTransaction = false;
                             }
                         } else {
                             console.log("some errors");
@@ -298,10 +310,11 @@ const App = {
         });
     },
 
-    viewCrowdsale: async function (crowdsaleAddress) {
-        App.init();
+    viewCrowdsale: async function (crowdsaleId) {
+        App.init(true);
 
         Vue.use(VeeValidate);
+        await App.initBuilder();
         await App.initCrowdsale();
         await App.initToken();
 
@@ -334,6 +347,15 @@ const App = {
                 }
             },
             created: async function () {
+                const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
+
+                const crowdsaleAddress = await builder.crowdsaleList(crowdsaleId);
+
+                if (parseInt(crowdsaleAddress) === 0) {
+                    window.location.href = window.location.origin + '/not-found';
+                    return;
+                }
+
                 const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
                 const token = await App.contracts.FriendsFingersToken.at(await crowdsale.token());
 
@@ -560,7 +582,7 @@ const App = {
             }
             break;
 
-        default: //home
+        case "": //home
             App.home(FriendsFingersTokenSaleAddress);
             break;
     }

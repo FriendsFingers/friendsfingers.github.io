@@ -1,8 +1,8 @@
-<div id="crowdsale-start">
+<div id="crowdsale-start" class="content">
     <div class="row">
         <div class="col-lg-12">
             <form v-on:submit.prevent="startCrowdsale">
-                <fieldset :disabled="makingTransaction">
+                <fieldset :disabled="formDisabled">
                     <div class="card mb-3">
                         <div class="card-body">
                             <h4>Project details</h4>
@@ -485,25 +485,25 @@
                         </div>
                     </div>
 
+                    <div class="alert alert-success mt-3 mb-3" role="alert" v-if="makingTransaction">
+                        <div>Making transaction. Do not refresh the page. Please wait...</div>
+                        <div v-if="txHash !== ''">
+                            <b>Well! Transaction done!</b><br>
+                            Transaction id <a :href="trxLink" target="_blank"><span v-html="txHash"></span> <i class="fa fa-external-link"></i></a><br>
+
+                            Retrieving Crowdsale. Please wait...<br>
+                            <div v-if="txError">
+                                Unable to create Crowdsale. Please check informations you have entered.
+                            </div>
+                            <div v-if="crowdsale.id !== ''">
+                                Your crowdsale page <a :href="'{{ 'crowdsale/' | absolute_url }}' + crowdsale.id">{{ 'crowdsale/' | absolute_url }}<span v-html="crowdsale.id"></span></a>
+                            </div>
+                        </div>
+                    </div>
+
                     <input type="submit" value="Start Crowdsale" name="startCrowdsale" class="btn btn-success btn-xl">
                 </fieldset>
             </form>
-        </div>
-
-        <div class="col-lg-12 mt-5" v-if="makingTransaction">
-            <div class="alert alert-success mb-3" role="alert">
-                <div>Making transaction. Do not refresh the page. Please wait...</div>
-                <div v-if="txHash !== ''">
-                    <b>Well! Transaction done!</b><br>
-                    Transaction id <a :href="trxLink" target="_blank"><span v-html="txHash"></span> <i class="fa fa-external-link"></i></a><br>
-
-                    Retrieving Crowdsale. Please wait...<br>
-                    <div v-if="crowdsale.id !== ''">
-                        Crowdsale ID <span v-html="crowdsale.id"></span><br>
-                        Crowdsale address <span v-html="crowdsale.address"></span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
