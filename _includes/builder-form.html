@@ -3,6 +3,16 @@
         <div class="col-lg-12">
             <form v-on:submit.prevent="startCrowdsale">
                 <fieldset :disabled="formDisabled">
+
+                    <div class="alert alert-danger mb-3" role="alert" v-if="demo">
+                        <p>This is a DEMO page</p>
+                        <small>
+                            <b>DO NOT SEND REAL ETHER!</b><br>
+                            Make sure to have your MetaMask set on Rinkeby Test Network.<br>
+                            To get free ETH on Rinkeby Test Network use the <a href="https://faucet.rinkeby.io" target="_blank">faucet</a>.
+                        </small>
+                    </div>
+
                     <div class="card mb-3">
                         <div class="card-body">
                             <h4>Project details</h4>
@@ -470,12 +480,15 @@
                                     <div class="form-group">
                                         <label class="col-form-label" for="crowdsaleWallet">Your Ethereum destination wallet address *</label>
                                         <input type="text" class="form-control"
-                                               v-validate="'required'"
+                                               v-validate="'required|eth_address'"
                                                :class="{'is-invalid': errors.has('crowdsaleWallet')}"
                                                v-model="crowdsale.wallet"
                                                id="crowdsaleWallet"
                                                name="crowdsaleWallet"
                                                placeholder="Your crowdsale wallet">
+                                        <div class="alert alert-danger mt-3  mb-3" v-if="errors.has('crowdsaleWallet')">
+                                            <span v-html="errors.first('crowdsaleWallet')"></span>
+                                        </div>
                                         <small class="form-text text-muted">
                                             Insert your Ethereum wallet address. Funds will be collected here
                                         </small>
@@ -483,14 +496,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="alert alert-danger mb-3" role="alert" v-if="demo">
-                        <p>This is a DEMO page</p>
-                        <small>
-                            <b>DO NOT SEND REAL ETHER!</b><br>
-                            Make sure to have your MetaMask set on Rinkeby Test Network.
-                        </small>
                     </div>
 
                     <div class="alert alert-success mb-3" role="alert" v-if="makingTransaction">

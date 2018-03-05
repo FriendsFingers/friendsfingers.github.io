@@ -6,6 +6,18 @@
     </div>
 
     <div class="crowdsale-box d-none">
+        <div class="row" v-if="demo">
+            <div class="col-lg-12">
+                <div class="alert alert-danger mb-3" role="alert" v-if="demo">
+                    <p>This is a DEMO page</p>
+                    <small>
+                        <b>DO NOT SEND REAL ETHER!</b><br>
+                        Make sure to have your MetaMask set on Rinkeby Test Network.<br>
+                        To get free ETH on Rinkeby Test Network use the <a href="https://faucet.rinkeby.io" target="_blank">faucet</a>.
+                    </small>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-8">
                 <div class="card mb-3">
@@ -164,15 +176,6 @@
                             <small>Do not send ETH from exchange like Coinbase, Bitfinex, GDAX or similar. They don’t give you any access to your wallet so sending ETH from one of these means for you losing your rewards tokens and we won’t be able to help you to recover them.</small>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-12" v-if="demo">
-                <div class="alert alert-danger mb-3" role="alert">
-                    <p>This is a DEMO page</p>
-                    <small>
-                        <b>DO NOT SEND REAL ETHER!</b><br>
-                        Make sure to have your MetaMask set on Rinkeby Test Network.
-                    </small>
                 </div>
             </div>
             <div class="col-lg-12" v-if="makingTransaction">
