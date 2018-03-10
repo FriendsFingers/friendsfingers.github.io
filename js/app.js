@@ -576,9 +576,9 @@ const App = {
             break;
 
         case "crowdsale-demo":
-            const pathArray = window.location.pathname.split( '/' );
-            if (typeof pathArray[2] !== "undefined" && pathArray[2] !== '') {
-                App.viewCrowdsale(pathArray[2]);
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('id')) {
+                App.viewCrowdsale(urlParams.get('id'));
             } else {
                 window.location.href = window.location.origin + '/not-found';
             }
