@@ -66,7 +66,10 @@ gulp.task('copy', function() {
     gulp.src(['node_modules/truffle-contract/dist/*.js'])
         .pipe(gulp.dest('vendor/truffle-contract'));
 
-    gulp.src(['node_modules/timezz/*/*'])
+    gulp.src(['node_modules/moment/min/*'])
+        .pipe(gulp.dest('vendor/moment'));
+
+    gulp.src(['node_modules/timezz/dist/*'])
         .pipe(gulp.dest('vendor/timezz'));
 
     gulp.src(['node_modules/simple-line-icons/*/*'])

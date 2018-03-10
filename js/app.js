@@ -211,29 +211,21 @@ const App = {
                     getMessage: field => 'Insert a valid Ethereum wallet address.',
                     validate: value => App.web3.isAddress(this.crowdsale.wallet)
                 });
+
+                this.$validator.extend('date_start_min', {
+                    getMessage: field => 'Start date must be at least ' + moment().add(5, 'minutes').format('DD-MM-YYYY HH:mm'),
+                    validate: value => moment(this.crowdsale.startTime).isAfter(moment().add(5, 'minute'))
+                });
+
+                this.$validator.extend('date_end_min', {
+                    getMessage: field => 'End date must be after start date and not more than 30 days after start',
+                    validate: value => moment(this.crowdsale.endTime).isBetween(moment(this.crowdsale.startTime).add(1, 'minute'), moment(this.crowdsale.startTime).add(30, 'day'))
+                });
             },
             methods: {
-                validateForm: function () {
-                    return (
-                        this.crowdsale.title !== undefined &&
-                        this.crowdsale.url !== undefined &&
-                        this.crowdsale.logo !== undefined &&
-                        this.crowdsale.description !== undefined &&
-                        this.crowdsale.goal > 0 &&
-                        this.crowdsale.cap >= this.crowdsale.goal &&
-                        this.crowdsale.rate > 0 &&
-                        this.crowdsale.creatorSupply >= 0 &&
-                        new Date(this.crowdsale.startTime).getTime() / 1000 > 0 && //insert date validation
-                        this.crowdsale.endTime > this.crowdsale.startTime &&
-                        App.web3.isAddress(this.crowdsale.wallet) &&
-                        this.token.name !== undefined &&
-                        this.token.symbol !== undefined &&
-                        this.token.decimals >= 0
-                    )
-                },
                 startCrowdsale: function () {
                     if (!App.metamask.installed) {
-                        alert("To use the invest button please install MetaMask extension for Chrome or Firefox!");
+                        alert("To create a Crowdsale please install the MetaMask extension!");
                         return;
                     } else {
                         if (App.metamask.netId !== networkId) {
@@ -243,7 +235,6 @@ const App = {
                     }
 
                     this.$validator.validateAll().then(async (result) => {
-                        //TODO check custom controls from validateform and then remove
                         if (result) {
                             console.log('starting');
                             const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
@@ -302,6 +293,7 @@ const App = {
                                 this.crowdsale.id = parseInt(await crowdsale.id());
 
                             } catch (e) {
+                                this.makingTransaction = false;
                                 this.formDisabled = false;
                                 alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
                             }
@@ -409,7 +401,7 @@ const App = {
                 },
                 fundCrowdsale: async function () {
                     if (!App.metamask.installed) {
-                        alert("To use the invest button please install MetaMask extension for Chrome or Firefox!");
+                        alert("To use the invest button please install the MetaMask!");
                         return;
                     } else {
                         if (App.metamask.netId !== networkId) {
@@ -530,7 +522,7 @@ const App = {
                 },
                 fundCrowdsale: async function () {
                     if (!App.metamask.installed) {
-                        alert("To use the invest button please install MetaMask extension for Chrome or Firefox!");
+                        alert("To use the invest button please install the MetaMask extension!");
                         return;
                     } else {
                         if (App.metamask.netId !== networkId) {

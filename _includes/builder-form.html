@@ -103,6 +103,29 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label class="col-form-label" for="crowdsaleEmail">Email *</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                            </div>
+                                            <input type="email" class="form-control"
+                                                   v-validate="'required|email'"
+                                                   :class="{'is-invalid': errors.has('crowdsaleEmail')}"
+                                                   v-model="crowdsale.projectInfo.email"
+                                                   id="crowdsaleEmail"
+                                                   name="crowdsaleEmail"
+                                                   placeholder="Your official contact email">
+                                        </div>
+                                        <small class="form-text text-muted">
+                                            Insert your official contact email. It will be public
+                                        </small>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md">
+
+                                    <div class="form-group">
                                         <label class="col-form-label" for="crowdsaleWhitepaper">Whitepaper *</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -120,25 +143,8 @@
                                             Insert your Whitepaper link. It could a Google Doc, a PDF...
                                         </small>
                                     </div>
-                                </div>
 
-                                <div class="col-md">
                                     <label class="col-form-label">Additional not required links</label>
-
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                                            </div>
-                                            <input type="email" class="form-control"
-                                                   v-validate="'email'"
-                                                   :class="{'is-invalid': errors.has('crowdsaleEmail')}"
-                                                   v-model="crowdsale.projectInfo.email"
-                                                   id="crowdsaleEmail"
-                                                   name="crowdsaleEmail"
-                                                   placeholder="Your official contact email">
-                                        </div>
-                                    </div>
 
                                     <div class="form-group">
                                         <div class="input-group">
@@ -447,12 +453,15 @@
                                     <div class="form-group">
                                         <label class="col-form-label" for="crowdsaleStartTime">Crowdsale start time *</label>
                                         <input type="datetime-local" class="form-control"
-                                               v-validate="'required'"
+                                               v-validate="'required|date_start_min'"
                                                :class="{'is-invalid': errors.has('crowdsaleStartTime')}"
                                                v-model="crowdsale.startTime"
                                                id="crowdsaleStartTime"
                                                name="crowdsaleStartTime"
                                                placeholder="Your crowdsale start time">
+                                        <div class="alert alert-danger mt-3  mb-3" v-if="errors.has('crowdsaleStartTime')">
+                                            <span v-html="errors.first('crowdsaleStartTime')"></span>
+                                        </div>
                                         <small class="form-text text-muted">
                                             Select date and time when your crowdsale will start
                                         </small>
@@ -462,12 +471,15 @@
                                     <div class="form-group">
                                         <label class="col-form-label" for="crowdsaleEndTime">Crowdsale end time *</label>
                                         <input type="datetime-local" class="form-control"
-                                               v-validate="'required'"
+                                               v-validate="'required|date_end_min'"
                                                :class="{'is-invalid': errors.has('crowdsaleEndTime')}"
                                                v-model="crowdsale.endTime"
                                                id="crowdsaleEndTime"
                                                name="crowdsaleEndTime"
                                                placeholder="Your crowdsale end time">
+                                        <div class="alert alert-danger mt-3  mb-3" v-if="errors.has('crowdsaleEndTime')">
+                                            <span v-html="errors.first('crowdsaleEndTime')"></span>
+                                        </div>
                                         <small class="form-text text-muted">
                                             Select date and time when your crowdsale will end
                                         </small>
@@ -509,7 +521,7 @@
                                 Unable to create Crowdsale. Please check informations you have entered.
                             </div>
                             <div v-if="crowdsale.id !== ''">
-                                Your crowdsale page <a :href="'{{ 'crowdsale-demo/' | absolute_url }}' + crowdsale.id">{{ 'crowdsale/' | absolute_url }}<span v-html="crowdsale.id"></span></a>
+                                Your crowdsale page <a :href="'{{ 'crowdsale-demo/' | absolute_url }}' + crowdsale.id">{{ 'crowdsale-demo/' | absolute_url }}<span v-html="crowdsale.id"></span></a>
                             </div>
                         </div>
                     </div>
@@ -520,3 +532,6 @@
         </div>
     </div>
 </div>
+
+<!-- moment -->
+<script src="{{ 'vendor/moment/moment.min.js' | absolute_url }}"></script>
