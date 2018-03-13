@@ -240,7 +240,7 @@ const App = {
                             const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
 
                             const name = this.token.name;
-                            const symbol = this.token.symbol;
+                            const symbol = this.token.symbol.toUpperCase();
                             const decimals = new App.web3.BigNumber(this.token.decimals);
                             const cap = App.web3.toWei(this.crowdsale.cap, "ether");
                             const goal = App.web3.toWei(this.crowdsale.goal, "ether");
