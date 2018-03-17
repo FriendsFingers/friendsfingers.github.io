@@ -209,7 +209,7 @@ const App = {
             created: function () {
                 this.$validator.extend('eth_address', {
                     getMessage: field => 'Insert a valid Ethereum wallet address.',
-                    validate: value => App.web3.isAddress(this.crowdsale.wallet)
+                    validate: value => App.web3.isAddress(value)
                 });
 
                 this.$validator.extend('date_start_min', {
