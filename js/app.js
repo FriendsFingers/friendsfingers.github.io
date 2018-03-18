@@ -214,12 +214,12 @@ const App = {
 
                 this.$validator.extend('date_start_min', {
                     getMessage: field => 'Start date must be at least ' + moment().add(5, 'minutes').format('DD-MM-YYYY HH:mm'),
-                    validate: value => moment(this.crowdsale.startTime).isAfter(moment().add(5, 'minute'))
+                    validate: value => moment(value).isAfter(moment().add(5, 'minute'))
                 });
 
                 this.$validator.extend('date_end_min', {
                     getMessage: field => 'End date must be after start date and not more than 30 days after start',
-                    validate: value => moment(this.crowdsale.endTime).isBetween(moment(this.crowdsale.startTime).add(1, 'minute'), moment(this.crowdsale.startTime).add(30, 'day'))
+                    validate: value => moment(value).isBetween(moment(this.crowdsale.startTime).add(1, 'minute'), moment(this.crowdsale.startTime).add(30, 'day'))
                 });
             },
             methods: {
@@ -576,12 +576,23 @@ const App = {
             break;
 
         case "crowdsale-demo":
+            /*
+            //does not work on ios
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('id')) {
                 App.viewCrowdsale(urlParams.get('id'));
             } else {
                 window.location.href = window.location.origin + '/not-found';
             }
+            */
+
+            const crowdsaleId = getParam('id');
+            if ($.isNumeric(crowdsaleId)) {
+                App.viewCrowdsale(crowdsaleId);
+            } else {
+                window.location.href = window.location.origin + '/not-found';
+            }
+
             break;
 
         case "": //home
@@ -590,3 +601,18 @@ const App = {
     }
 
 })(jQuery); // End of use strict
+
+function getParam (param) {
+    const vars = {};
+    window.location.href.replace( location.hash, '' ).replace(
+        /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+        function( m, key, value ) { // callback
+            vars[key] = value !== undefined ? value : '';
+        }
+    );
+
+    if (param) {
+        return vars[param] ? vars[param] : null;
+    }
+    return vars;
+}
