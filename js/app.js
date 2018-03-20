@@ -8,16 +8,18 @@ const App = {
     },
     contracts: {},
 
-    init: function (demo) {
-        if (typeof demo !== "undefined" && demo === true) {
-            web3Provider = DEMO_web3Provider;
-            etherscanLink = DEMO_etherscanLink;
-            networkId = DEMO_networkId;
-            networkName = DEMO_networkName;
-            FriendsFingersBuilderAddress = DEMO_FriendsFingersBuilderAddress;
-        }
-
+    init: function () {
         App.initWeb3(true);
+    },
+
+    setTestnet: function () {
+        web3Provider = DEMO_web3Provider;
+        etherscanLink = DEMO_etherscanLink;
+        networkId = DEMO_networkId;
+        networkName = DEMO_networkName;
+        FriendsFingersBuilderAddress = DEMO_FriendsFingersBuilderAddress;
+        crowdsaleUrl = DEMO_crowdsaleUrl;
+        restartUrl = DEMO_restartUrl;
     },
 
     initWeb3: function (checkWeb3) {
@@ -182,7 +184,7 @@ const App = {
     },
 
     builder: async function () {
-        App.init(true);
+        App.init();
 
         Vue.use(VeeValidate);
         await App.initBuilder();
@@ -197,6 +199,7 @@ const App = {
                 maxEndDate: '',
                 txError: false,
                 txHash: '',
+                crowdsaleLink: '',
                 makingTransaction: false,
                 formDisabled: false,
                 crowdsale: {
@@ -292,6 +295,7 @@ const App = {
                                 this.crowdsale.address = crowdsale.address;
                                 this.crowdsale.id = parseInt(await crowdsale.id());
 
+                                this.crowdsaleLink = crowdsaleUrl + '?id=' + this.crowdsale.id;
                             } catch (e) {
                                 this.makingTransaction = false;
                                 this.formDisabled = false;
@@ -307,7 +311,7 @@ const App = {
     },
 
     viewCrowdsale: async function (crowdsaleId) {
-        App.init(true);
+        App.init();
 
         Vue.use(VeeValidate);
         await App.initBuilder();
@@ -325,7 +329,10 @@ const App = {
                 globalAgreement: false,
                 funds: 1,
                 txHash: '',
+                restartLink: '',
+                isCrowdsaleOwner: false,
                 makingTransaction: false,
+                closingCrowdsale: false,
                 crowdsaleAddress: 0,
                 crowdsale: {
                     cap: 0,
@@ -338,6 +345,7 @@ const App = {
                     hasStarted: false,
                     hasEnded: true,
                     paused: true,
+                    isFinalized: false,
                     projectInfo: {}
                 },
                 token: {
@@ -348,6 +356,8 @@ const App = {
                 const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
 
                 this.crowdsaleAddress = await builder.crowdsaleList(crowdsaleId);
+
+                this.crowdsale.id = crowdsaleId;
 
                 if (parseInt(this.crowdsaleAddress) === 0) {
                     window.location.href = window.location.origin + '/not-found';
@@ -380,6 +390,27 @@ const App = {
                 this.token.crowdsaleSupply = this.crowdsale.cap * this.crowdsale.rate;
 
                 $('.crowdsale-box').toggleClass('d-none');
+
+                if (this.crowdsale.hasEnded) {
+                    this.crowdsale.builder = await builder.crowdsaleCreators(this.crowdsale.address);
+                    if (this.crowdsale.builder === App.web3.eth.accounts[0]) {
+                        this.isCrowdsaleOwner = true;
+                        this.crowdsale.isFinalized = await crowdsale.isFinalized();
+                        if (!this.crowdsaleAddress.isFinalized) {
+                            this.crowdsale.goalReached = await crowdsale.goalReached();
+                            if (this.crowdsale.goalReached) {
+                                this.crowdsale.round = parseInt((await crowdsale.round()).valueOf());
+                                if (this.crowdsale.round < 5) {
+                                    this.crowdsale.nextRoundId = parseInt((await crowdsale.nextRoundId()).valueOf());
+                                    if (this.crowdsale.nextRoundId === 0) {
+                                        this.restartLink = restartUrl + '?id=' + this.crowdsale.id;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
             },
             methods: {
                 viewQRCode: function () {
@@ -401,7 +432,7 @@ const App = {
                 },
                 fundCrowdsale: async function () {
                     if (!App.metamask.installed) {
-                        alert("To use the invest button please install the MetaMask!");
+                        alert("To use the invest button please install the MetaMask extension!");
                         return;
                     } else {
                         if (App.metamask.netId !== networkId) {
@@ -432,6 +463,33 @@ const App = {
                             console.log("some errors");
                         }
                     });
+                },
+                finalizeCrowdsale: async function () {
+                    if (!App.metamask.installed) {
+                        alert("To finalize please install the MetaMask extension!");
+                        return;
+                    } else {
+                        if (App.metamask.netId !== networkId) {
+                            alert("Your MetaMask extension in on the wrong network. Please switch on " + networkName + " and try again!");
+                            return;
+                        }
+                    }
+
+                    const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
+
+                    try {
+                        this.txHash = '';
+                        this.closingCrowdsale = true;
+                        const log = await builder.closeCrowdsale(this.crowdsale.address);
+
+                        console.log(log);
+
+                        this.txHash = log.tx;
+                        this.trxLink = App.etherscanLink + "/tx/" + this.txHash;
+                    } catch (e) {
+                        alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
+                        this.closingCrowdsale = false;
+                    }
                 }
             }
         });
@@ -456,6 +514,8 @@ const App = {
                 funds: 1,
                 txHash: '',
                 trxLink: '',
+                restartLink: '',
+                isCrowdsaleOwner: false,
                 makingTransaction: false,
                 crowdsale: {
                     cap: 0,
@@ -477,6 +537,8 @@ const App = {
             created: async function () {
                 const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
                 const token = await App.contracts.FriendsFingersToken.at(await crowdsale.token());
+
+                this.crowdsale.id = 1;
 
                 this.token.address = token.address;
                 this.token.name = "Shaka";
@@ -501,6 +563,26 @@ const App = {
                 this.token.crowdsaleSupply = this.crowdsale.cap * this.crowdsale.rate;
 
                 $('.crowdsale-box').toggleClass('d-none');
+
+                if (this.crowdsale.hasEnded ) {
+                    this.crowdsale.builder = await builder.crowdsaleCreators(this.crowdsale.address);
+                    if (this.crowdsale.builder === App.web3.eth.accounts[0]) {
+                        this.isCrowdsaleOwner = true;
+                        this.crowdsale.isFinalized = await crowdsale.isFinalized();
+                        if (!this.crowdsaleAddress.isFinalized) {
+                            this.crowdsale.goalReached = await crowdsale.goalReached();
+                            if (this.crowdsale.goalReached) {
+                                this.crowdsale.round = parseInt((await crowdsale.round()).valueOf());
+                                if (this.crowdsale.round < 5) {
+                                    this.crowdsale.nextRoundId = parseInt((await crowdsale.nextRoundId()).valueOf());
+                                    if (this.crowdsale.nextRoundId === 0) {
+                                        this.restartLink = restartUrl + '?id=' + this.crowdsale.id;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             },
             methods: {
                 viewQRCode: function () {
@@ -572,10 +654,13 @@ const App = {
             break;
 
         case "crowdsale-builder-demo":
+            App.setTestnet();
             App.builder();
             break;
 
         case "crowdsale-demo":
+            App.setTestnet();
+
             /*
             //does not work on ios
             const urlParams = new URLSearchParams(window.location.search);

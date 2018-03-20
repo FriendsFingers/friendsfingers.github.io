@@ -521,7 +521,7 @@
                                 Unable to create Crowdsale. Please check informations you have entered.
                             </div>
                             <div v-if="crowdsale.id !== ''">
-                                Your crowdsale page <a :href="'{{ 'crowdsale-demo?id=' | absolute_url }}' + crowdsale.id">{{ 'crowdsale-demo?id=' | absolute_url }}<span v-html="crowdsale.id"></span></a>
+                                Your crowdsale page <a :href="crowdsaleLink"><span v-html="crowdsaleLink"></span></a>
                             </div>
                         </div>
                     </div>

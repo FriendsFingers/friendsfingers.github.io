@@ -44,12 +44,16 @@ network_id: "4"
 network_name: "Rinkeby Test Network"
 crowdsale_builder_address: "0x1e12111e3afE5d1832308599dAd16D946Be268bA"
 token_sale_address: "0x07c19733ed499733ad51a38639b1690a497d1b66"
+crowdsale_page: "crowdsale"
+restart_page: "restart-crowdsale"
 
 demo_web3_provider: "https://rinkeby.infura.io"
 demo_etherscan_link: "https://rinkeby.etherscan.io"
 demo_network_id: "4"
 demo_network_name: "Rinkeby Test Network"
 demo_crowdsale_builder_address: "0x1e12111e3afE5d1832308599dAd16D946Be268bA"
+demo_crowdsale_page: "crowdsale-demo"
+demo_restart_page: "restart-crowdsale-demo"
 
 # Build settings
 markdown: kramdown
