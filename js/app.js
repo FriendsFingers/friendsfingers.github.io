@@ -202,6 +202,8 @@ const App = {
                 crowdsaleLink: '',
                 makingTransaction: false,
                 formDisabled: false,
+                countryAgreement: false,
+                globalAgreement: false,
                 crowdsale: {
                     id: '',
                     address: '',

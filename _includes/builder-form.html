@@ -510,6 +510,41 @@
                         </div>
                     </div>
 
+                    <div class="card bg-secondary text-white mb-3">
+                        <div class="card-header">Crowdsale start agreement</div>
+                        <div class="card-body">
+                            <div class="alert alert-primary mb-3" role="alert">
+                                <p>Before starting a Crowdsale please read the terms of use and confirm the facts in the checkboxes below in order to proceed.</p>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                           v-validate="'required'"
+                                           :class="{'is-invalid': errors.has('countryAgreement')}"
+                                           :disabled="countryAgreement && globalAgreement"
+                                           value="1"
+                                           v-model="countryAgreement"
+                                           id="countryAgreement"
+                                           name="countryAgreement">
+                                    <label class="form-check-label" for="countryAgreement">
+                                        Confirm that you are legitimate to start an ICO and you are compliant with active regulation in your country of residence.
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input"
+                                           v-validate="'required'"
+                                           :class="{'is-invalid': errors.has('globalAgreement')}"
+                                           :disabled="countryAgreement && globalAgreement"
+                                           value="1"
+                                           v-model="globalAgreement"
+                                           id="globalAgreement"
+                                           name="globalAgreement">
+                                    <label class="form-check-label" for="globalAgreement">
+                                        Confirm that you have read, understood and agreed the FriendsFingers <a href="{{ 'terms' | absolute_url }}" target="_blank"><u>Terms of Use</u> <i class="fa fa-external-link"></i></a>.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="alert alert-success mb-3" role="alert" v-if="makingTransaction">
                         <div>Making transaction. Do not refresh the page. Please wait...</div>
                         <div v-if="txHash !== ''">
@@ -526,7 +561,11 @@
                         </div>
                     </div>
 
-                    <input type="submit" value="Start Crowdsale" name="startCrowdsale" class="btn btn-success btn-xl">
+                    <input type="submit"
+                           :disabled="!(countryAgreement && globalAgreement)"
+                           value="Start Crowdsale"
+                           name="startCrowdsale"
+                           class="btn btn-success btn-xl">
                 </fieldset>
             </form>
         </div>
