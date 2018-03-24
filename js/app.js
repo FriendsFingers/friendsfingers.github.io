@@ -63,6 +63,7 @@ const App = {
     },
 
     home: async function (crowdsaleAddress) {
+        /*
         App.init();
 
         await App.initCrowdsale();
@@ -129,6 +130,7 @@ const App = {
                 this.switchModule();
             }
         });
+        */
     },
 
     bountyProgram: async function () {
@@ -192,7 +194,7 @@ const App = {
         new Vue({
             el: '#crowdsale-start',
             data: {
-                demo: true,
+                demo: net,
                 minStartDate: '',
                 maxStartDate: '',
                 minEndDate: '',
@@ -312,6 +314,183 @@ const App = {
         });
     },
 
+    restart: async function (crowdsaleId) {
+        App.init();
+
+        Vue.use(VeeValidate);
+        await App.initBuilder();
+        await App.initCrowdsale();
+        await App.initToken();
+
+        new Vue({
+            el: '#crowdsale-start',
+            data: {
+                demo: networkId !== 1,
+                minStartDate: '',
+                maxStartDate: '',
+                minEndDate: '',
+                maxEndDate: '',
+                txError: false,
+                txHash: '',
+                crowdsaleLink: '',
+                makingTransaction: false,
+                formDisabled: false,
+                countryAgreement: false,
+                globalAgreement: false,
+                crowdsale: {
+                    id: '',
+                    address: '',
+                    cap: 0,
+                    goal: 0,
+                    weiRaised: 0,
+                    soldTokens: 0,
+                    rate: 0,
+                    oldRate: 0,
+                    startTime: 0,
+                    endTime: 0,
+                    wallet: '',
+                    hasStarted: false,
+                    hasEnded: true,
+                    paused: true,
+                    isFinalized: false,
+                    projectInfo: {}
+                },
+                token: {}
+            },
+            created: async function () {
+                this.$validator.extend('eth_address', {
+                    getMessage: field => 'Insert a valid Ethereum wallet address.',
+                    validate: value => App.web3.isAddress(value)
+                });
+
+                this.$validator.extend('date_start_min', {
+                    getMessage: field => 'Start date must be at least ' + moment().add(5, 'minutes').format('DD-MM-YYYY HH:mm'),
+                    validate: value => moment(value).isAfter(moment().add(5, 'minute'))
+                });
+
+                this.$validator.extend('date_end_min', {
+                    getMessage: field => 'End date must be after start date and not more than 30 days after start',
+                    validate: value => moment(value).isBetween(moment(this.crowdsale.startTime).add(1, 'minute'), moment(this.crowdsale.startTime).add(30, 'day'))
+                });
+
+                const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
+
+                this.crowdsaleAddress = await builder.crowdsaleList(crowdsaleId);
+
+                this.crowdsale.id = crowdsaleId;
+
+                if (parseInt(this.crowdsaleAddress) === 0) {
+                    window.location.href = window.location.origin + '/not-found';
+                    return;
+                }
+
+                const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(this.crowdsaleAddress);
+                const token = await App.contracts.FriendsFingersToken.at(await crowdsale.token());
+
+                this.token.address = token.address;
+                this.token.name = await token.name();
+                this.token.symbol = await token.symbol();
+                this.token.decimals = (await token.decimals()).valueOf();
+
+                this.crowdsale.address = crowdsale.address;
+                this.crowdsale.cap = App.web3.fromWei(await crowdsale.cap()).valueOf();
+                this.crowdsale.oldRate = (await crowdsale.rate()).valueOf();
+                this.crowdsale.wallet = await crowdsale.wallet();
+                this.crowdsale.projectInfo = JSON.parse(await crowdsale.crowdsaleInfo());
+
+                this.crowdsale.hasEnded = await crowdsale.hasEnded();
+                this.crowdsale.paused = await crowdsale.paused();
+                this.crowdsale.isFinalized = await crowdsale.isFinalized();
+                this.crowdsale.goalReached = await crowdsale.goalReached();
+                this.crowdsale.round = await crowdsale.round();
+                this.crowdsale.builder = await builder.crowdsaleCreators(this.crowdsale.address);
+
+                if (this.crowdsale.paused ||
+                    !this.crowdsale.hasEnded ||
+                    this.crowdsale.isFinalized ||
+                    !this.crowdsale.goalReached ||
+                    this.crowdsale.round === 5 ||
+                    this.crowdsale.builder !== App.web3.eth.accounts[0]) {
+                    window.location.href = window.location.origin + '/not-found';
+                    return;
+                }
+
+                $('.crowdsale-box').toggleClass('d-none');
+            },
+            methods: {
+                startCrowdsale: function () {
+                    if (!App.metamask.installed) {
+                        alert("To restart a Crowdsale please install the MetaMask extension!");
+                        return;
+                    } else {
+                        if (App.metamask.netId !== networkId) {
+                            alert("Your MetaMask extension in on the wrong network. Please switch on " + networkName + " and try again!");
+                            return;
+                        }
+                    }
+
+                    this.$validator.validateAll().then(async (result) => {
+                        if (result) {
+                            console.log('starting');
+                            const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
+
+                            const cap = App.web3.toWei(this.crowdsale.cap, "ether");
+                            const startTime = new Date(this.crowdsale.startTime).getTime() / 1000;
+                            const endTime = new Date(this.crowdsale.endTime).getTime() / 1000;
+                            const rate = new App.web3.BigNumber(this.crowdsale.rate);
+
+                            const crowdsaleInfo = JSON.stringify(this.crowdsale.projectInfo);
+
+                            try {
+                                this.txError = false;
+                                this.txHash = '';
+                                this.formDisabled = true;
+                                this.makingTransaction = true;
+
+                                const log = await builder.restartCrowdsale(
+                                    this.crowdsale.address,
+                                    cap,
+                                    startTime,
+                                    endTime,
+                                    rate,
+                                    crowdsaleInfo
+                                );
+
+                                console.log(log);
+
+                                this.txHash = log.tx;
+                                this.trxLink = App.etherscanLink + "/tx/" + this.txHash;
+
+                                await App.initCrowdsale();
+                                const event = log.logs.find(e => e.event === 'CrowdsaleStarted');
+
+                                if (typeof event === 'undefined') {
+                                    this.txError = true;
+                                    this.formDisabled = false;
+                                    alert("Some error occurred. Maybe transaction failed for some reasons. Check your transaction id.");
+                                    return;
+                                }
+
+                                const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(event.args.ffCrowdsale);
+
+                                this.crowdsale.address = crowdsale.address;
+                                this.crowdsale.id = parseInt(await crowdsale.id());
+
+                                this.crowdsaleLink = crowdsaleUrl + '?id=' + this.crowdsale.id;
+                            } catch (e) {
+                                this.makingTransaction = false;
+                                this.formDisabled = false;
+                                alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
+                            }
+                        } else {
+                            console.log("some errors");
+                        }
+                    });
+                }
+            }
+        });
+    },
+
     viewCrowdsale: async function (crowdsaleId) {
         App.init();
 
@@ -323,7 +502,7 @@ const App = {
         new Vue({
             el: '#crowdsale-details',
             data: {
-                demo: true,
+                demo: networkId !== 1,
                 qrcodeVisible: false,
                 copied: false,
                 usAgreement: false,
@@ -507,7 +686,7 @@ const App = {
         new Vue({
             el: '#crowdsale-details',
             data: {
-                demo: false,
+                demo: networkId !== 1,
                 qrcodeVisible: false,
                 copied: false,
                 usAgreement: false,
@@ -519,6 +698,7 @@ const App = {
                 restartLink: '',
                 isCrowdsaleOwner: false,
                 makingTransaction: false,
+                closingCrowdsale: false,
                 crowdsale: {
                     cap: 0,
                     goal: 0,
@@ -637,7 +817,8 @@ const App = {
                             console.log("some errors");
                         }
                     });
-                }
+                },
+                finalizeCrowdsale: function () {}
             }
         });
     }
@@ -673,9 +854,31 @@ const App = {
             }
             */
 
-            const crowdsaleId = getParam('id');
+            var crowdsaleId = getParam('id');
             if ($.isNumeric(crowdsaleId)) {
                 App.viewCrowdsale(crowdsaleId);
+            } else {
+                window.location.href = window.location.origin + '/not-found';
+            }
+
+            break;
+
+        case "restart-crowdsale-demo":
+            App.setTestnet();
+
+            /*
+            //does not work on ios
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('id')) {
+                App.viewCrowdsale(urlParams.get('id'));
+            } else {
+                window.location.href = window.location.origin + '/not-found';
+            }
+            */
+
+            var crowdsaleId = getParam('id');
+            if ($.isNumeric(crowdsaleId)) {
+                App.restart(crowdsaleId);
             } else {
                 window.location.href = window.location.origin + '/not-found';
             }

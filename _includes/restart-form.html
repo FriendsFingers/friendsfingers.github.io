@@ -1,0 +1,571 @@
+<div id="crowdsale-start" class="content">
+    <div class="crowdsale-box card">
+        <div class="card-body text-center">
+            <img src="{{ 'img/loader.gif' | absolute_url }}">
+        </div>
+    </div>
+
+    <div class="crowdsale-box d-none">
+        <div class="row">
+            <div class="col-lg-12">
+                <form v-on:submit.prevent="startCrowdsale">
+                    <fieldset :disabled="formDisabled">
+
+                        <div class="alert alert-danger mb-3" role="alert" v-if="demo">
+                            <p>This is a DEMO page</p>
+                            <small>
+                                <b>DO NOT SEND REAL ETHER!</b><br>
+                                Make sure to have your MetaMask set on Rinkeby Test Network.<br>
+                                To get free ETH on Rinkeby Test Network use the <a href="https://faucet.rinkeby.io" target="_blank">faucet</a>.
+                            </small>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h4>Project details</h4>
+
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleTitle">Project title *</label>
+                                            <input type="text" class="form-control"
+                                                   v-validate="'required'"
+                                                   :class="{'is-invalid': errors.has('crowdsaleTitle')}"
+                                                   v-model="crowdsale.projectInfo.title"
+                                                   id="crowdsaleTitle"
+                                                   name="crowdsaleTitle"
+                                                   maxlength="140"
+                                                   placeholder="Your project title">
+                                            <small class="form-text text-muted">
+                                                Choose an amazing name for your project
+                                            </small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleTitle">Project slogan *</label>
+                                            <input type="text" class="form-control"
+                                                   v-validate="'required'"
+                                                   :class="{'is-invalid': errors.has('crowdsaleAbout')}"
+                                                   v-model="crowdsale.projectInfo.about"
+                                                   id="crowdsaleAbout"
+                                                   name="crowdsaleAbout"
+                                                   maxlength="140"
+                                                   placeholder="An awesome slogan about your project">
+                                            <small class="form-text text-muted">
+                                                Insert a brief about of your project
+                                            </small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleDescription">Project description *</label>
+                                            <textarea class="form-control"
+                                                      v-validate="'required'"
+                                                      :class="{'is-invalid': errors.has('crowdsaleDescription')}"
+                                                      v-model="crowdsale.projectInfo.description"
+                                                      id="crowdsaleDescription"
+                                                      name="crowdsaleDescription"
+                                                      maxlength="250" rows="5"
+                                                      placeholder="Your project description"></textarea>
+                                            <small class="form-text text-muted">
+                                                Insert an explicative description of your project
+                                            </small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleUrl">Project official URL *</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-globe"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'required|url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleUrl')}"
+                                                       v-model="crowdsale.projectInfo.url"
+                                                       id="crowdsaleUrl"
+                                                       name="crowdsaleUrl"
+                                                       placeholder="Your official project url">
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                Insert your official project link or if you haven't insert your main social page
+                                            </small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleLogo">Project logo *</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-picture-o"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'required|url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleLogo')}"
+                                                       v-model="crowdsale.projectInfo.logo"
+                                                       id="crowdsaleLogo"
+                                                       name="crowdsaleLogo"
+                                                       placeholder="Your official project logo">
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                Insert an amazing logo link
+                                            </small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleEmail">Email *</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                                </div>
+                                                <input type="email" class="form-control"
+                                                       v-validate="'required|email'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleEmail')}"
+                                                       v-model="crowdsale.projectInfo.email"
+                                                       id="crowdsaleEmail"
+                                                       name="crowdsaleEmail"
+                                                       placeholder="Your official contact email">
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                Insert your official contact email. It will be public
+                                            </small>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md">
+
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleWhitepaper">Whitepaper *</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-file-text"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'required|url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleWhitepaper')}"
+                                                       v-model="crowdsale.projectInfo.whitepaper"
+                                                       id="crowdsaleWhitepaper"
+                                                       name="crowdsaleWhitepaper"
+                                                       placeholder="Your Whitepaper link">
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                Insert your Whitepaper link. It could a Google Doc, a PDF...
+                                            </small>
+                                        </div>
+
+                                        <label class="col-form-label">Additional not required links</label>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-facebook-official"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleFacebook')}"
+                                                       v-model="crowdsale.projectInfo.facebook"
+                                                       id="crowdsaleFacebook"
+                                                       name="crowdsaleFacebook"
+                                                       placeholder="Your official Facebook page">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-twitter"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleTwitter')}"
+                                                       v-model="crowdsale.projectInfo.twitter"
+                                                       id="crowdsaleTwitter"
+                                                       name="crowdsaleTwitter"
+                                                       placeholder="Your official Twitter profile">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-instagram"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleInstagram')}"
+                                                       v-model="crowdsale.projectInfo.instagram"
+                                                       id="crowdsaleInstagram"
+                                                       name="crowdsaleInstagram"
+                                                       placeholder="Your official Instagram page">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-telegram"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleTelegram')}"
+                                                       v-model="crowdsale.projectInfo.telegram"
+                                                       id="crowdsaleTelegram"
+                                                       name="crowdsaleTelegram"
+                                                       placeholder="Your official Telegram group or chat">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-medium"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleMedium')}"
+                                                       v-model="crowdsale.projectInfo.medium"
+                                                       id="crowdsaleMedium"
+                                                       name="crowdsaleMedium"
+                                                       placeholder="Your official Medium profile">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-btc"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleBitcoinTalk')}"
+                                                       v-model="crowdsale.projectInfo.bitcointalk"
+                                                       id="crowdsaleBitcoinTalk"
+                                                       name="crowdsaleBitcoinTalk"
+                                                       placeholder="Your official BitcoinTalk link">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-reddit-alien"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleReddit')}"
+                                                       v-model="crowdsale.projectInfo.reddit"
+                                                       id="crowdsaleReddit"
+                                                       name="crowdsaleReddit"
+                                                       placeholder="Your official Reddit link">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-slack"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleSlack')}"
+                                                       v-model="crowdsale.projectInfo.slack"
+                                                       id="crowdsaleSlack"
+                                                       name="crowdsaleSlack"
+                                                       placeholder="Your official Slack channel">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-github"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleGitHub')}"
+                                                       v-model="crowdsale.projectInfo.github"
+                                                       id="crowdsaleGitHub"
+                                                       name="crowdsaleGitHub"
+                                                       placeholder="Your official GitHub link">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-youtube"></i></span>
+                                                </div>
+                                                <input type="url" class="form-control"
+                                                       v-validate="'url'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleYouTube')}"
+                                                       v-model="crowdsale.projectInfo.youtube"
+                                                       id="crowdsaleYouTube"
+                                                       name="crowdsaleYouTube"
+                                                       placeholder="Your official YouTube link">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h4>Token details</h4>
+                                <h6>Each investor will receive an amount of tokens as reward. You will define the rate below.</h6>
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="tokenName">Token name *</label>
+                                            <input type="text" class="form-control"
+                                                   disabled="disabled"
+                                                   v-validate="'required'"
+                                                   :class="{'is-invalid': errors.has('tokenName')}"
+                                                   v-model="token.name"
+                                                   id="tokenName"
+                                                   name="tokenName"
+                                                   maxlength="20"
+                                                   placeholder="Your token name">
+                                            <small class="form-text text-muted">
+                                                Choose a name for your token
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="tokenSymbol">Token symbol *</label>
+                                            <input type="text" class="form-control"
+                                                   disabled="disabled"
+                                                   v-validate="'required'"
+                                                   :class="{'is-invalid': errors.has('tokenSymbol')}"
+                                                   v-model="token.symbol"
+                                                   id="tokenSymbol"
+                                                   name="tokenSymbol"
+                                                   maxlength="4"
+                                                   placeholder="Your token symbol">
+                                            <small class="form-text text-muted">
+                                                Choose a 3 or 4 chars symbol for your token
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="tokenDecimals">Token decimals *</label>
+                                            <input type="number" class="form-control"
+                                                   disabled="disabled"
+                                                   v-validate="'required|numeric'"
+                                                   :class="{'is-invalid': errors.has('tokenDecimals')}"
+                                                   v-model="token.decimals"
+                                                   id="tokenDecimals"
+                                                   name="tokenDecimals"
+                                                   min="0"
+                                                   max="18"
+                                                   step="1"
+                                                   placeholder="Your token decimals">
+                                            <small class="form-text text-muted">
+                                                Insert the decimal precision of your token. If you don't know what to insert, use 18
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h4>Crowdsale details</h4>
+
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleCap">Crowdsale max cap *</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">ETH</span>
+                                                </div>
+                                                <input type="number" class="form-control"
+                                                       v-validate="'required|numeric'"
+                                                       :class="{'is-invalid': errors.has('crowdsaleCap')}"
+                                                       v-model="crowdsale.cap"
+                                                       id="crowdsaleCap"
+                                                       name="crowdsaleCap"
+                                                       min="0"
+                                                       step="1"
+                                                       placeholder="Your crowdsale max cap">
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                Insert the max cap for your project in ETH
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleGoal">Crowdsale goal *</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">ETH</span>
+                                                </div>
+                                                <input type="number" class="form-control"
+                                                       disabled="disabled"
+                                                       value="0"
+                                                       id="crowdsaleGoal"
+                                                       name="crowdsaleGoal"
+                                                       min="0"
+                                                       max="0"
+                                                       placeholder="Your crowdsale goal">
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                Insert minimum goal to finalize crowdsale in ETH
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleRate">Your token exchange rate *</label>
+                                            <input type="number" class="form-control"
+                                                   v-validate="'required|numeric'"
+                                                   :class="{'is-invalid': errors.has('crowdsaleRate')}"
+                                                   v-model="crowdsale.rate"
+                                                   id="crowdsaleRate"
+                                                   name="crowdsaleRate"
+                                                   min="1"
+                                                   v-bind:max="crowdsale.oldRate - 1"
+                                                   step="1"
+                                                   placeholder="Your token exchange rate">
+                                            <small class="form-text text-muted">
+                                                Select the amount of tokens you want to give back for 1 ETH
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleStartTime">Crowdsale start time *</label>
+                                            <input type="datetime-local" class="form-control"
+                                                   v-validate="'required|date_start_min'"
+                                                   :class="{'is-invalid': errors.has('crowdsaleStartTime')}"
+                                                   v-model="crowdsale.startTime"
+                                                   id="crowdsaleStartTime"
+                                                   name="crowdsaleStartTime"
+                                                   placeholder="Your crowdsale start time">
+                                            <div class="alert alert-danger mt-3  mb-3" v-if="errors.has('crowdsaleStartTime')">
+                                                <span v-html="errors.first('crowdsaleStartTime')"></span>
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                Select date and time when your crowdsale will start
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleEndTime">Crowdsale end time *</label>
+                                            <input type="datetime-local" class="form-control"
+                                                   v-validate="'required|date_end_min'"
+                                                   :class="{'is-invalid': errors.has('crowdsaleEndTime')}"
+                                                   v-model="crowdsale.endTime"
+                                                   id="crowdsaleEndTime"
+                                                   name="crowdsaleEndTime"
+                                                   placeholder="Your crowdsale end time">
+                                            <div class="alert alert-danger mt-3  mb-3" v-if="errors.has('crowdsaleEndTime')">
+                                                <span v-html="errors.first('crowdsaleEndTime')"></span>
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                Select date and time when your crowdsale will end
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label class="col-form-label" for="crowdsaleWallet">Your Ethereum destination wallet address *</label>
+                                            <input type="text" class="form-control"
+                                                   disabled="disabled"
+                                                   v-validate="'required|eth_address'"
+                                                   :class="{'is-invalid': errors.has('crowdsaleWallet')}"
+                                                   v-model="crowdsale.wallet"
+                                                   id="crowdsaleWallet"
+                                                   name="crowdsaleWallet"
+                                                   placeholder="Your crowdsale wallet">
+                                            <div class="alert alert-danger mt-3  mb-3" v-if="errors.has('crowdsaleWallet')">
+                                                <span v-html="errors.first('crowdsaleWallet')"></span>
+                                            </div>
+                                            <small class="form-text text-muted">
+                                                Insert your Ethereum wallet address. Funds will be collected here
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card bg-secondary text-white mb-3">
+                            <div class="card-header">Crowdsale start agreement</div>
+                            <div class="card-body">
+                                <div class="alert alert-primary mb-3" role="alert">
+                                    <p>Before starting a Crowdsale please read the terms of use and confirm the facts in the checkboxes below in order to proceed.</p>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input"
+                                               v-validate="'required'"
+                                               :class="{'is-invalid': errors.has('countryAgreement')}"
+                                               :disabled="countryAgreement && globalAgreement"
+                                               value="1"
+                                               v-model="countryAgreement"
+                                               id="countryAgreement"
+                                               name="countryAgreement">
+                                        <label class="form-check-label" for="countryAgreement">
+                                            Confirm that you are legitimate to start an ICO and you are compliant with active regulation in your country of residence.
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input"
+                                               v-validate="'required'"
+                                               :class="{'is-invalid': errors.has('globalAgreement')}"
+                                               :disabled="countryAgreement && globalAgreement"
+                                               value="1"
+                                               v-model="globalAgreement"
+                                               id="globalAgreement"
+                                               name="globalAgreement">
+                                        <label class="form-check-label" for="globalAgreement">
+                                            Confirm that you have read, understood and agreed the FriendsFingers <a href="{{ 'terms' | absolute_url }}" target="_blank"><u>Terms of Use</u> <i class="fa fa-external-link"></i></a>.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-success mb-3" role="alert" v-if="makingTransaction">
+                            <div>Making transaction. Do not refresh the page. Please wait...</div>
+                            <div v-if="txHash !== ''">
+                                <b>Well! Transaction done!</b><br>
+                                Transaction id <a :href="trxLink" target="_blank"><span v-html="txHash"></span> <i class="fa fa-external-link"></i></a><br>
+
+                                Retrieving Crowdsale. Please wait...<br>
+                                <div v-if="txError">
+                                    Unable to create Crowdsale. Please check informations you have entered.
+                                </div>
+                                <div v-if="crowdsale.id !== ''">
+                                    Your crowdsale page <a :href="'{{ 'crowdsale-demo?id=' | absolute_url }}' + crowdsale.id">{{ 'crowdsale-demo?id=' | absolute_url }}<span v-html="crowdsale.id"></span></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="submit"
+                               :disabled="!(countryAgreement && globalAgreement)"
+                               value="Start Crowdsale"
+                               name="startCrowdsale"
+                               class="btn btn-success btn-xl">
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- moment -->
+<script src="{{ 'vendor/moment/moment.min.js' | absolute_url }}"></script>
