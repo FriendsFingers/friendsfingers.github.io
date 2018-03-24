@@ -194,7 +194,7 @@ const App = {
         new Vue({
             el: '#crowdsale-start',
             data: {
-                demo: net,
+                demo: networkId !== "1",
                 minStartDate: '',
                 maxStartDate: '',
                 minEndDate: '',
@@ -325,7 +325,7 @@ const App = {
         new Vue({
             el: '#crowdsale-start',
             data: {
-                demo: networkId !== 1,
+                demo: networkId !== "1",
                 minStartDate: '',
                 maxStartDate: '',
                 minEndDate: '',
@@ -502,7 +502,7 @@ const App = {
         new Vue({
             el: '#crowdsale-details',
             data: {
-                demo: networkId !== 1,
+                demo: networkId !== "1",
                 qrcodeVisible: false,
                 copied: false,
                 usAgreement: false,
@@ -577,7 +577,7 @@ const App = {
                     if (this.crowdsale.builder === App.web3.eth.accounts[0]) {
                         this.isCrowdsaleOwner = true;
                         this.crowdsale.isFinalized = await crowdsale.isFinalized();
-                        if (!this.crowdsaleAddress.isFinalized) {
+                        if (!this.crowdsale.isFinalized) {
                             this.crowdsale.goalReached = await crowdsale.goalReached();
                             if (this.crowdsale.goalReached) {
                                 this.crowdsale.round = parseInt((await crowdsale.round()).valueOf());
@@ -680,13 +680,14 @@ const App = {
         App.init();
 
         Vue.use(VeeValidate);
+        await App.initBuilder();
         await App.initCrowdsale();
         await App.initToken();
 
         new Vue({
             el: '#crowdsale-details',
             data: {
-                demo: networkId !== 1,
+                demo: networkId !== "1",
                 qrcodeVisible: false,
                 copied: false,
                 usAgreement: false,
@@ -717,6 +718,8 @@ const App = {
                 }
             },
             created: async function () {
+                const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
+
                 const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
                 const token = await App.contracts.FriendsFingersToken.at(await crowdsale.token());
 
@@ -746,12 +749,12 @@ const App = {
 
                 $('.crowdsale-box').toggleClass('d-none');
 
-                if (this.crowdsale.hasEnded ) {
+                if (this.crowdsale.hasEnded) {
                     this.crowdsale.builder = await builder.crowdsaleCreators(this.crowdsale.address);
                     if (this.crowdsale.builder === App.web3.eth.accounts[0]) {
                         this.isCrowdsaleOwner = true;
                         this.crowdsale.isFinalized = await crowdsale.isFinalized();
-                        if (!this.crowdsaleAddress.isFinalized) {
+                        if (!this.crowdsale.isFinalized) {
                             this.crowdsale.goalReached = await crowdsale.goalReached();
                             if (this.crowdsale.goalReached) {
                                 this.crowdsale.round = parseInt((await crowdsale.round()).valueOf());
@@ -827,6 +830,8 @@ const App = {
 (function($) {
     "use strict";
 
+    let crowdsaleId = 0;
+
     switch (page) {
         case "bounty-program":
             App.bountyProgram();
@@ -843,18 +848,7 @@ const App = {
 
         case "crowdsale-demo":
             App.setTestnet();
-
-            /*
-            //does not work on ios
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('id')) {
-                App.viewCrowdsale(urlParams.get('id'));
-            } else {
-                window.location.href = window.location.origin + '/not-found';
-            }
-            */
-
-            var crowdsaleId = getParam('id');
+            crowdsaleId = getParam('id');
             if ($.isNumeric(crowdsaleId)) {
                 App.viewCrowdsale(crowdsaleId);
             } else {
@@ -865,18 +859,7 @@ const App = {
 
         case "restart-crowdsale-demo":
             App.setTestnet();
-
-            /*
-            //does not work on ios
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('id')) {
-                App.viewCrowdsale(urlParams.get('id'));
-            } else {
-                window.location.href = window.location.origin + '/not-found';
-            }
-            */
-
-            var crowdsaleId = getParam('id');
+            crowdsaleId = getParam('id');
             if ($.isNumeric(crowdsaleId)) {
                 App.restart(crowdsaleId);
             } else {
