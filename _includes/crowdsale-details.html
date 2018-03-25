@@ -23,7 +23,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         Project Details
-                        <a v-if="!crowdsale.paused && crowdsale.hasEnded && isCrowdsaleOwner" class="dropdown-toggle float-right"
+                        <a v-if="!crowdsale.paused && crowdsale.hasEnded && isCrowdsaleOwner && (!crowdsale.isFinalized || restartLink !== '')" class="dropdown-toggle float-right"
                            href="#"
                            id="menuDropdown"
                            role="button"
