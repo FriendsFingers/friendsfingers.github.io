@@ -383,7 +383,7 @@
                                                    placeholder="Your crowdsale max cap">
                                         </div>
                                         <small class="form-text text-muted">
-                                            Insert the max cap for your project in ETH
+                                            Insert the max cap for your project in ETH. Your round will be closed if max cap will be reached
                                         </small>
                                     </div>
                                 </div>
@@ -405,7 +405,7 @@
                                                    placeholder="Your crowdsale goal">
                                         </div>
                                         <small class="form-text text-muted">
-                                            Insert minimum goal to finalize crowdsale in ETH
+                                            Insert the minimum goal to finalize Crowdsale in ETH. If you don't reach the goal investors can claim their funds back
                                         </small>
                                     </div>
                                 </div>
@@ -442,7 +442,7 @@
                                                step="1"
                                                placeholder="Your initial token amount">
                                         <small class="form-text text-muted">
-                                            Select the amount of tokens you want to reserve for you
+                                            Select the amount of tokens you want to reserve for you, your team, your company, etc. You won't be able to issue more tokens
                                         </small>
                                     </div>
                                 </div>
@@ -463,7 +463,7 @@
                                             <span v-html="errors.first('crowdsaleStartTime')"></span>
                                         </div>
                                         <small class="form-text text-muted">
-                                            Select date and time when your crowdsale will start
+                                            Select date and time when your Crowdsale will start
                                         </small>
                                     </div>
                                 </div>
@@ -481,7 +481,7 @@
                                             <span v-html="errors.first('crowdsaleEndTime')"></span>
                                         </div>
                                         <small class="form-text text-muted">
-                                            Select date and time when your crowdsale will end
+                                            Select date and time when your Crowdsale will end
                                         </small>
                                     </div>
                                 </div>
@@ -502,7 +502,7 @@
                                             <span v-html="errors.first('crowdsaleWallet')"></span>
                                         </div>
                                         <small class="form-text text-muted">
-                                            Insert your Ethereum wallet address. Funds will be collected here
+                                            Insert your Ethereum wallet address. Funds will be collected here after the end of the Crowdsale
                                         </small>
                                     </div>
                                 </div>
@@ -556,7 +556,7 @@
                                 Unable to create Crowdsale. Please check informations you have entered.
                             </div>
                             <div v-if="crowdsale.id !== ''">
-                                Your crowdsale page <a :href="crowdsaleLink"><span v-html="crowdsaleLink"></span></a>
+                                Your Crowdsale page <a :href="crowdsaleLink"><span v-html="crowdsaleLink"></span></a>
                             </div>
                         </div>
                     </div>
