@@ -42,23 +42,32 @@ const App = {
     },
 
     initBuilder: async function () {
-        return await $.getJSON(abiPath + 'FriendsFingersBuilder.json', function (data) {
-            App.contracts.FriendsFingersBuilder = TruffleContract(data);
-            App.contracts.FriendsFingersBuilder.setProvider(App.web3Provider);
+        return new Promise((resolve) => {
+            $.getJSON(abiPath + 'FriendsFingersBuilder.json', function (data) {
+                App.contracts.FriendsFingersBuilder = TruffleContract(data);
+                App.contracts.FriendsFingersBuilder.setProvider(App.web3Provider);
+                resolve();
+            });
         });
     },
 
     initCrowdsale: async function () {
-        return await $.getJSON(abiPath + 'FriendsFingersCrowdsale.json', function (data) {
-            App.contracts.FriendsFingersCrowdsale = TruffleContract(data);
-            App.contracts.FriendsFingersCrowdsale.setProvider(App.web3Provider);
+        return new Promise((resolve) => {
+            $.getJSON(abiPath + 'FriendsFingersCrowdsale.json', function (data) {
+                App.contracts.FriendsFingersCrowdsale = TruffleContract(data);
+                App.contracts.FriendsFingersCrowdsale.setProvider(App.web3Provider);
+                resolve();
+            });
         });
     },
 
     initToken: async function () {
-        return $.getJSON(abiPath + 'FriendsFingersToken.json', function (data) {
-            App.contracts.FriendsFingersToken = TruffleContract(data);
-            App.contracts.FriendsFingersToken.setProvider(App.web3Provider);
+        return new Promise((resolve) => {
+            $.getJSON(abiPath + 'FriendsFingersToken.json', function (data) {
+                App.contracts.FriendsFingersToken = TruffleContract(data);
+                App.contracts.FriendsFingersToken.setProvider(App.web3Provider);
+                resolve();
+            });
         });
     },
 
@@ -319,9 +328,6 @@ const App = {
         App.init();
 
         Vue.use(VeeValidate);
-        await App.initBuilder();
-        await App.initCrowdsale();
-        await App.initToken();
 
         new Vue({
             el: '#crowdsale-start',
@@ -359,6 +365,11 @@ const App = {
                 token: {}
             },
             created: async function () {
+
+                await App.initBuilder();
+                await App.initCrowdsale();
+                await App.initToken();
+
                 this.$validator.extend('eth_address', {
                     getMessage: field => 'Insert a valid Ethereum wallet address.',
                     validate: value => App.web3.isAddress(value)
@@ -497,9 +508,6 @@ const App = {
         App.init();
 
         Vue.use(VeeValidate);
-        await App.initBuilder();
-        await App.initCrowdsale();
-        await App.initToken();
 
         new Vue({
             el: '#crowdsale-details',
@@ -536,6 +544,11 @@ const App = {
                 }
             },
             created: async function () {
+
+                await App.initBuilder();
+                await App.initCrowdsale();
+                await App.initToken();
+
                 const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
 
                 this.crowdsaleAddress = await builder.crowdsaleList(crID);
@@ -684,9 +697,6 @@ const App = {
         App.init();
 
         Vue.use(VeeValidate);
-        await App.initBuilder();
-        await App.initCrowdsale();
-        await App.initToken();
 
         new Vue({
             el: '#crowdsale-details',
@@ -722,6 +732,11 @@ const App = {
                 }
             },
             created: async function () {
+
+                await App.initBuilder();
+                await App.initCrowdsale();
+                await App.initToken();
+
                 const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
 
                 const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
