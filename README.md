@@ -13,7 +13,8 @@ FriendsFingers helps startups and small businesses to start a trustworthy Crowds
 ```bash
 git clone https://github.com/friendsfingers/friendsfingers.github.io.git
 cd friendsfingers.github.io
-gem install jekyll
+gem install jekyll bundler
+bundle install
 npm install
 gulp
 ```
