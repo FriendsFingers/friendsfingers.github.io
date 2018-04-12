@@ -4,7 +4,6 @@ The source code for FriendsFingers DApp.
 
 Live here [https://www.friendsfingers.com](https://www.friendsfingers.com/)
 
-
 FriendsFingers helps startups and small businesses to start a trustworthy Crowdsale on Ethereum blockchain with no setup costs and zero lines of code required. 
 
 
