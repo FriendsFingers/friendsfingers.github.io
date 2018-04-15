@@ -549,8 +549,12 @@
                                 <div v-if="txError">
                                     Unable to create Crowdsale. Please check informations you have entered.
                                 </div>
-                                <div v-if="crowdsale.id !== ''">
-                                    Your crowdsale page <a :href="'{{ 'crowdsale-demo?id=' | absolute_url }}' + crowdsale.id">{{ 'crowdsale-demo?id=' | absolute_url }}<span v-html="crowdsale.id"></span></a>
+                                <div v-if="crowdsale.id !== '' && crowdsale.address !== ''">
+                                    Your Crowdsale address <a :href="addressLink" target="_blank"><span v-html="crowdsale.address"></span> <i class="fa fa-external-link"></i></a><br>
+                                    Your Crowdsale page <a :href="crowdsaleLink"><span v-html="crowdsaleLink"></span></a><br><br>
+                                    <span v-if="!demo">
+                                    We will review your Project in 7 working days. For any request, please, contact us at <a target="_blank" href="mailto:{{ site.support_email }}?subject=Project Created">{{ site.support_email }}</a>
+                                </span>
                                 </div>
                             </div>
                         </div>

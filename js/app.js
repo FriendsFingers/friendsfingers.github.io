@@ -211,6 +211,7 @@ const App = {
                 txError: false,
                 txHash: '',
                 crowdsaleLink: '',
+                addressLink: '',
                 makingTransaction: false,
                 formDisabled: false,
                 countryAgreement: false,
@@ -309,6 +310,7 @@ const App = {
                                 this.crowdsale.id = parseInt(await crowdsale.id());
 
                                 this.crowdsaleLink = crowdsaleUrl + '?id=' + this.crowdsale.id;
+                                this.addressLink = App.etherscanLink + "/address/" +  this.crowdsale.address;
                             } catch (e) {
                                 this.makingTransaction = false;
                                 this.formDisabled = false;
@@ -340,6 +342,7 @@ const App = {
                 txError: false,
                 txHash: '',
                 crowdsaleLink: '',
+                addressLink: '',
                 makingTransaction: false,
                 formDisabled: false,
                 countryAgreement: false,
@@ -388,8 +391,6 @@ const App = {
                 const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
 
                 this.crowdsaleAddress = await builder.crowdsaleList(crID);
-
-                this.crowdsale.id = crID;
 
                 if (parseInt(this.crowdsaleAddress) === 0) {
                     window.location.href = window.location.origin + '/not-found';
@@ -489,6 +490,7 @@ const App = {
                                 this.crowdsale.id = parseInt(await crowdsale.id());
 
                                 this.crowdsaleLink = crowdsaleUrl + '?id=' + this.crowdsale.id;
+                                this.addressLink = App.etherscanLink + "/address/" +  this.crowdsale.address;
                             } catch (e) {
                                 alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
                                 this.makingTransaction = false;
