@@ -42,23 +42,32 @@ const App = {
     },
 
     initBuilder: async function () {
-        return await $.getJSON(abiPath + 'FriendsFingersBuilder.json', function (data) {
-            App.contracts.FriendsFingersBuilder = TruffleContract(data);
-            App.contracts.FriendsFingersBuilder.setProvider(App.web3Provider);
+        return new Promise((resolve) => {
+            $.getJSON(abiPath + 'FriendsFingersBuilder.json', function (data) {
+                App.contracts.FriendsFingersBuilder = TruffleContract(data);
+                App.contracts.FriendsFingersBuilder.setProvider(App.web3Provider);
+                resolve();
+            });
         });
     },
 
     initCrowdsale: async function () {
-        return await $.getJSON(abiPath + 'FriendsFingersCrowdsale.json', function (data) {
-            App.contracts.FriendsFingersCrowdsale = TruffleContract(data);
-            App.contracts.FriendsFingersCrowdsale.setProvider(App.web3Provider);
+        return new Promise((resolve) => {
+            $.getJSON(abiPath + 'FriendsFingersCrowdsale.json', function (data) {
+                App.contracts.FriendsFingersCrowdsale = TruffleContract(data);
+                App.contracts.FriendsFingersCrowdsale.setProvider(App.web3Provider);
+                resolve();
+            });
         });
     },
 
     initToken: async function () {
-        return $.getJSON(abiPath + 'FriendsFingersToken.json', function (data) {
-            App.contracts.FriendsFingersToken = TruffleContract(data);
-            App.contracts.FriendsFingersToken.setProvider(App.web3Provider);
+        return new Promise((resolve) => {
+            $.getJSON(abiPath + 'FriendsFingersToken.json', function (data) {
+                App.contracts.FriendsFingersToken = TruffleContract(data);
+                App.contracts.FriendsFingersToken.setProvider(App.web3Provider);
+                resolve();
+            });
         });
     },
 
@@ -202,6 +211,7 @@ const App = {
                 txError: false,
                 txHash: '',
                 crowdsaleLink: '',
+                addressLink: '',
                 makingTransaction: false,
                 formDisabled: false,
                 countryAgreement: false,
@@ -300,10 +310,12 @@ const App = {
                                 this.crowdsale.id = parseInt(await crowdsale.id());
 
                                 this.crowdsaleLink = crowdsaleUrl + '?id=' + this.crowdsale.id;
+                                this.addressLink = App.etherscanLink + "/address/" +  this.crowdsale.address;
                             } catch (e) {
                                 this.makingTransaction = false;
                                 this.formDisabled = false;
                                 alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
+                                console.log(e);
                             }
                         } else {
                             console.log("some errors");
@@ -314,13 +326,10 @@ const App = {
         });
     },
 
-    restart: async function (crowdsaleId) {
+    restart: async function (crID) {
         App.init();
 
         Vue.use(VeeValidate);
-        await App.initBuilder();
-        await App.initCrowdsale();
-        await App.initToken();
 
         new Vue({
             el: '#crowdsale-start',
@@ -333,6 +342,7 @@ const App = {
                 txError: false,
                 txHash: '',
                 crowdsaleLink: '',
+                addressLink: '',
                 makingTransaction: false,
                 formDisabled: false,
                 countryAgreement: false,
@@ -358,6 +368,11 @@ const App = {
                 token: {}
             },
             created: async function () {
+
+                await App.initBuilder();
+                await App.initCrowdsale();
+                await App.initToken();
+
                 this.$validator.extend('eth_address', {
                     getMessage: field => 'Insert a valid Ethereum wallet address.',
                     validate: value => App.web3.isAddress(value)
@@ -375,9 +390,7 @@ const App = {
 
                 const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
 
-                this.crowdsaleAddress = await builder.crowdsaleList(crowdsaleId);
-
-                this.crowdsale.id = crowdsaleId;
+                this.crowdsaleAddress = await builder.crowdsaleList(crID);
 
                 if (parseInt(this.crowdsaleAddress) === 0) {
                     window.location.href = window.location.origin + '/not-found';
@@ -477,10 +490,12 @@ const App = {
                                 this.crowdsale.id = parseInt(await crowdsale.id());
 
                                 this.crowdsaleLink = crowdsaleUrl + '?id=' + this.crowdsale.id;
+                                this.addressLink = App.etherscanLink + "/address/" +  this.crowdsale.address;
                             } catch (e) {
+                                alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
                                 this.makingTransaction = false;
                                 this.formDisabled = false;
-                                alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
+                                console.log(e);
                             }
                         } else {
                             console.log("some errors");
@@ -491,13 +506,10 @@ const App = {
         });
     },
 
-    viewCrowdsale: async function (crowdsaleId) {
+    viewCrowdsale: async function (crID) {
         App.init();
 
         Vue.use(VeeValidate);
-        await App.initBuilder();
-        await App.initCrowdsale();
-        await App.initToken();
 
         new Vue({
             el: '#crowdsale-details',
@@ -534,11 +546,16 @@ const App = {
                 }
             },
             created: async function () {
+
+                await App.initBuilder();
+                await App.initCrowdsale();
+                await App.initToken();
+
                 const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
 
-                this.crowdsaleAddress = await builder.crowdsaleList(crowdsaleId);
+                this.crowdsaleAddress = await builder.crowdsaleList(crID);
 
-                this.crowdsale.id = crowdsaleId;
+                this.crowdsale.id = crID;
 
                 if (parseInt(this.crowdsaleAddress) === 0) {
                     window.location.href = window.location.origin + '/not-found';
@@ -639,6 +656,7 @@ const App = {
                             } catch (e) {
                                 alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
                                 this.makingTransaction = false;
+                                console.log(e);
                             }
                         } else {
                             console.log("some errors");
@@ -670,6 +688,7 @@ const App = {
                     } catch (e) {
                         alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
                         this.closingCrowdsale = false;
+                        console.log(e);
                     }
                 }
             }
@@ -680,9 +699,6 @@ const App = {
         App.init();
 
         Vue.use(VeeValidate);
-        await App.initBuilder();
-        await App.initCrowdsale();
-        await App.initToken();
 
         new Vue({
             el: '#crowdsale-details',
@@ -718,6 +734,11 @@ const App = {
                 }
             },
             created: async function () {
+
+                await App.initBuilder();
+                await App.initCrowdsale();
+                await App.initToken();
+
                 const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
 
                 const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
@@ -815,6 +836,7 @@ const App = {
                             } catch (e) {
                                 alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
                                 this.makingTransaction = false;
+                                console.log(e);
                             }
                         } else {
                             console.log("some errors");
@@ -859,6 +881,30 @@ const App = {
 
         case "restart-crowdsale-demo":
             App.setTestnet();
+            crowdsaleId = getParam('id');
+            if ($.isNumeric(crowdsaleId)) {
+                App.restart(crowdsaleId);
+            } else {
+                window.location.href = window.location.origin + '/not-found';
+            }
+
+            break;
+
+        case "crowdsale-builder":
+            App.builder();
+            break;
+
+        case "crowdsale":
+            crowdsaleId = getParam('id');
+            if ($.isNumeric(crowdsaleId)) {
+                App.viewCrowdsale(crowdsaleId);
+            } else {
+                window.location.href = window.location.origin + '/not-found';
+            }
+
+            break;
+
+        case "restart-crowdsale":
             crowdsaleId = getParam('id');
             if ($.isNumeric(crowdsaleId)) {
                 App.restart(crowdsaleId);

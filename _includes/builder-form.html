@@ -9,7 +9,13 @@
                         <small>
                             <b>DO NOT SEND REAL ETHER!</b><br>
                             Make sure to have your MetaMask set on Rinkeby Test Network.<br>
-                            To get free ETH on Rinkeby Test Network use the <a href="https://faucet.rinkeby.io" target="_blank">faucet</a>.
+                            To get free ETH on Rinkeby Test Network use the <a href="https://faucet.rinkeby.io" target="_blank">faucet</a>.<br>
+                            <b>If you are ready to start your Crowdsale on Main Ethereum Network use the production <a href="{{ 'crowdsale-builder' | absolute_url }}">Builder</a>.</b>
+                        </small>
+                    </div>
+                    <div class="alert alert-info mb-3" role="alert">
+                        <small>
+                            Discover how to start your Crowdsale by reading our <a href="https://medium.com/friendsfingers/how-to-build-your-ico-using-friendsfingers-aaca0f8839dd" target="_blank">tutorial</a>.
                         </small>
                     </div>
 
@@ -30,7 +36,7 @@
                                                maxlength="140"
                                                placeholder="Your project title">
                                         <small class="form-text text-muted">
-                                            Choose an amazing name for your project
+                                            Choose an amazing name for your project (max 140 chars)
                                         </small>
                                     </div>
 
@@ -45,7 +51,7 @@
                                                maxlength="140"
                                                placeholder="An awesome slogan about your project">
                                         <small class="form-text text-muted">
-                                            Insert a brief about of your project
+                                            Insert a brief about of your project (max 140 chars)
                                         </small>
                                     </div>
 
@@ -60,7 +66,7 @@
                                                   maxlength="250" rows="5"
                                                   placeholder="Your project description"></textarea>
                                         <small class="form-text text-muted">
-                                            Insert an explicative description of your project
+                                            Insert an explicative description of your project (max 250 chars)
                                         </small>
                                     </div>
 
@@ -383,7 +389,7 @@
                                                    placeholder="Your crowdsale max cap">
                                         </div>
                                         <small class="form-text text-muted">
-                                            Insert the max cap for your project in ETH
+                                            Insert the max cap for your project in ETH. Your round will be closed if max cap will be reached
                                         </small>
                                     </div>
                                 </div>
@@ -400,12 +406,12 @@
                                                    v-model="crowdsale.goal"
                                                    id="crowdsaleGoal"
                                                    name="crowdsaleGoal"
-                                                   min="0"
+                                                   min="1"
                                                    step="1"
                                                    placeholder="Your crowdsale goal">
                                         </div>
                                         <small class="form-text text-muted">
-                                            Insert minimum goal to finalize crowdsale in ETH
+                                            Insert the minimum goal to finalize Crowdsale in ETH. If you don't reach the goal investors can claim their funds back
                                         </small>
                                     </div>
                                 </div>
@@ -442,7 +448,7 @@
                                                step="1"
                                                placeholder="Your initial token amount">
                                         <small class="form-text text-muted">
-                                            Select the amount of tokens you want to reserve for you
+                                            Select the amount of tokens you want to reserve for you, your team, your company, etc. You won't be able to issue more tokens
                                         </small>
                                     </div>
                                 </div>
@@ -463,7 +469,7 @@
                                             <span v-html="errors.first('crowdsaleStartTime')"></span>
                                         </div>
                                         <small class="form-text text-muted">
-                                            Select date and time when your crowdsale will start
+                                            Select date and time when your Crowdsale will start
                                         </small>
                                     </div>
                                 </div>
@@ -481,7 +487,7 @@
                                             <span v-html="errors.first('crowdsaleEndTime')"></span>
                                         </div>
                                         <small class="form-text text-muted">
-                                            Select date and time when your crowdsale will end
+                                            Select date and time when your Crowdsale will end
                                         </small>
                                     </div>
                                 </div>
@@ -502,7 +508,7 @@
                                             <span v-html="errors.first('crowdsaleWallet')"></span>
                                         </div>
                                         <small class="form-text text-muted">
-                                            Insert your Ethereum wallet address. Funds will be collected here
+                                            Insert your Ethereum wallet address. Funds will be collected here after the end of the Crowdsale
                                         </small>
                                     </div>
                                 </div>
@@ -555,8 +561,12 @@
                             <div v-if="txError">
                                 Unable to create Crowdsale. Please check informations you have entered.
                             </div>
-                            <div v-if="crowdsale.id !== ''">
-                                Your crowdsale page <a :href="crowdsaleLink"><span v-html="crowdsaleLink"></span></a>
+                            <div v-if="crowdsale.id !== '' && crowdsale.address !== ''">
+                                Your Crowdsale address <a :href="addressLink" target="_blank"><span v-html="crowdsale.address"></span> <i class="fa fa-external-link"></i></a><br>
+                                Your Crowdsale page <a :href="crowdsaleLink"><span v-html="crowdsaleLink"></span></a><br><br>
+                                <span v-if="!demo">
+                                    We will review your Project in 7 working days. For any request, please, contact us at <a target="_blank" href="mailto:{{ site.support_email }}?subject=Project Created">{{ site.support_email }}</a>
+                                </span>
                             </div>
                         </div>
                     </div>
