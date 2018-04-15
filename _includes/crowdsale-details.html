@@ -43,6 +43,7 @@
                             </div>
                         </div>
                         <div class="col-xs-12">
+                            <div v-if="crowdsale.paused" class="mb-3"><span class="badge badge-primary p-2">This project is under review</span></div>
                             <h6 v-html="crowdsale.projectInfo.description"></h6>
                         </div>
                         <div class="col-xs-12">
