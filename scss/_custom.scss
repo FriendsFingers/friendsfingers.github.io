@@ -161,6 +161,14 @@ ul.list-social {
         }
       }
     }
+    &.social-linkedin {
+      a {
+        background-color: $brand-linkedin;
+        &:hover {
+          background-color: darken($brand-linkedin, 5%);
+        }
+      }
+    }
     &.social-medium {
       a {
         background-color: $brand-medium;
