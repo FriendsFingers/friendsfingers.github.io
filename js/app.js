@@ -221,7 +221,9 @@ const App = {
           address: '',
           projectInfo: {}
         },
-        token: {}
+        token: {
+          decimals: 18
+        }
       },
       created: function () {
         this.$validator.extend('eth_address', {
@@ -365,7 +367,9 @@ const App = {
           isFinalized: false,
           projectInfo: {}
         },
-        token: {}
+        token: {
+          decimals: 18
+        }
       },
       created: async function () {
 
