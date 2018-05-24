@@ -6577,6 +6577,8 @@ header.masthead {
       background: #fae596;
       background: -webkit-linear-gradient(#fae596, #f7d34d);
       background: linear-gradient(#fae596, #f7d34d); }
+    header.masthead .header-content .mailchimp .form-check-label a {
+      color: #fff !important; }
   header.masthead .device-container {
     max-width: 325px;
     margin-right: auto;

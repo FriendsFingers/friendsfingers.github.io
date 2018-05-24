@@ -7,4 +7,14 @@
             <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-secondary btn-xl">Get updates</button>
         </div>
     </div>
+    <div class="form-check m-auto pt-1">
+        <input type="checkbox" class="form-check-input"
+               required
+               value="1"
+               id="privacyAgreement"
+               name="privacyAgreement">
+        <label class="form-check-label" for="privacyAgreement">
+            <small>Accept the FriendsFingers <a class="text-dark" href="{{ 'terms' | absolute_url }}" target="_blank"><u>Terms of Use</u></a> and <a class="text-dark" href="{{ 'privacy' | absolute_url }}" target="_blank"><u>Privacy Policy</u></a>.</small>
+        </label>
+    </div>
 </form>

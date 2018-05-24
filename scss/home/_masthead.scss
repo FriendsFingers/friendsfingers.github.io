@@ -64,6 +64,11 @@ header.masthead {
           background: linear-gradient($theme-primary, darken($theme-primary, 15%));
         }
       }
+      .form-check-label {
+        a {
+          color: $white !important;
+        }
+      }
     }
   }
   .device-container {
