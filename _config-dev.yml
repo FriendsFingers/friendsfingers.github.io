@@ -22,7 +22,7 @@ url: "http://localhost:4000" # the base hostname & protocol for your site, e.g. 
 environment: "dev"
 facebook_pixel: ""
 google_analytics: ""
-social_image: "img/brand-resources/friendsfingers_social.png"
+social_image: "img/brand-resources/friendsfingers_social_rect.png"
 email: "hello@friendsfingers.com"
 info_email: "info@friendsfingers.com"
 contact_email: "info@friendsfingers.com"
