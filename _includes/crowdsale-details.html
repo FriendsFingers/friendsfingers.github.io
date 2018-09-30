@@ -76,7 +76,7 @@
                         <h5>Name: <span v-html="token.name"></span></h5>
                         <h5>Symbol: <span v-html="token.symbol"></span></h5>
                         <h5>Decimals: <span v-html="token.decimals"></span></h5>
-                        <h6>Crowdsale Supply: <span v-html="token.crowdsaleSupply.toLocaleString()"></span></h6>
+                        <h6>Crowdsale Supply: <span v-html="token.crowdsaleSupply.toLocaleString()"></span> <span v-html="token.symbol"></span></h5></h6>
 
                         <div class="row mt-3" v-if="!crowdsale.paused && crowdsale.hasStarted && !crowdsale.hasEnded">
                             <div class="col-12">
@@ -114,7 +114,14 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row" v-if="crowdsale.isTokenCappedCrowdsale">
+                            <div class="col-sm-12 mt-2">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" v-bind:aria-valuenow="crowdsale.soldTokens" aria-valuemin="0" v-bind:aria-valuemax="crowdsale.tokenCap" v-bind:style="'width:' + (crowdsale.soldTokens * 100 / crowdsale.tokenCap) + '%'"><span v-html="(crowdsale.soldTokens * 100 / crowdsale.tokenCap) + '%'"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" v-else>
                             <div class="col-sm-6 text-sm-left">
                                 <h5>Goal</h5>
                                 <h3><span v-html="crowdsale.goal"></span> ETH</h3>
@@ -192,12 +199,12 @@
                                        id="globalAgreement"
                                        name="globalAgreement">
                                 <label class="form-check-label" for="globalAgreement">
-                                    Confirm that you have read, understood and agreed the FriendsFingers <a href="{{ 'terms' | absolute_url }}" target="_blank"><u>Terms of Use</u> <i class="fa fa-external-link"></i></a> and you have also read, understood and agreed the Crowdsale's Terms and Conditions expressed in its Whitepaper and Official link above.
+                                    Confirm that you have read, understood and agreed the <b v-html="crowdsale.projectInfo.title"></b>'s Terms and Conditions expressed in its <a :href="crowdsale.projectInfo.whitepaper" target="_blank"><u>Whitepaper</u> <i class="fa fa-external-link"></i></a> and Official links above. Confirm also that you have read, understood and agreed the FriendsFingers' <a href="{{ 'terms' | absolute_url }}" target="_blank"><u>Terms of Use</u> <i class="fa fa-external-link"></i></a>.
                                 </label>
                             </div>
                         </div>
                         <div class="alert alert-warning" role="alert">
-                            <small>Do not send ETH from exchange like Coinbase, Bitfinex, GDAX or similar. They don’t give you any access to your wallet so sending ETH from one of these means for you losing your rewards tokens and we won’t be able to help you to recover them.</small>
+                            <small>Do not send ETH from exchange like Coinbase, Bitfinex or similar. They don’t give you any access to your wallet so sending ETH from one of these means for you losing your rewards tokens and we won’t be able to help you to recover them.</small>
                         </div>
                     </div>
                 </div>

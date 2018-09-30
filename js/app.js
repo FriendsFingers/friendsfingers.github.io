@@ -876,6 +876,7 @@ const App = {
         makingTransaction: false,
         closingCrowdsale: false,
         crowdsale: {
+          isTokenCappedCrowdsale: true,
           cap: 0,
           goal: 0,
           weiRaised: 0,
@@ -913,7 +914,7 @@ const App = {
         this.crowdsale.rate = 1600;
         this.crowdsale.tokenCap = App.web3.fromWei(await crowdsale.tokenCap()).valueOf();
         this.crowdsale.cap = this.crowdsale.tokenCap / this.crowdsale.rate;
-        this.crowdsale.soldTokens = (App.web3.toWei(this.crowdsale.weiRaised) * this.crowdsale.rate) / Math.pow(10, this.token.decimals);
+        this.crowdsale.soldTokens = App.web3.fromWei(await crowdsale.soldTokens()).valueOf();
         this.crowdsale.startTime = 1537803104 * 1000;
         this.crowdsale.startTimeFormatted = new Date(this.crowdsale.startTime).toLocaleString();
         this.crowdsale.endTime = 1544828400 * 1000;
@@ -1017,8 +1018,8 @@ const App = {
       App.shakaTokenSale(FriendsFingersTokenSaleAddress);
       break;
 
-    case "fork-token-sale":
-      App.forkTokenSale('tbd');
+    case "fork-rc":
+      App.forkTokenSale('0x6649139cf56b3330213e8b6e45a6f1af305a1ea0');
       break;
 
     case "crowdsale-builder-demo":
