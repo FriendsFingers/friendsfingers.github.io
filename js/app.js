@@ -8,8 +8,8 @@ const App = {
   },
   contracts: {},
 
-  init: function () {
-    App.initWeb3(true);
+  init: async function () {
+    return App.initWeb3(true);
   },
 
   setTestnet: function () {
@@ -22,23 +22,30 @@ const App = {
     restartUrl = DEMO_restartUrl;
   },
 
-  initWeb3: function (checkWeb3) {
-    App.etherscanLink = etherscanLink;
-    if (checkWeb3 && typeof web3 !== 'undefined') {
-      App.web3Provider = web3.currentProvider;
-      App.web3 = new Web3(App.web3Provider);
-      App.metamask.installed = true;
-      App.web3.version.getNetwork(function (err, netId) {
-        App.metamask.netId = netId;
-        if (netId !== networkId) {
-          App.initWeb3(false);
-        }
-      });
-    } else {
-      // set the provider you want from Web3.providers
-      App.web3Provider = new Web3.providers.HttpProvider(web3Provider);
-      App.web3 = new Web3(App.web3Provider);
-    }
+  initWeb3: async function (checkWeb3) {
+    return new Promise((resolve) => {
+      App.etherscanLink = etherscanLink;
+      if (checkWeb3 && typeof web3 !== 'undefined') {
+        App.web3Provider = web3.currentProvider;
+        App.web3 = new Web3(App.web3Provider);
+        App.metamask.installed = true;
+        App.web3.version.getNetwork(function (err, netId) {
+          App.metamask.netId = netId;
+          if (netId !== networkId) {
+            App.web3Provider = new Web3.providers.HttpProvider(web3Provider);
+            App.web3 = new Web3(App.web3Provider);
+            resolve();
+          } else {
+            resolve();
+          }
+        });
+      } else {
+        // set the provider you want from Web3.providers
+        App.web3Provider = new Web3.providers.HttpProvider(web3Provider);
+        App.web3 = new Web3(App.web3Provider);
+        resolve();
+      }
+    });
   },
 
   initBuilder: async function () {
@@ -75,7 +82,7 @@ const App = {
 
   home: async function (crowdsaleAddress) {
     /*
-    App.init();
+    await App.init();
 
     await App.initCrowdsale();
 
@@ -145,7 +152,7 @@ const App = {
   },
 
   bountyProgram: async function () {
-    App.init();
+    await App.init();
 
     Vue.use(VeeValidate);
 
@@ -197,7 +204,7 @@ const App = {
   },
 
   builder: async function () {
-    App.init();
+    await App.init();
 
     Vue.use(VeeValidate);
     await App.initBuilder();
@@ -331,7 +338,7 @@ const App = {
   },
 
   restart: async function (crID) {
-    App.init();
+    await App.init();
 
     Vue.use(VeeValidate);
 
@@ -513,7 +520,7 @@ const App = {
   },
 
   viewCrowdsale: async function (crID) {
-    App.init();
+    await App.init();
 
     Vue.use(VeeValidate);
 
@@ -707,7 +714,7 @@ const App = {
   },
 
   shakaTokenSale: async function (crowdsaleAddress) {
-    App.init();
+    await App.init();
 
     Vue.use(VeeValidate);
 
@@ -865,7 +872,7 @@ const App = {
   },
 
   forkTokenSale: async function (crowdsaleAddress) {
-    App.init();
+    await App.init();
 
     Vue.use(VeeValidate);
 
