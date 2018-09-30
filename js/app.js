@@ -697,6 +697,11 @@ const App = {
             console.log(e);
           }
         }
+      },
+      computed: {
+        rate: function () {
+          return this.crowdsale.rate;
+        }
       }
     });
   },
@@ -850,6 +855,11 @@ const App = {
           });
         },
         finalizeCrowdsale: function () {}
+      },
+      computed: {
+        rate: function () {
+          return this.crowdsale.rate;
+        }
       }
     });
   },
@@ -877,6 +887,7 @@ const App = {
         closingCrowdsale: false,
         crowdsale: {
           isTokenCappedCrowdsale: true,
+          minimumContribution: 1,
           cap: 0,
           goal: 0,
           weiRaised: 0,
@@ -923,7 +934,7 @@ const App = {
           logo: 'img/icos/gastroadvisor/gastroadvisor-logo.jpg',
           title: 'GastroAdvisor',
           about: 'Make your food experience better',
-          description: 'GastroAdvisor is building the first global recommendation platform for restaurants and dining venues based on blockchain Ethereum. GastroAdvisor connects restaurants and customers through FORK token, rewarding users for their contributions and creating a reliable platform for informations and reviews of restaurants around the world.',
+          description: 'GastroAdvisor is building the first global recommendation platform for restaurants and dining venues based on blockchain Ethereum. GastroAdvisor connects restaurants and customers through FORK token, rewarding users for their contributions and creating a reliable platform for informations and reviews of restaurants around the world. <br><br>Minimum contribution: 1 ETH<br>Bonus:<ul><li>50% >= 1 ETH</li><li>70% >= 2 ETH</li><li>100% >= 5 ETH</li></ul>',
           email: 'info@gastroadvisor.com',
           url: 'https://www.gastroadvisor.com',
           whitepaper: 'https://www.gastroadvisor.com/whitepaper.pdf',
@@ -998,6 +1009,18 @@ const App = {
         },
         finalizeCrowdsale: function () {
           console.log('does nothing');
+        }
+      },
+      computed: {
+        rate: function () {
+          if (this.funds >= 5) {
+            return this.crowdsale.rate + 100 * (this.crowdsale.rate) / 100;
+          } else if (this.funds >= 2) {
+            return this.crowdsale.rate + 70 * (this.crowdsale.rate) / 100;
+          } else if (this.funds >= 1) {
+            return this.crowdsale.rate + 50 * (this.crowdsale.rate) / 100;
+          }
+          return 0;
         }
       }
     });

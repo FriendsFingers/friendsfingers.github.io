@@ -173,7 +173,7 @@
                                        id="usAgreement"
                                        name="usAgreement">
                                 <label class="form-check-label" for="usAgreement">
-                                    Confirm that you are NOT a U.S. citizen, resident or entity (each a "U.S. Person") nor are you purchasing Tokens or signing on behalf of a U.S. Person.
+                                    Confirm that you are NOT a U.S. or Chinese citizen, resident or entity (each a "U.S. or Chinese Person") nor are you purchasing Tokens or signing on behalf of a U.S. or Chinese Person.
                                 </label>
                             </div>
                             <div class="form-check">
@@ -232,14 +232,16 @@
                                        v-validate="'required|decimal'"
                                        :class="{'is-invalid': errors.has('fund')}"
                                        v-model="funds"
-                                       min="0"
+                                       :min="crowdsale.minimumContribution ? crowdsale.minimumContribution : 0"
                                        id="fund"
                                        name="fund"
                                        placeholder="Your fund value in Ether">
                             </div>
                             <small class="form-text text-muted">
-                                Select the amount you want to enter in crowdsale</small>
-                            <p>You will receive <span v-html="funds * crowdsale.rate"></span> <span v-html="token.symbol"></span></p>
+                                Select the amount you want to enter in crowdsale.
+                                <span v-if="crowdsale.minimumContribution > 0">Min contribution <span v-html="crowdsale.minimumContribution"></span> ETH.</span>
+                            </small>
+                            <p>You will receive <span v-html="parseFloat(funds * rate).toFixed(2)"></span> <span v-html="token.symbol"></span></p>
                         </div>
                         <button type="button"
                                 class="btn btn-success btn-xl btn-block"
