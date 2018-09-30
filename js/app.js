@@ -51,9 +51,10 @@ const App = {
     });
   },
 
-  initCrowdsale: async function () {
+  initCrowdsale: async function (crowdsaleAbi) {
+    crowdsaleAbi = crowdsaleAbi ? crowdsaleAbi : 'FriendsFingersCrowdsale.json';
     return new Promise((resolve) => {
-      $.getJSON(abiPath + 'FriendsFingersCrowdsale.json', function (data) {
+      $.getJSON(abiPath + crowdsaleAbi, function (data) {
         App.contracts.FriendsFingersCrowdsale = TruffleContract(data);
         App.contracts.FriendsFingersCrowdsale.setProvider(App.web3Provider);
         resolve();
@@ -61,9 +62,10 @@ const App = {
     });
   },
 
-  initToken: async function () {
+  initToken: async function (tokenAbi) {
+    tokenAbi = tokenAbi ? tokenAbi : 'FriendsFingersToken.json';
     return new Promise((resolve) => {
-      $.getJSON(abiPath + 'FriendsFingersToken.json', function (data) {
+      $.getJSON(abiPath + tokenAbi, function (data) {
         App.contracts.FriendsFingersToken = TruffleContract(data);
         App.contracts.FriendsFingersToken.setProvider(App.web3Provider);
         resolve();
@@ -850,6 +852,154 @@ const App = {
         finalizeCrowdsale: function () {}
       }
     });
+  },
+
+  forkTokenSale: async function (crowdsaleAddress) {
+    App.init();
+
+    Vue.use(VeeValidate);
+
+    new Vue({
+      el: '#crowdsale-details',
+      data: {
+        demo: networkId !== "1",
+        qrcodeVisible: false,
+        copied: false,
+        usAgreement: false,
+        countryAgreement: false,
+        globalAgreement: false,
+        funds: 1,
+        txHash: '',
+        trxLink: '',
+        restartLink: '',
+        isCrowdsaleOwner: false,
+        makingTransaction: false,
+        closingCrowdsale: false,
+        crowdsale: {
+          cap: 0,
+          goal: 0,
+          weiRaised: 0,
+          soldTokens: 0,
+          rate: 0,
+          startTime: 0,
+          endTime: 0,
+          hasStarted: false,
+          hasEnded: true,
+          paused: true,
+          projectInfo: {}
+        },
+        token: {
+          crowdsaleSupply: 0
+        }
+      },
+      created: async function () {
+
+        await App.initCrowdsale('gastroadvisor/ForkPreIco.json');
+        await App.initToken('gastroadvisor/GastroAdvisorToken.json');
+
+        const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
+        const token = await App.contracts.FriendsFingersToken.at(await crowdsale.token());
+
+        this.crowdsale.id = 1;
+
+        this.token.address = token.address;
+        this.token.name = "GastroAdvisorToken";
+        this.token.symbol = "FORK";
+        this.token.decimals = 18;
+
+        this.crowdsale.address = crowdsale.address;
+        this.crowdsale.goal = 0;
+        this.crowdsale.weiRaised = App.web3.fromWei(await crowdsale.weiRaised()).valueOf();
+        this.crowdsale.rate = 1600;
+        this.crowdsale.tokenCap = App.web3.fromWei(await crowdsale.tokenCap()).valueOf();
+        this.crowdsale.cap = this.crowdsale.tokenCap / this.crowdsale.rate;
+        this.crowdsale.soldTokens = (App.web3.toWei(this.crowdsale.weiRaised) * this.crowdsale.rate) / Math.pow(10, this.token.decimals);
+        this.crowdsale.startTime = 1537803104 * 1000;
+        this.crowdsale.startTimeFormatted = new Date(this.crowdsale.startTime).toLocaleString();
+        this.crowdsale.endTime = 1544828400 * 1000;
+        this.crowdsale.endTimeFormatted = new Date(this.crowdsale.endTime).toLocaleString();
+        this.crowdsale.projectInfo = {
+          logo: 'img/icos/gastroadvisor/gastroadvisor-logo.jpg',
+          title: 'GastroAdvisor',
+          about: 'Make your food experience better',
+          description: 'GastroAdvisor is building the first global recommendation platform for restaurants and dining venues based on blockchain Ethereum. GastroAdvisor connects restaurants and customers through FORK token, rewarding users for their contributions and creating a reliable platform for informations and reviews of restaurants around the world.',
+          email: 'info@gastroadvisor.com',
+          url: 'https://www.gastroadvisor.com',
+          whitepaper: 'https://www.gastroadvisor.com/whitepaper.pdf',
+          facebook: 'https://www.facebook.com/GastroAdvisor',
+          twitter: 'https://twitter.com/gastroadvisor',
+          instagram: 'https://www.instagram.com/GastroAdvisor_Official_ICO',
+          telegram: 'https://t.me/GastroAdvisorOfficial',
+          medium: 'https://medium.com/gastroadvisor-official',
+          github: 'https://github.com/GastroAdvisor',
+          youtube: 'https://www.youtube.com/channel/UCfvle9ZLVsNdzrpp7I4EvhA/featured',
+        };
+        this.crowdsale.hasStarted = Date.now() > this.crowdsale.startTime;
+        this.crowdsale.hasEnded = await crowdsale.ended();
+        this.crowdsale.paused = false;
+
+        this.token.crowdsaleSupply = this.crowdsale.tokenCap;
+
+        $('.crowdsale-box').toggleClass('d-none');
+      },
+      methods: {
+        viewQRCode: function () {
+          if (!this.qrcodeVisible) {
+            const qr = document.getElementById("crowdsale-qrcode");
+            new QRCode(qr, this.crowdsale.address);
+            this.qrcodeVisible = true;
+          }
+        },
+        copyAddress: function () {
+          if (this.wallet !== '' && !this.address_error) {
+            document.querySelector("#crowdsale-address").select();
+            try {
+              this.copied = document.execCommand("copy");
+            } catch (err) {
+              this.copied = false;
+            }
+          }
+        },
+        fundCrowdsale: async function () {
+          if (!App.metamask.installed) {
+            alert("To use the invest button please install the MetaMask extension!");
+            return;
+          } else {
+            if (App.metamask.netId !== networkId) {
+              alert("Your MetaMask extension in on the wrong network. Please switch on " + networkName + " and try again!");
+              return;
+            }
+          }
+
+          this.$validator.validateAll().then(async (result) => {
+
+            if (result) {
+              const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
+              const value = App.web3.toWei(this.funds);
+              try {
+                this.txHash = '';
+                this.makingTransaction = true;
+                const log = await crowdsale.send(value);
+
+                console.log(log);
+
+                this.txHash = log.tx;
+                this.trxLink = App.etherscanLink + "/tx/" + this.txHash;
+              } catch (e) {
+                alert("Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!");
+                this.makingTransaction = false;
+                console.log(e);
+              }
+            } else {
+              console.log("some errors");
+            }
+          });
+        },
+        finalizeCrowdsale: function () {
+          console.log('does nothing');
+        }
+      }
+    });
   }
 };
 
@@ -865,6 +1015,10 @@ const App = {
 
     case "shaka-token-sale":
       App.shakaTokenSale(FriendsFingersTokenSaleAddress);
+      break;
+
+    case "fork-token-sale":
+      App.forkTokenSale('tbd');
       break;
 
     case "crowdsale-builder-demo":
