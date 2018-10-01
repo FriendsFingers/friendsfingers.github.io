@@ -938,7 +938,7 @@ const App = {
         this.crowdsale.endTime = 1544828400 * 1000;
         this.crowdsale.endTimeFormatted = new Date(this.crowdsale.endTime).toLocaleString();
         this.crowdsale.projectInfo = {
-          logo: 'img/icos/gastroadvisor/gastroadvisor-logo.jpg',
+          logo: '/img/icos/gastroadvisor/gastroadvisor-logo.jpg',
           title: 'GastroAdvisor',
           about: 'Make your food experience better',
           description: 'GastroAdvisor is building the first global recommendation platform for restaurants and dining venues based on blockchain Ethereum. GastroAdvisor connects restaurants and customers through FORK token, rewarding users for their contributions and creating a reliable platform for informations and reviews of restaurants around the world. <br><br>Minimum contribution: 1 ETH<br>Bonus:<ul><li>50% >= 1 ETH</li><li>70% >= 2 ETH</li><li>100% >= 5 ETH</li></ul>',
@@ -1048,7 +1048,7 @@ const App = {
       App.shakaTokenSale(FriendsFingersTokenSaleAddress);
       break;
 
-    case "fork-rc":
+    case "ico/fork-rc":
       App.forkTokenSale('0x6649139cf56b3330213e8b6e45a6f1af305a1ea0');
       break;
 
