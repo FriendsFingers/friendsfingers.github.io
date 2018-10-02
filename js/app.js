@@ -359,6 +359,7 @@ const App = {
         countryAgreement: false,
         globalAgreement: false,
         crowdsale: {
+          ffContract: true,
           id: '',
           address: '',
           cap: 0,
@@ -541,6 +542,7 @@ const App = {
         closingCrowdsale: false,
         crowdsaleAddress: 0,
         crowdsale: {
+          ffContract: true,
           cap: 0,
           goal: 0,
           weiRaised: 0,
@@ -735,6 +737,7 @@ const App = {
         makingTransaction: false,
         closingCrowdsale: false,
         crowdsale: {
+          ffContract: true,
           cap: 0,
           goal: 0,
           weiRaised: 0,

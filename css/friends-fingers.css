@@ -6854,13 +6854,9 @@ section.contact {
     section.contact h2 i {
       color: #dd4b39; }
 
-body.crowdsale .card-footer .social-links i,
-body.crowdsale-demo .card-footer .social-links i,
-body.shaka-token-sale .card-footer .social-links i {
+#crowdsale-details .card-footer .social-links i {
   margin-left: 5px;
   margin-right: 5px; }
 
-body.crowdsale #crowdsale-qrcode img,
-body.crowdsale-demo #crowdsale-qrcode img,
-body.shaka-token-sale #crowdsale-qrcode img {
+#crowdsale-details #crowdsale-qrcode img {
   width: 100%; }
