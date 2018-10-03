@@ -86,9 +86,10 @@
                     </div>
                 </div>
                 <div class="card bg-primary mb-3" v-if="!crowdsale.paused && crowdsale.hasStarted && !crowdsale.hasEnded && !authenticated">
-                    <div class="card-header">This is a Private Sale</div>
+                    <div class="card-header">This is a Reserved Sale</div>
                     <div class="card-body">
                         <input type="text" placeholder="Insert code" class="form-control" v-model="yourPassword">
+                        <small class="form-text text-muted">Enter the <a target="_blank" href="https://t.me/{{ site.telegram_group }}">Telegram group</a> to get the code</small>
                     </div>
                 </div>
                 <div class="row">
