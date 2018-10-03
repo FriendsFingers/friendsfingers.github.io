@@ -541,6 +541,7 @@ const App = {
         makingTransaction: false,
         closingCrowdsale: false,
         crowdsaleAddress: 0,
+        authenticated: true,
         crowdsale: {
           ffContract: true,
           cap: 0,
@@ -736,6 +737,7 @@ const App = {
         isCrowdsaleOwner: false,
         makingTransaction: false,
         closingCrowdsale: false,
+        authenticated: true,
         crowdsale: {
           ffContract: true,
           cap: 0,
@@ -895,7 +897,9 @@ const App = {
         isCrowdsaleOwner: false,
         makingTransaction: false,
         closingCrowdsale: false,
+        yourPassword: '',
         crowdsale: {
+          password: 'FFFORK',
           isTokenCappedCrowdsale: true,
           minimumContribution: 1,
           cap: 0,
@@ -1022,6 +1026,9 @@ const App = {
         }
       },
       computed: {
+        authenticated: function () {
+          return this.crowdsale.password && this.yourPassword.toLowerCase() === this.crowdsale.password.toLowerCase();
+        },
         rate: function () {
           if (this.funds >= 5) {
             return this.crowdsale.rate + 100 * (this.crowdsale.rate) / 100;
