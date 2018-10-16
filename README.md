@@ -11,7 +11,7 @@ FriendsFingers helps startups and small businesses to start a trustworthy Crowds
 ## Download and Installation
 
 ```bash
-git clone https://github.com/friendsfingers/friendsfingers.github.io.git
+git clone https://github.com/FriendsFingers/friendsfingers.github.io.git
 cd friendsfingers.github.io
 gem install jekyll bundler
 bundle install
@@ -60,10 +60,10 @@ Jekyll [Doc](https://jekyllrb.com/docs/home/) [GitHub](https://github.com/jekyll
 
 ## Bugs and Issues
 
-Have a bug? [Open a new issue](https://github.com/friendsfingers/friendsfingers.github.io/issues).
+Have a bug? [Open a new issue](https://github.com/FriendsFingers/friendsfingers.github.io/issues).
 
 
 
 ## Copyright and License
 
-Copyright 2018 FriendsFingers. Code released under the [MIT](https://github.com/friendsfingers/friendsfingers.github.io/blob/master/LICENSE) license.
+Copyright 2018 FriendsFingers. Code released under the [MIT](https://github.com/FriendsFingers/friendsfingers.github.io/blob/master/LICENSE) license.
