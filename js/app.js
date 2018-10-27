@@ -1,4 +1,5 @@
 const App = {
+  legacy: false,
   web3: null,
   web3Provider: null,
   etherscanLink: '',
@@ -25,21 +26,32 @@ const App = {
   initWeb3: async function (checkWeb3) {
     return new Promise((resolve) => {
       App.etherscanLink = etherscanLink;
-      if (checkWeb3 && typeof web3 !== 'undefined') {
-        App.web3Provider = web3.currentProvider;
+      if (checkWeb3 && (typeof ethereum !== 'undefined' || typeof web3 !== 'undefined')) {
+        if (ethereum) {
+          console.log('injected web3');
+          App.web3Provider = ethereum;
+        } else {
+          console.log('injected web3 (legacy)');
+          App.web3Provider = web3.currentProvider;
+          App.legacy = true;
+        }
+
         App.web3 = new Web3(App.web3Provider);
         App.metamask.installed = true;
-        App.web3.version.getNetwork(function (err, netId) {
+        App.web3.version.getNetwork(async function (err, netId) {
+          if (err) {
+            console.log(err);
+          }
           App.metamask.netId = netId;
           if (netId !== networkId) {
             App.web3Provider = new Web3.providers.HttpProvider(web3Provider);
             App.web3 = new Web3(App.web3Provider);
-            resolve();
-          } else {
-            resolve();
           }
+
+          resolve();
         });
       } else {
+        console.log('provided web3');
         // set the provider you want from Web3.providers
         App.web3Provider = new Web3.providers.HttpProvider(web3Provider);
         App.web3 = new Web3(App.web3Provider);
@@ -655,6 +667,10 @@ const App = {
             }
           }
 
+          if (!App.legacy) {
+            await App.web3Provider.enable();
+          }
+
           this.$validator.validateAll().then(async (result) => {
 
             if (result) {
@@ -842,6 +858,10 @@ const App = {
             }
           }
 
+          if (!App.legacy) {
+            await App.web3Provider.enable();
+          }
+
           this.$validator.validateAll().then(async (result) => {
 
             if (result) {
@@ -995,6 +1015,10 @@ const App = {
               alert("Your MetaMask extension in on the wrong network. Please switch on " + networkName + " and try again!");
               return;
             }
+          }
+
+          if (!App.legacy) {
+            await App.web3Provider.enable();
           }
 
           this.$validator.validateAll().then(async (result) => {
