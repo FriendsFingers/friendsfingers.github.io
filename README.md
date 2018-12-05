@@ -6,8 +6,6 @@ Live here [https://www.friendsfingers.com](https://www.friendsfingers.com/)
 
 FriendsFingers helps startups and small businesses to start a trustworthy Crowdsale on Ethereum blockchain with no setup costs and zero lines of code required. 
 
-
-
 ## Download and Installation
 
 ```bash
@@ -19,8 +17,6 @@ npm install
 gulp
 ```
 
-
-
 ## Usage
 
 ### Run locally
@@ -29,13 +25,10 @@ gulp
 bundle exec jekyll serve --config _config-dev.yml
 ```
 
-
 Go to [http://localhost:4000](http://localhost:4000)
 
 
-
 ### Build
-
 
 #### Gulp Tasks
 
@@ -46,8 +39,6 @@ Go to [http://localhost:4000](http://localhost:4000)
 - `gulp watch` watches JS and SCSS files and makes previous tasks
 - `gulp copy` copies dependencies from node_modules to the vendor directory
 
-
-
 ## Helpful Links
  
 Web3.js [Doc](http://web3js.readthedocs.io/en/1.0/index.html) [GitHub](https://github.com/ethereum/web3.js/)
@@ -56,13 +47,9 @@ Truffle Contract [GitHub](https://github.com/trufflesuite/truffle-contract)
  
 Jekyll [Doc](https://jekyllrb.com/docs/home/) [GitHub](https://github.com/jekyll/jekyll)
 
-
-
 ## Bugs and Issues
 
 Have a bug? [Open a new issue](https://github.com/FriendsFingers/friendsfingers.github.io/issues).
-
-
 
 ## Copyright and License
 
