@@ -899,7 +899,31 @@ const App = {
   forkTokenSale: async function (page) {
     await App.init();
 
-    const crowdsaleAddress = page === 'ico/fork-rc' ? '0x182bb451eef308bfdbf747a575f4d18187c76956' : '0xe4cd05f32b9f77988a1279b7f5a361cbf4c66374';
+    const forkAddresses = {
+      'ico/fork-rc': '0x182bb451eef308bfdbf747a575f4d18187c76956',
+      'ico/fork-pre-ico': '0xe4cd05f32b9f77988a1279b7f5a361cbf4c66374',
+      'ico/fork-ico': '0x911b4707a104d905022d32a89e4d2181cc0cd6d7',
+    };
+
+    const forkRates = {
+      'ico/fork-rc': 1600,
+      'ico/fork-pre-ico': 1300,
+      'ico/fork-ico': 1000,
+    };
+
+    const forkStartTimes = {
+      'ico/fork-rc': 1539616719,
+      'ico/fork-pre-ico': 1541458800,
+      'ico/fork-ico': 1544914800,
+    };
+
+    const forkEndTimes = {
+      'ico/fork-rc': 1544828400,
+      'ico/fork-pre-ico': 1544828400,
+      'ico/fork-ico': 1548802800,
+    };
+
+    const crowdsaleAddress = forkAddresses[page];
 
     Vue.use(VeeValidate);
 
@@ -928,9 +952,9 @@ const App = {
           goal: 0,
           weiRaised: 0,
           soldTokens: 0,
-          rate: page === 'ico/fork-rc' ? 1600 : 1300,
-          startTime: page === 'ico/fork-rc' ? 1539616719 * 1000 : 1541458800 * 1000,
-          endTime: page === 'ico/fork-rc' ? 1544828400 * 1000 : 1544828400 * 1000,
+          rate: forkRates[page],
+          startTime: forkStartTimes[page] * 1000,
+          endTime: forkEndTimes[page] * 1000,
           hasStarted: false,
           hasEnded: true,
           paused: true,
@@ -982,6 +1006,10 @@ const App = {
 
         if (page === 'ico/fork-rc') {
           this.crowdsale.projectInfo.description = this.crowdsale.projectInfo.description + '<br><br>Minimum contribution: 1 ETH<br>Bonus:<ul><li>50% >= 1 ETH</li><li>70% >= 2 ETH</li><li>100% >= 5 ETH</li></ul>';
+        } else if (page === 'ico/fork-pre-ico') {
+          this.crowdsale.projectInfo.description = this.crowdsale.projectInfo.description + '<br><br>Minimum contribution: 0.1 ETH<br>Bonus:<ul><li>30%</li></ul>';
+        } else if (page === 'ico/fork-ico') {
+          this.crowdsale.projectInfo.description = this.crowdsale.projectInfo.description + '<br><br>Minimum contribution: 0.1 ETH<br>Bonus:<ul><li>20% until 01/01/2019 00:00 GMT+1</li><li>10% until 16/01/2019 00:00 GMT+1</li><li>0% until 30/01/2019 00:00 GMT+1</li></ul>';
         }
 
         this.crowdsale.hasStarted = Date.now() > this.crowdsale.startTime;
@@ -1067,6 +1095,13 @@ const App = {
               return this.crowdsale.rate + 50 * (this.crowdsale.rate) / 100;
             }
             return 0;
+          } else if (page === 'ico/fork-ico') {
+            if (Date.now() < 1546297200 * 1000) {
+              return this.crowdsale.rate + 20 * (this.crowdsale.rate) / 100;
+            } else if (Date.now() < 1547593200 * 1000) {
+              return this.crowdsale.rate + 10 * (this.crowdsale.rate) / 100;
+            }
+            return this.crowdsale.rate;
           } else {
             return this.crowdsale.rate;
           }
@@ -1092,6 +1127,7 @@ const App = {
 
     case "ico/fork-rc":
     case "ico/fork-pre-ico":
+    case "ico/fork-ico":
       App.forkTokenSale(page);
       break;
 
