@@ -276,6 +276,10 @@ const App = {
 
           this.$validator.validateAll().then(async (result) => {
             if (result) {
+              if (!App.legacy) {
+                await App.web3Provider.enable();
+              }
+
               console.log('starting');
               const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
 
@@ -470,6 +474,10 @@ const App = {
 
           this.$validator.validateAll().then(async (result) => {
             if (result) {
+              if (!App.legacy) {
+                await App.web3Provider.enable();
+              }
+
               console.log('starting');
               const builder = await App.contracts.FriendsFingersBuilder.at(FriendsFingersBuilderAddress);
 

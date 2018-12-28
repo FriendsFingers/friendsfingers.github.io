@@ -1,5 +1,5 @@
 /**
-  * vee-validate v2.0.3
+  * vee-validate v2.0.6
   * (c) 2018 Abdelrahman Awad
   * @license MIT
   */
@@ -3654,6 +3654,11 @@ var removeClass = function (el, className) {
 var toggleClass = function (el, className, status) {
   if (!el || !className) { return; }
 
+  if (Array.isArray(className)) {
+    className.forEach(function (item) { return toggleClass(el, item, status); });
+    return;
+  }
+
   if (status) {
     return addClass(el, className);
   }
@@ -4304,7 +4309,7 @@ var messages = {
     var max = ref[1];
 
     if (max) {
-      return ("The " + field + " length be between " + length + " and " + max + ".");
+      return ("The " + field + " length must be between " + length + " and " + max + ".");
     }
 
     return ("The " + field + " length must be " + length + ".");
@@ -4358,6 +4363,17 @@ if (isDefinedGlobally()) {
 
 var ErrorBag = function ErrorBag () {
   this.items = [];
+};
+
+ErrorBag.prototype[typeof Symbol === 'function' ? Symbol.iterator : '@@iterator'] = function () {
+    var this$1 = this;
+
+  var index = 0;
+  return {
+    next: function () {
+      return { value: this$1.items[index++], done: index > this$1.items.length };
+    }
+  };
 };
 
 /**
@@ -4493,7 +4509,11 @@ ErrorBag.prototype.first = function first (field, scope) {
     var this$1 = this;
     if ( scope === void 0 ) scope = null;
 
-  field = !isNullOrUndefined(field) ? String(field) : field;
+  if (isNullOrUndefined(field)) {
+    return null;
+  }
+
+  field = String(field);
   var selector = this._selector(field);
   var scoped = this._scope(field);
 
@@ -5002,7 +5022,7 @@ Generator.resolveRules = function resolveRules (el, binding) {
     return getDataAttribute(el, 'rules');
   }
 
-  if (~['string', 'object'].indexOf(typeof binding.value.rules)) {
+  if (binding.value && ~['string', 'object'].indexOf(typeof binding.value.rules)) {
     return binding.value.rules;
   }
 
@@ -5106,7 +5126,7 @@ Generator.resolveScope = function resolveScope (el, binding, vnode) {
  */
 Generator.resolveModel = function resolveModel (binding, vnode) {
   if (binding.arg) {
-    return binding.arg;
+    return { expression: binding.arg };
   }
 
   var model = vnode.data.model || find(vnode.data.directives, function (d) { return d.name === 'model'; });
@@ -5114,18 +5134,20 @@ Generator.resolveModel = function resolveModel (binding, vnode) {
     return null;
   }
 
-  var watchable = /^[a-z_]+[0-9]*(\w*\.[a-z_]\w*)*$/i.test(model.expression) && hasPath(model.expression, vnode.context);
+  // https://github.com/vuejs/vue/blob/dev/src/core/util/lang.js#L26
+  var watchable = !/[^\w.$]/.test(model.expression) && hasPath(model.expression, vnode.context);
+  var lazy = !!(model.modifiers && model.modifiers.lazy);
   if (!watchable) {
-    return null;
+    return { expression: null, lazy: lazy };
   }
 
-  return model.expression;
+  return { expression: model.expression, lazy: lazy };
 };
 
 /**
-   * Resolves the field name to trigger validations.
-   * @return {String} The field name.
-   */
+ * Resolves the field name to trigger validations.
+ * @return {String} The field name.
+ */
 Generator.resolveName = function resolveName (el, vnode) {
   var name = getDataAttribute(el, 'name');
 
@@ -5155,9 +5177,9 @@ Generator.resolveName = function resolveName (el, vnode) {
  * Returns a value getter input type.
  */
 Generator.resolveGetter = function resolveGetter (el, vnode, model) {
-  if (model) {
+  if (model && model.expression) {
     return function () {
-      return getPath(model, vnode.context);
+      return getPath(model.expression, vnode.context);
     };
   }
 
@@ -5670,19 +5692,20 @@ Field.prototype.addValueListeners = function addValueListeners () {
     if (args.length === 0 || (isCallable(Event) && args[0] instanceof Event) || (args[0] && args[0].srcElement)) {
       args[0] = this$1.value;
     }
+
     this$1.validator.validate(("#" + (this$1.id)), args[0]);
   };
 
-  var inputEvent = getInputEventName(this.el);
+  var inputEvent = this.model && this.model.lazy ? 'change' : getInputEventName(this.el);
   // replace input event with suitable one.
   var events = this.events.map(function (e) {
     return e === 'input' ? inputEvent : e;
   });
 
   // if there is a watchable model and an on input validation is requested.
-  if (this.model && events.indexOf(inputEvent) !== -1) {
+  if (this.model && this.model.expression && events.indexOf(inputEvent) !== -1) {
     var debouncedFn = debounce(fn, this.delay[inputEvent]);
-    var unwatch = this.vm.$watch(this.model, function () {
+    var unwatch = this.vm.$watch(this.model.expression, function () {
         var args = [], len = arguments.length;
         while ( len-- ) args[ len ] = arguments[ len ];
 
@@ -5794,6 +5817,17 @@ var FieldBag = function FieldBag () {
 
 var prototypeAccessors$4 = { length: {} };
 
+FieldBag.prototype[typeof Symbol === 'function' ? Symbol.iterator : '@@iterator'] = function () {
+    var this$1 = this;
+
+  var index = 0;
+  return {
+    next: function () {
+      return { value: this$1.items[index++], done: index > this$1.items.length };
+    }
+  };
+};
+
 /**
  * Gets the current items length.
  */
@@ -5881,7 +5915,11 @@ var Validator = function Validator (validations, options) {
 
   this.strict = STRICT_MODE;
   this.errors = new ErrorBag();
-  ERRORS.push(this.errors);
+
+  // We are running in SSR Mode. Do not keep a reference. It prevent garbage collection.
+  if (typeof window !== 'undefined') {
+    ERRORS.push(this.errors);
+  }
   this.fields = new FieldBag();
   this.flags = {};
   this._createFields(validations);
@@ -6924,6 +6962,28 @@ var mapFields = function (fields) {
   }, {});
 };
 
+var ErrorComponent = {
+  name: 'vv-error',
+  inject: ['$validator'],
+  functional: true,
+  props: {
+    for: {
+      type: String,
+      required: true
+    },
+    tag: {
+      type: String,
+      default: 'span'
+    }
+  },
+  render: function render (createElement, ref) {
+    var props = ref.props;
+    var injections = ref.injections;
+
+    return createElement(props.tag, injections.$validator.errors.first(props.for));
+  }
+};
+
 var minimal$1 = {
   install: install,
   use: use,
@@ -6932,7 +6992,8 @@ var minimal$1 = {
   mapFields: mapFields,
   Validator: Validator,
   ErrorBag: ErrorBag,
-  version: '2.0.3'
+  ErrorComponent: ErrorComponent,
+  version: '2.0.6'
 };
 
 // rules plugin definition.

@@ -35,7 +35,7 @@
     "truffle-contract": "^3.0.1",
     "vee-validate": "^2.0.0-rc.27",
     "vue": "^2.5.9",
-    "web3": "^0.20.4"
+    "web3": "0.20.6"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
