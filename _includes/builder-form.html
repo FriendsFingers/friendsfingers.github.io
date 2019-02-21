@@ -389,14 +389,17 @@
                                                 <span class="input-group-text">ETH</span>
                                             </div>
                                             <input type="number" class="form-control"
-                                                   v-validate="'required|numeric'"
+                                                   v-validate="{ required: true, numeric: true, min_value: 1 }"
                                                    :class="{'is-invalid': errors.has('crowdsaleCap')}"
                                                    v-model="crowdsale.cap"
+                                                   data-vv-as="Crowdsale Cap"
                                                    id="crowdsaleCap"
                                                    name="crowdsaleCap"
-                                                   min="0"
                                                    step="1"
                                                    placeholder="Your crowdsale max cap">
+                                        </div>
+                                        <div class="alert alert-danger mt-3  mb-3" v-if="errors.has('crowdsaleCap')">
+                                            <span v-html="errors.first('crowdsaleCap')"></span>
                                         </div>
                                         <small class="form-text text-muted">
                                             Insert the max cap for your project in ETH. Your round will be closed if max cap will be reached
@@ -411,14 +414,17 @@
                                                 <span class="input-group-text">ETH</span>
                                             </div>
                                             <input type="number" class="form-control"
-                                                   v-validate="'required|numeric'"
+                                                   v-validate="{ required: true, numeric: true, max_value: crowdsale.cap }"
                                                    :class="{'is-invalid': errors.has('crowdsaleGoal')}"
                                                    v-model="crowdsale.goal"
+                                                   data-vv-as="Crowdsale Goal"
                                                    id="crowdsaleGoal"
                                                    name="crowdsaleGoal"
-                                                   min="1"
                                                    step="1"
                                                    placeholder="Your crowdsale goal">
+                                        </div>
+                                        <div class="alert alert-danger mt-3  mb-3" v-if="errors.has('crowdsaleGoal')">
+                                            <span v-html="errors.first('crowdsaleGoal')"></span>
                                         </div>
                                         <small class="form-text text-muted">
                                             Insert the minimum goal to finalize Crowdsale in ETH. If you don't reach the goal investors can claim their funds back
@@ -472,6 +478,7 @@
                                                v-validate="'required|date_start_min'"
                                                :class="{'is-invalid': errors.has('crowdsaleStartTime')}"
                                                v-model="crowdsale.startTime"
+                                               data-vv-as="Start Time"
                                                id="crowdsaleStartTime"
                                                name="crowdsaleStartTime"
                                                placeholder="Your crowdsale start time">
@@ -490,6 +497,7 @@
                                                v-validate="'required|date_end_min'"
                                                :class="{'is-invalid': errors.has('crowdsaleEndTime')}"
                                                v-model="crowdsale.endTime"
+                                               data-vv-as="End Time"
                                                id="crowdsaleEndTime"
                                                name="crowdsaleEndTime"
                                                placeholder="Your crowdsale end time">
@@ -511,6 +519,7 @@
                                                v-validate="'required|eth_address'"
                                                :class="{'is-invalid': errors.has('crowdsaleWallet')}"
                                                v-model="crowdsale.wallet"
+                                               data-vv-as="Crowdsale Wallet"
                                                id="crowdsaleWallet"
                                                name="crowdsaleWallet"
                                                placeholder="Your crowdsale wallet">
