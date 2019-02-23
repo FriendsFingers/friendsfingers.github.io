@@ -1129,10 +1129,6 @@ const App = {
       App.bountyProgram();
       break;
 
-    case "shaka-token-sale":
-      App.shakaTokenSale(FriendsFingersTokenSaleAddress);
-      break;
-
     case "ico/fork-rc":
     case "ico/fork-pre-ico":
     case "ico/fork-ico":
