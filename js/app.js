@@ -164,6 +164,8 @@ const App = {
   },
 
   bountyProgram: async function () {
+    document.location.href = 'https://shaka.friendsfingers.com/faucet.html';
+
     await App.init();
 
     Vue.use(VeeValidate);
