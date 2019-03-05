@@ -910,27 +910,15 @@ const App = {
     await App.init();
 
     const forkAddresses = {
-      'ico/fork-rc': '0x182bb451eef308bfdbf747a575f4d18187c76956',
-      'ico/fork-pre-ico': '0xe4cd05f32b9f77988a1279b7f5a361cbf4c66374',
-      'ico/fork-ico': '0x911b4707a104d905022d32a89e4d2181cc0cd6d7',
-    };
-
-    const forkRates = {
-      'ico/fork-rc': 1600,
-      'ico/fork-pre-ico': 1300,
-      'ico/fork-ico': 1000,
+      'ico/fork-ico': '0x4Ec0CB5c73A9Ed73EA821806f2701b29E6E44F0d',
     };
 
     const forkStartTimes = {
-      'ico/fork-rc': 1539616719,
-      'ico/fork-pre-ico': 1541458800,
-      'ico/fork-ico': 1544914800,
+      'ico/fork-ico': 1552042800,
     };
 
     const forkEndTimes = {
-      'ico/fork-rc': 1544828400,
-      'ico/fork-pre-ico': 1544828400,
-      'ico/fork-ico': 1548802800,
+      'ico/fork-ico': 1561888800,
     };
 
     const crowdsaleAddress = forkAddresses[page];
@@ -955,14 +943,15 @@ const App = {
         closingCrowdsale: false,
         yourPassword: '',
         crowdsale: {
-          password: page === 'ico/fork-rc' ? 'FFFORK' : '',
+          password: '',
           isTokenCappedCrowdsale: true,
-          minimumContribution: page === 'ico/fork-rc' ? 1 : 0.1,
+          minimumContribution: 0.1,
+          tokenCap: 50000000,
           cap: 0,
           goal: 0,
           weiRaised: 0,
           soldTokens: 0,
-          rate: forkRates[page],
+          rate: 0,
           startTime: forkStartTimes[page] * 1000,
           endTime: forkEndTimes[page] * 1000,
           hasStarted: false,
@@ -976,7 +965,7 @@ const App = {
       },
       created: async function () {
 
-        await App.initCrowdsale('gastroadvisor/ForkPreIco.json');
+        await App.initCrowdsale('gastroadvisor/ForkTokenSale.json');
         await App.initToken('gastroadvisor/GastroAdvisorToken.json');
 
         const crowdsale = await App.contracts.FriendsFingersCrowdsale.at(crowdsaleAddress);
@@ -992,8 +981,7 @@ const App = {
         this.crowdsale.address = crowdsale.address;
         this.crowdsale.goal = 0;
         this.crowdsale.weiRaised = App.web3.fromWei(await crowdsale.weiRaised()).valueOf();
-        this.crowdsale.tokenCap = App.web3.fromWei(await crowdsale.tokenCap()).valueOf();
-        this.crowdsale.cap = this.crowdsale.tokenCap / this.crowdsale.rate;
+        this.crowdsale.cap = App.web3.fromWei(await crowdsale.cap()).valueOf();
         this.crowdsale.soldTokens = App.web3.fromWei(await crowdsale.soldTokens()).valueOf();
         this.crowdsale.startTimeFormatted = new Date(this.crowdsale.startTime).toLocaleString();
         this.crowdsale.endTimeFormatted = new Date(this.crowdsale.endTime).toLocaleString();
@@ -1014,14 +1002,9 @@ const App = {
           youtube: 'https://www.youtube.com/channel/UCfvle9ZLVsNdzrpp7I4EvhA/featured',
         };
 
-        if (page === 'ico/fork-rc') {
-          this.crowdsale.projectInfo.description = this.crowdsale.projectInfo.description + '<br><br>Minimum contribution: 1 ETH<br>Bonus:<ul><li>50% >= 1 ETH</li><li>70% >= 2 ETH</li><li>100% >= 5 ETH</li></ul>';
-        } else if (page === 'ico/fork-pre-ico') {
-          this.crowdsale.projectInfo.description = this.crowdsale.projectInfo.description + '<br><br>Minimum contribution: 0.1 ETH<br>Bonus:<ul><li>30%</li></ul>';
-        } else if (page === 'ico/fork-ico') {
-          this.crowdsale.projectInfo.description = this.crowdsale.projectInfo.description + '<br><br>Minimum contribution: 0.1 ETH<br>Bonus:<ul><li>20% until 01/01/2019 00:00 GMT+1</li><li>10% until 16/01/2019 00:00 GMT+1</li><li>0% until 30/01/2019 00:00 GMT+1</li></ul>';
-        }
+        this.crowdsale.projectInfo.description = this.crowdsale.projectInfo.description + '<br><br>Minimum contribution: 0.1 ETH';
 
+        this.crowdsale.rate = (await crowdsale.rate()).valueOf();
         this.crowdsale.hasStarted = Date.now() > this.crowdsale.startTime;
         this.crowdsale.hasEnded = await crowdsale.ended();
         this.crowdsale.paused = false;
@@ -1096,25 +1079,7 @@ const App = {
           return this.crowdsale.password ? this.crowdsale.password && this.yourPassword.toLowerCase() === this.crowdsale.password.toLowerCase() : true;
         },
         rate: function () {
-          if (page === 'ico/fork-rc') {
-            if (this.funds >= 5) {
-              return this.crowdsale.rate + 100 * (this.crowdsale.rate) / 100;
-            } else if (this.funds >= 2) {
-              return this.crowdsale.rate + 70 * (this.crowdsale.rate) / 100;
-            } else if (this.funds >= 1) {
-              return this.crowdsale.rate + 50 * (this.crowdsale.rate) / 100;
-            }
-            return 0;
-          } else if (page === 'ico/fork-ico') {
-            if (Date.now() < 1546297200 * 1000) {
-              return this.crowdsale.rate + 20 * (this.crowdsale.rate) / 100;
-            } else if (Date.now() < 1547593200 * 1000) {
-              return this.crowdsale.rate + 10 * (this.crowdsale.rate) / 100;
-            }
-            return this.crowdsale.rate;
-          } else {
-            return this.crowdsale.rate;
-          }
+          return this.crowdsale.rate;
         }
       }
     });
@@ -1131,8 +1096,6 @@ const App = {
       App.bountyProgram();
       break;
 
-    case "ico/fork-rc":
-    case "ico/fork-pre-ico":
     case "ico/fork-ico":
       App.forkTokenSale(page);
       break;

@@ -45,16 +45,6 @@
         <priority>1.00</priority>
     </url>
     <url>
-        <loc>https://www.friendsfingers.com/ico/fork-rc</loc>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
-        <loc>https://www.friendsfingers.com/ico/fork-pre-ico</loc>
-        <changefreq>weekly</changefreq>
-        <priority>1.00</priority>
-    </url>
-    <url>
         <loc>https://www.friendsfingers.com/ico/fork-ico</loc>
         <changefreq>weekly</changefreq>
         <priority>1.00</priority>

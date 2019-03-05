@@ -243,13 +243,17 @@
                                 </div>
                                 <input type="number" class="form-control"
                                        :disabled="!(usAgreement && countryAgreement && globalAgreement)"
-                                       v-validate="'required|decimal'"
+                                       v-validate="{ required: true, decimal: 8, min_value: (crowdsale.minimumContribution ? crowdsale.minimumContribution : 0) }"
                                        :class="{'is-invalid': errors.has('fund')}"
                                        v-model="funds"
-                                       :min="crowdsale.minimumContribution ? crowdsale.minimumContribution : 0"
+                                       data-vv-as="Ethereum value"
+                                       :min="(crowdsale.minimumContribution ? crowdsale.minimumContribution : 0)"
                                        id="fund"
                                        name="fund"
                                        placeholder="Your fund value in Ether">
+                            </div>
+                            <div class="alert alert-danger mt-3 mb-3" v-if="errors.has('fund')">
+                                <span v-html="errors.first('fund')"></span>
                             </div>
                             <small class="form-text text-muted">
                                 Select the amount you want to enter in crowdsale.
