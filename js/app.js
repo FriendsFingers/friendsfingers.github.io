@@ -914,7 +914,7 @@ const App = {
     };
 
     const forkStartTimes = {
-      'ico/fork-ico': 1552042800,
+      'ico/fork-ico': 1552906800,
     };
 
     const forkEndTimes = {
@@ -1002,7 +1002,7 @@ const App = {
           youtube: 'https://www.youtube.com/channel/UCfvle9ZLVsNdzrpp7I4EvhA/featured',
         };
 
-        this.crowdsale.projectInfo.description = this.crowdsale.projectInfo.description + '<br><br>Minimum contribution: 0.1 ETH';
+        this.crowdsale.projectInfo.description = this.crowdsale.projectInfo.description + '<br><br>Minimum contribution: 0.1 ETH<br><br><a href="https://www.gastroadvisor.com/blog-gastroadvisor/new-ico-announcement/" target="_blank">Discover more</a>';
 
         this.crowdsale.rate = (await crowdsale.rate()).valueOf();
         this.crowdsale.hasStarted = Date.now() > this.crowdsale.startTime;
