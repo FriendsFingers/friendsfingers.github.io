@@ -164,7 +164,7 @@ const App = {
   },
 
   bountyProgram: async function () {
-    document.location.href = 'https://shaka.friendsfingers.com/faucet.html';
+    document.location.href = 'https://app.friendsfingers.com/faucet';
 
     await App.init();
 
