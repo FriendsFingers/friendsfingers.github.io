@@ -1,53 +1,59 @@
 {
   "title": "FriendsFingers Website",
   "name": "www.friendsfingers.com",
-  "version": "1.0.0",
-  "description": "Source code for FriendsFingers Website",
-  "keywords": [
-    "HTML, SCSS, JS, web3.js, truffle, bootstrap, jekyll"
-  ],
-  "homepage": "https://www.friendsfingers.com",
+  "version": "2.0.0",
+  "description": "FriendsFingers Website official web site",
+  "scripts": {
+    "lint:vue": "eslint .vuepress --ext .vue,.js",
+    "lint:vue:fix": "eslint .vuepress --ext .vue,.js --fix",
+    "lint": "eslint .vuepress",
+    "lint:fix": "eslint .vuepress --fix",
+    "dev": "vuepress dev",
+    "build": "vuepress build",
+    "deploy": "vuepress build && sh scripts/deploy.sh"
+  },
+  "keywords": [],
   "bugs": {
     "url": "https://github.com/FriendsFingers/friendsfingers.github.io/issues"
   },
   "license": "MIT",
-  "author": "FriendsFingers",
+  "author": "FriendsFingers (https://www.friendsfingers.com/)",
   "contributors": [
-    "Vittorio Minacori (https://github.com/vittominacori)"
+    {
+      "name": "Vittorio Minacori",
+      "url": "https://github.com/vittominacori"
+    }
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/FriendsFingers/friendsfingers.github.io.git"
+    "url": "https://github.com/FriendsFingers/friendsfingers.github.io"
   },
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-runtime": "^6.26.0",
-    "bootstrap": "^4.0.0",
-    "fast-async": "^6.3.0",
-    "font-awesome": "4.7.0",
-    "gulp-babel": "^7.0.0",
-    "jquery": "^3.2.1",
-    "jquery.easing": "^1.4.1",
-    "moment": "^2.21.0",
-    "popper.js": "^1.12.9",
-    "simple-line-icons": "2.4.1",
-    "timezz": "^3.0.0",
-    "truffle-contract": "^3.0.1",
-    "vee-validate": "^2.0.0-rc.27",
-    "vue": "^2.5.9",
     "web3": "0.20.6"
   },
   "devDependencies": {
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-register": "^6.26.0",
-    "gulp": "^3.9.1",
-    "gulp-babel-minify": "^0.3.0",
-    "gulp-clean-css": "3.9.0",
-    "gulp-header": "1.8.9",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0"
+    "@fortawesome/fontawesome-svg-core": "^1.2.28",
+    "@fortawesome/free-brands-svg-icons": "^5.13.0",
+    "@fortawesome/free-regular-svg-icons": "^5.13.0",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/vue-fontawesome": "^0.1.9",
+    "@saeris/vue-spinners": "^1.0.8",
+    "@vuepress/plugin-google-analytics": "^1.4.0",
+    "babel-eslint": "^10.1.0",
+    "bootstrap-vue": "^2.8.0",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.13.1",
+    "qrcode": "1.4.2",
+    "sass-loader": "^8.0.2",
+    "vee-validate": "^2.2.15",
+    "vue-eslint-parser": "^7.0.0",
+    "vuepress": "^1.4.0",
+    "vuex": "^3.1.3"
   }
 }

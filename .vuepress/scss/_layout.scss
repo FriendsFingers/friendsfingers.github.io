@@ -1,0 +1,24 @@
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+body {
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.navbar {
+  &.main-navbar {
+    background: #ffffff !important;
+  }
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+
+  .navbar-brand {
+    img {
+      margin-top: -4px;
+    }
+  }
+}

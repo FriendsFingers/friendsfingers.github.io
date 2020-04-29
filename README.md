@@ -1,56 +1,54 @@
-# FriendsFingers Website
+---
+component: Home
+title: FriendsFingers
+description: Build your Ethereum based Crowdsale and start your ICO with no setup costs and zero lines of code required. All is Blockchain based through our awesome Smart Contracts.
+meta: 
+    - property: og:image
+      content: https://www.friendsfingers.com/assets/images/social/friendsfingers_social_rect.png
+    - property: og:title
+      content: FriendsFingers
+    - property: og:description
+      content: Build your Ethereum based Crowdsale and start your ICO with no setup costs and zero lines of code required. All is Blockchain based through our awesome Smart Contracts.
+    - name: twitter:card
+      content: summary_large_image
+    - property: twitter:title
+      content: FriendsFingers
+    - property: twitter:description
+      content: Build your Ethereum based Crowdsale and start your ICO with no setup costs and zero lines of code required. All is Blockchain based through our awesome Smart Contracts.
+    - property: twitter:image
+      content: https://www.friendsfingers.com/assets/images/social/friendsfingers_social_rect.png
+---
 
-The source code for FriendsFingers DApp. 
+## FriendsFingers Official Website
 
-Live here [https://www.friendsfingers.com](https://www.friendsfingers.com/)
+Source code of [www.friendsfingers.com](https://www.friendsfingers.com)
 
-FriendsFingers helps startups and small businesses to start a trustworthy Crowdsale on Ethereum blockchain with no setup costs and zero lines of code required. 
+Shaka (HAK) is an ERC20 Token issued by [FriendsFingers](https://www.friendsfingers.com) and that will give holders rights to be active part of the platform like in a Decentralized Autonomous Organization (DAO).
 
-## Download and Installation
+## Install dependencies
 
 ```bash
-git clone https://github.com/FriendsFingers/friendsfingers.github.io.git
-cd friendsfingers.github.io
-gem install jekyll bundler
-bundle install
 npm install
-gulp
 ```
 
-## Usage
-
-### Run locally
+## Run DEV server
 
 ```bash
-bundle exec jekyll serve --config _config-dev.yml
+npm run dev
 ```
 
-Go to [http://localhost:4000](http://localhost:4000)
+## Build dist
 
+```bash
+npm run build
+```
 
-### Build
+## Deploy to master branch
 
-#### Gulp Tasks
+```bash
+npm run deploy
+```
 
-- `gulp` the default task that builds everything
-- `gulp sass` compiles SCSS files into CSS
-- `gulp minify-css` minifies the compiled CSS file
-- `gulp minify-js` minifies the themes JS file
-- `gulp watch` watches JS and SCSS files and makes previous tasks
-- `gulp copy` copies dependencies from node_modules to the vendor directory
+## License
 
-## Helpful Links
- 
-Web3.js [Doc](http://web3js.readthedocs.io/en/1.0/index.html) [GitHub](https://github.com/ethereum/web3.js/)
-   
-Truffle Contract [GitHub](https://github.com/trufflesuite/truffle-contract)
- 
-Jekyll [Doc](https://jekyllrb.com/docs/home/) [GitHub](https://github.com/jekyll/jekyll)
-
-## Bugs and Issues
-
-Have a bug? [Open a new issue](https://github.com/FriendsFingers/friendsfingers.github.io/issues).
-
-## Copyright and License
-
-Copyright 2018 FriendsFingers. Code released under the [MIT](https://github.com/FriendsFingers/friendsfingers.github.io/blob/master/LICENSE) license.
+Code released under the [MIT License](https://github.com/FriendsFingers/friendsfingers.github.io/blob/master/LICENSE).
