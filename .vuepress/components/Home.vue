@@ -1,37 +1,43 @@
 <template>
     <div>
-        <b-row class="masthead main m-0">
-            <b-col lg="8" offset-lg="2">
-                <h1 class="display-5">
-                    <b-img :src="$withBase('/assets/images/logo/friendsfingers.svg')"
-                           rounded="circle"
-                           height="64"
-                           :alt="$site.title"/>
-                    <br>
-                    {{ $site.title }}
-                </h1>
-                <h4 class="text-muted">DAO Platform</h4>
-                <p class="lead mt-3">
-                    <b-btn variant="outline-primary" size="lg" class="m-1" :to="$withBase('/dao')">Explore</b-btn>
-                </p>
-            </b-col>
-        </b-row>
         <b-row class="masthead purple m-0">
             <b-col lg="8" offset-lg="2">
                 <h1 class="display-4">
-                    <b-img :src="$withBase('/assets/images/logo/shaka_logo_white.png')"
-                           rounded="circle"
-                           height="64"
-                           alt="Shaka Token"/>
-                    <br>
-                    Shaka Token
+                    Crowdfund your idea in a few steps
                 </h1>
-                <p class="lead mt-5">
-                    Shaka Tokens will make you part of FriendsFingers' Decentralized Autonomous Organization.
+                <h5>{{ $site.description }}</h5>
+            </b-col>
+        </b-row>
+        <b-row class="masthead yellow m-0">
+            <b-col lg="8" offset-lg="2">
+                <h4>
+                    Have a great project?
+                </h4>
+                <p class="lead">
+                    Do you already have ideas that you want to develop on Ethereum or simply
+                    do you want to raise funds for your project?<br>
+                    With FriendsFingers you will be able to create your Ethereum based
+                    Crowdsale without coding.<br>
+                    Setup your Crowdsale start and end time, target and goal.<br>
+                    <b>No payments required.</b>
+                    We will take a max of 5% fee only on success campaigns.
                 </p>
-                <p class="lead mt-5">
-                    <b-btn variant="action" size="lg" class="m-1" :to="$withBase('/dealer')">Get Shaka</b-btn>
-                    <b-btn variant="light" size="lg" class="m-1" :to="$withBase('/faucet')">Earn Shaka</b-btn>
+            </b-col>
+        </b-row>
+        <b-row class="masthead white m-0">
+            <b-col lg="8" offset-lg="2">
+                <h4>
+                    Who would send money to someone they don’t trust?
+                </h4>
+                <p class="lead">
+                    Fund your project with a trustworthy crowdsale.<br>
+                    Using FriendsFingers, you can easily deploy a Smart Contract that will hold contributor's
+                    money until any given date or goal is reached.<br>
+                    Depending on the outcome, the funds will either be released to the project owners or
+                    safely returned back to the contributors.<br>
+                    All of this is possible without requiring a centralized arbitrator, clearing house
+                    or having to trust anyone.<br>
+                    You can even use the token you create to keep track of the distribution of rewards.
                 </p>
             </b-col>
         </b-row>

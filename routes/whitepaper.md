@@ -1,7 +1,7 @@
 ---
-component: Home
+component: Whitepaper
 permalink: whitepaper
-title: Whitepaper | FriendsFingers
+title: Whitepaper
 description: Whitepaper contains a technical description of the functionality of the FriendsFingers Smart Contracts and Platform and the creation and issuance of Shaka Tokens.
 meta: 
     - property: og:image

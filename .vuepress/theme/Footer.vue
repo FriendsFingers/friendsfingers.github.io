@@ -20,11 +20,29 @@
                         <small>DAO</small>
                     </b-link>
                 </li>
+            </ul>
+            <ul class="list-inline mt-2">
                 <li class="list-inline-item">
                     <small>
-                        &copy; 2020 🤙
-                        <b-link href="https://www.friendsfingers.com" target="_blank">FriendsFingers</b-link>
+                        &copy; 2020 🤙 FriendsFingers
                     </small>
+                </li>
+            </ul>
+            <ul class="list-inline mt-2">
+                <li class="list-inline-item">
+                    <b-link :to="$withBase('/privacy')">
+                        <small>Privacy</small>
+                    </b-link>
+                </li>
+                <li class="list-inline-item">
+                    <b-link :to="$withBase('/terms')">
+                        <small>Terms and Conditions</small>
+                    </b-link>
+                </li>
+                <li class="list-inline-item">
+                    <b-link :to="$withBase('/faq')">
+                        <small>FAQ</small>
+                    </b-link>
                 </li>
             </ul>
         </b-col>

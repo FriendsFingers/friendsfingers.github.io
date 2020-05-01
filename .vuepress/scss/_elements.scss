@@ -1,72 +1,27 @@
 .body {
-  &.home {
-    .masthead {
-      text-align: center;
-      &.main {
-        padding: 9em 0.5em 4em 0.5em;
-      }
-
-      &.yellow {
-        background: $yellow-color;
-        background-image: linear-gradient(to right, $yellow-color, $yellow-color-dark);
-        color: $blue-color-darker;
-        padding: 4em 0.5em 4em 0.5em;
-      }
-
-      &.purple {
-        background: $primary-color;
-        background-image: linear-gradient(to right, $primary-color, $primary-color-dark);
-        color: #ffffff;
-        padding: 4em 0.5em 4em 0.5em;
-      }
-
-      &.white {
-        background: #ffffff;
-        padding: 4em 0.5em 4em 0.5em;
-      }
-    }
-  }
-
-  &.dao {
-    .masthead {
-      text-align: center;
-      padding: 4em 0.5em 0.5em 0.5em;
-    }
-  }
-
-  &.dealer {
-    .masthead {
-      text-align: center;
-      padding: 4em 0.5em 0.5em 0.5em;
-    }
-  }
-
-  &.faucet {
-    .masthead {
-      text-align: center;
-      padding: 4em 0.5em 0.5em 0.5em;
+  .masthead {
+    text-align: center;
+    &.main {
+      padding: 9em 0.5em 4em 0.5em;
     }
 
-    .share-link {
-      margin-bottom: 0.5rem;
+    &.yellow {
+      background: $yellow-color;
+      background-image: linear-gradient(to right, $yellow-color, $yellow-color-dark);
+      color: $blue-color-darker;
+      padding: 4em 0.5em 4em 0.5em;
+    }
 
-      a {
-        width: 42px;
-        border: none;
+    &.purple {
+      background: $primary-color;
+      background-image: linear-gradient(to right, $primary-color, $primary-color-dark);
+      color: #ffffff;
+      padding: 4em 0.5em 4em 0.5em;
+    }
 
-        &.twitter {
-          background: #1da1f2;
-        }
-        &.facebook {
-          background: #3b5998;
-        }
-        &.telegram {
-          background: #0088cc;
-        }
-        &.whatsapp {
-          background: #25d366;
-        }
-      }
+    &.white {
+      background: #ffffff;
+      padding: 4em 0.5em 4em 0.5em;
     }
   }
 
