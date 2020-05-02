@@ -1,0 +1,48 @@
+{
+  "dev": [
+    {
+      "address": "0x1B45780831296Be0E0cB137933c8A84f253F4457",
+      "name": "UNO",
+      "symbol": "UNO",
+      "decimals": 18,
+      "logo": "dev_uno.png"
+    },
+    {
+      "address": "0x0B69247Dcf692bbCfd9b1070D9c7A2aA1a90A605",
+      "name": "DUE",
+      "symbol": "DUE",
+      "decimals": 18,
+      "logo": "dev_due.png"
+    }
+  ],
+  "prod": [
+    {
+      "address": "0x93a7174dafd31d13400cd9fa01f4e5b5baa00d39",
+      "name": "Shaka",
+      "symbol": "HAK",
+      "decimals": 18,
+      "logo": "shaka.png"
+    },
+    {
+      "address": "0x5bB1632fA0023e1AA76a1AE92B4635C8DBa49Fa2",
+      "name": "GastroAdvisorToken",
+      "symbol": "FORK",
+      "decimals": 18,
+      "logo": "fork.png"
+    },
+    {
+      "address": "0x5432C580E34f590f4dd901B825DDeb92e905e826",
+      "name": "TradeX Token",
+      "symbol": "TXH",
+      "decimals": 18,
+      "logo": "tradex.png"
+    },
+    {
+      "address": "0xb9892F9A892f3e251fc58B9076c56aDD528eb8A6",
+      "name": "Moyom",
+      "symbol": "MYM",
+      "decimals": 18,
+      "logo": "moyom.png"
+    }
+  ]
+}

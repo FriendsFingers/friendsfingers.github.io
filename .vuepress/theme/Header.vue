@@ -10,19 +10,42 @@
             {{ $site.title }}
         </b-navbar-brand>
 
+        <b-badge variant="danger">beta</b-badge>
+
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav>
-                <b-nav-item href="https://app.friendsfingers.com/dao" target="_blank">DAO</b-nav-item>
-                <b-nav-item href="https://app.friendsfingers.com/dealer" target="_blank">Dealer</b-nav-item>
-                <b-nav-item href="https://app.friendsfingers.com/faucet" target="_blank">Faucet</b-nav-item>
+                <b-nav-item :to="$withBase('/dao')">DAO</b-nav-item>
+                <b-nav-item :to="$withBase('/dealer')">Dealer</b-nav-item>
+                <b-nav-item :to="$withBase('/faucet')">Faucet</b-nav-item>
 
                 <b-nav-item disabled class="d-none d-md-block">|</b-nav-item>
-
-                <b-nav-item href="https://medium.com/friendsfingers" target="_blank">Blog</b-nav-item>
             </b-navbar-nav>
 
             <b-navbar-nav class="ml-auto">
+                <b-nav-item href="https://medium.com/friendsfingers" target="_blank">Blog</b-nav-item>
                 <b-nav-item :to="$withBase('/whitepaper')">Whitepaper</b-nav-item>
+                <b-nav-item disabled class="d-none d-md-block">|</b-nav-item>
+                <b-nav-item v-if="dapp.metamask.address === ''" :to="$withBase('/dashboard')">Connect</b-nav-item>
+                <b-nav-item-dropdown v-else :text="dapp.metamask.address | truncate(10)" right>
+                    <b-dropdown-item :to="$withBase('/dashboard')">Dashboard</b-dropdown-item>
+                    <!--<b-dropdown-item @click="disconnect()">Disconnect</b-dropdown-item>-->
+                </b-nav-item-dropdown>
+
+                <b-nav-form @submit.prevent="search" class="ml-2 d-none d-lg-block d-xl-block">
+                    <b-form-input id="query"
+                                  name="query"
+                                  size="sm"
+                                  class="mt-1"
+                                  v-validate="{ required: true, eth_address: true }"
+                                  v-model="query"
+                                  data-vv-as="Query"
+                                  :class="{'is-invalid': errors.has('query')}"
+                                  placeholder="0x123456789...">
+                    </b-form-input>
+                    <b-button variant="primary" class="mt-1" type="submit" size="sm">
+                        <font-awesome-icon icon="search"/>
+                    </b-button>
+                </b-nav-form>
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>

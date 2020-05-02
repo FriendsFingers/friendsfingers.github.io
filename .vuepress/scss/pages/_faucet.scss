@@ -1,0 +1,30 @@
+.body {
+  &.faucet {
+    .masthead {
+      text-align: center;
+      padding: 4em 0.5em 0.5em 0.5em;
+    }
+
+    .share-link {
+      margin-bottom: 0.5rem;
+
+      a {
+        width: 42px;
+        border: none;
+
+        &.twitter {
+          background: #1da1f2;
+        }
+        &.facebook {
+          background: #3b5998;
+        }
+        &.telegram {
+          background: #0088cc;
+        }
+        &.whatsapp {
+          background: #25d366;
+        }
+      }
+    }
+  }
+}

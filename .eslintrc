@@ -20,9 +20,11 @@
   },
   "globals" : {
     "__DEFAULT_NETWORK__": false,
-    "__DEFAULT_NETWORK_NAME__": false,
     "__TOKEN_ADDRESS__": false,
+    "__FAUCET_ADDESS__": false,
     "__DAO_ADDESS__": false,
+    "__TOKEN_DEALER__": false,
+    "__CONTRIBUTIONS__": false,
     "__INFURA_KEY__": false,
     "ethereum": false,
     "web3": false,

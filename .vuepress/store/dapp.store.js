@@ -1,5 +1,9 @@
+import ERC20 from '../abi/ERC20';
 import TokenArtifact from '../abi/BaseToken';
+import FaucetArtifact from '../abi/TokenFaucet';
 import DAOArtifact from '../abi/DAO';
+import DealerArtifact from '../abi/TokenDealer';
+import ContributionsArtifact from '../abi/Contributions';
 
 export default {
   state: {
@@ -57,11 +61,17 @@ export default {
       },
       contracts: {
         token: null,
+        faucet: null,
         dao: null,
+        dealer: null,
+        contributions: null,
       },
       instances: {
         token: null,
+        faucet: null,
         dao: null,
+        dealer: null,
+        contributions: null,
       },
     },
   },
@@ -177,6 +187,21 @@ export default {
     initDao ({ state, commit }) {
       state.dapp.contracts.dao = state.dapp.web3.eth.contract(DAOArtifact.abi);
       state.dapp.instances.dao = state.dapp.contracts.dao.at(__DAO_ADDESS__);
+    },
+    initDealer ({ state, commit }) {
+      state.dapp.contracts.dealer = state.dapp.web3.eth.contract(DealerArtifact.abi);
+      state.dapp.instances.dealer = state.dapp.contracts.dealer.at(__TOKEN_DEALER__);
+    },
+    initContributions ({ state, commit }) {
+      state.dapp.contracts.contributions = state.dapp.web3.eth.contract(ContributionsArtifact.abi);
+      state.dapp.instances.contributions = state.dapp.contracts.contributions.at(__CONTRIBUTIONS__);
+    },
+    initFaucet ({ state, commit }) {
+      state.dapp.contracts.faucet = state.dapp.web3.eth.contract(FaucetArtifact.abi);
+      state.dapp.instances.faucet = state.dapp.contracts.faucet.at(__FAUCET_ADDESS__);
+    },
+    loadERC20 ({ state, commit }) {
+      state.dapp.contracts.erc20 = state.dapp.web3.eth.contract(ERC20.abi);
     },
     async connect ({ state, commit }) {
       try {
