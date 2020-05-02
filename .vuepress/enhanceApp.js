@@ -5,7 +5,13 @@ import VeeValidate from 'vee-validate';
 import { VueSpinners } from '@saeris/vue-spinners';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faInfoCircle, faCheckCircle, faExclamationCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
+import {
+  faInfoCircle,
+  faCheckCircle,
+  faExclamationCircle,
+  faSearch,
+  faExternalLinkAlt
+} from '@fortawesome/free-solid-svg-icons';
 import {
   faTelegramPlane,
   faMediumM,
@@ -23,6 +29,7 @@ library.add(faInfoCircle);
 library.add(faCheckCircle);
 library.add(faExclamationCircle);
 library.add(faSearch);
+library.add(faExternalLinkAlt);
 library.add(faTelegramPlane);
 library.add(faMediumM);
 library.add(faTwitter);

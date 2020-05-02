@@ -27,7 +27,7 @@
                             Website or any information, links or content contained on this Website. Your access to and
                             use of this Website constitutes your acceptance of and agreement to abide by each of the
                             terms set forth below including our
-                            <b-link :to="$withBase('/whitepaper')">Privacy Policy</b-link>
+                            <b-link :to="$withBase('/privacy')">Privacy Policy</b-link>
                             which is hereby incorporated in these terms by reference. If you are using our Website on
                             behalf of your organization, that organization accepts these terms.
                         </p>
