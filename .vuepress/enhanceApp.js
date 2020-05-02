@@ -10,7 +10,7 @@ import {
   faCheckCircle,
   faExclamationCircle,
   faSearch,
-  faExternalLinkAlt
+  faExternalLinkAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faTelegramPlane,

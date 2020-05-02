@@ -189,14 +189,6 @@
                                     </b-link>
                                 </p>
                             </li>
-                            <!--
-                            <li>
-                                <b>Facebook Pixel (Facebook Inc.)</b>
-                                <p>The Facebook pixel is a website plugin that allows to measure the effectiveness of advertising by understanding the actions people take on website.<br>
-                                    Personal Data collected: Usage Data and various types of Data as specified in the privacy policy of the service.</p>
-                                <p>Place of processing: US – <b-link href="https://www.facebook.com/about/privacy/" target="_blank">Privacy Policy</b-link></p>
-                            </li>
-                            -->
                             <li>
                                 <b>CloudFlare (Cloudflare)</b>
                                 <p>
@@ -215,30 +207,6 @@
                                     </b-link>
                                 </p>
                             </li>
-                            <!--
-                            <li>
-                                <b>Disqus (Disqus)</b>
-                                <p>Disqus is a content commenting service provided by Big Heads Labs Inc.<br>
-                                    Personal Data collected: Cookies, Usage Data and various types of Data as specified in the privacy policy of the service.</p>
-                                <p>Place of processing: US – <b-link href="https://help.disqus.com/customer/portal/articles/466259-privacy-policy" target="_blank">Privacy Policy</b-link></p>
-                            </li>
-                            -->
-                            <!--
-                            <li>
-                                <b>Drift Widget (Drift.com, Inc.)</b>
-                                <p>The Drift Widget is a service for interacting with the Drift live chat platform provided by Drift.com, Inc.<br>
-                                    Personal Data collected: Cookies, Usage Data and various types of Data as specified in the privacy policy of the service.</p>
-                                <p>Place of processing: US – <b-link href="https://www.drift.com/privacy-policy/" target="_blank">Privacy Policy</b-link></p>
-                            </li>
-                            -->
-                            <!--
-                            <li>
-                                <b>MailChimp (The Rocket Science Group, LLC.)</b>
-                                <p>MailChimp is an email address management and message sending service provided by The Rocket Science Group, LLC.<br>
-                                    Personal Data collected: email address.</p>
-                                <p>Place of processing: US – <b-link href="https://mailchimp.com/legal/privacy/" target="_blank">Privacy Policy</b-link></p>
-                            </li>
-                            -->
                         </ul>
                     </b-card-text>
                 </b-card>

@@ -49,9 +49,9 @@
                 <b-card title="Use of Website" class="mb-3">
                     <b-card-text>
                         <p>
-                            The purpose of our Website is to provide you with some general information about the software
-                            being developed by FriendsFingers. You must not breach any of the following terms or our
-                            Acceptable Use Policy set out below.</p>
+                            The purpose of our Website is to provide you with some general information about the
+                            software being developed by FriendsFingers. You must not breach any of the following terms
+                            or our Acceptable Use Policy set out below.</p>
                     </b-card-text>
                 </b-card>
                 <b-card title="Open Source Software" class="mb-3">
@@ -64,9 +64,9 @@
                             this open source software.
                         </p>
                         <p>
-                            When we host any software and enable you to access and use such software through our websites
-                            including this Website, then these terms will apply to such access and use, as well as any
-                            license agreements that we may enter into with you.
+                            When we host any software and enable you to access and use such software through our
+                            websites including this Website, then these terms will apply to such access and use, as
+                            well as any license agreements that we may enter into with you.
                         </p>
                     </b-card-text>
                 </b-card>
@@ -108,15 +108,16 @@
                             right of publicity or privacy, of any person or entity.
                         </p>
                         <p>
-                            You are entirely responsible for maintaining the confidentiality of your User Content and any
-                            of your non-public information. Furthermore, you are entirely responsible for any and all
-                            activities that occur under your account (if any). You agree to notify us immediately of any
-                            unauthorized use of your User Content, account or any other breach of security. We will not
-                            be liable for any loss or damages that you may incur as a result of someone else using your
-                            User Content or account, either with or without your knowledge. However, you could be held
-                            liable for losses incurred by the FriendsFingers Parties (as defined below) or another party
-                            due to someone else using your User Content or account. You may not use anyone else’s User
-                            Content or account at any time without the permission of such person or entity.
+                            You are entirely responsible for maintaining the confidentiality of your User Content and
+                            any of your non-public information. Furthermore, you are entirely responsible for any and
+                            all activities that occur under your account (if any). You agree to notify us immediately
+                            of any unauthorized use of your User Content, account or any other breach of security.
+                            We will not be liable for any loss or damages that you may incur as a result of someone
+                            else using your User Content or account, either with or without your knowledge. However,
+                            you could be held liable for losses incurred by the FriendsFingers Parties (as defined
+                            below) or another party due to someone else using your User Content or account.
+                            You may not use anyone else’s User Content or account at any time without the permission
+                            of such person or entity.
                         </p>
                         <p>
                             By posting, uploading, inputting, providing or submitting your User Content to us, you grant
@@ -131,11 +132,11 @@
                             communicate with you effectively and provide accurate and up to date information to you.
                         </p>
                         <p>
-                            Although we have no obligation to screen, edit or monitor User Content, we reserve the right,
-                            and have absolute discretion, to remove, screen or edit User Content. Furthermore, if we
-                            have reason to believe that there is likely to be a breach of security, breach or misuse of
-                            our Website or if you breach any of your obligations under these terms or the Privacy
-                            Policy, we may suspend your use of this Website at any time and for any reason.
+                            Although we have no obligation to screen, edit or monitor User Content, we reserve the
+                            right, and have absolute discretion, to remove, screen or edit User Content. Furthermore,
+                            if we have reason to believe that there is likely to be a breach of security, breach or
+                            misuse of our Website or if you breach any of your obligations under these terms or the
+                            Privacy Policy, we may suspend your use of this Website at any time and for any reason.
                         </p>
                         <p>Any User Content submitted by you on this Website may be accessed by us globally.</p>
                     </b-card-text>
@@ -274,9 +275,9 @@
                             Content; (iii) any Feedback you provide; or (iv) your violation of these Terms.
                         </p>
                         <p>
-                            We reserve the right to exercise sole control over the defence, at your expense, of any claim
-                            subject to indemnification pursuant to these terms. This indemnity is in addition to, and
-                            not in lieu of, any other indemnities set forth in a written agreement between you and
+                            We reserve the right to exercise sole control over the defence, at your expense, of any
+                            claim subject to indemnification pursuant to these terms. This indemnity is in addition to,
+                            and not in lieu of, any other indemnities set forth in a written agreement between you and
                             FriendsFingers.
                         </p>
                     </b-card-text>
@@ -307,8 +308,8 @@
                             SERVICES AND/OR THE MATERIALS DESCRIBED ON THIS WEBSITE AT ANY TIME.
                         </p>
                         <p>
-                            In addition, to the maximum extent permitted by law, none of the FriendsFingers Parties shall
-                            be responsible or liable for:<br>
+                            In addition, to the maximum extent permitted by law, none of the FriendsFingers Parties
+                            shall be responsible or liable for:<br>
                             (a) any loss, liability, cost, expense or damage suffered or incurred arising out of or in
                             connection with any access to or use of this Website or any of its content;<br>
                             (b) any reliance on, or decision made on the basis of, information or material shown on or
@@ -329,8 +330,8 @@
                             accessed from this Website.
                         </p>
                         <p>
-                            IN NO EVENT WILL THE FRIENDSFINGERS PARTIES BE RESPONSIBLE OR LIABLE FOR ANY CLAIMS, DAMAGES,
-                            LIABILITIES, LOSSES, COSTS OR EXPENSES OF ANY KIND, WHETHER DIRECT OR INDIRECT,
+                            IN NO EVENT WILL THE FRIENDSFINGERS PARTIES BE RESPONSIBLE OR LIABLE FOR ANY CLAIMS,
+                            DAMAGES, LIABILITIES, LOSSES, COSTS OR EXPENSES OF ANY KIND, WHETHER DIRECT OR INDIRECT,
                             CONSEQUENTIAL, COMPENSATORY, INCIDENTAL, ACTUAL, EXEMPLARY, PUNITIVE OR SPECIAL (INCLUDING
                             DAMAGES FOR LOSS OF BUSINESS, REVENUES, PROFITS, DATA, USE, GOODWILL OR OTHER INTANGIBLE
                             LOSSES) REGARDLESS OF WHETHER THE FRIENDSFINGERS PARTIES HAVE BEEN ADVISED OF THE
@@ -352,8 +353,9 @@
                             beneficiary rights.
                         </p>
                         <p>
-                            If you do not comply with these terms, and we don’t take action right away, this doesn’t mean
-                            that we are giving up any rights that we may have (such as taking action in the future).
+                            If you do not comply with these terms, and we don’t take action right away, this doesn’t
+                            mean that we are giving up any rights that we may have (such as taking action in the
+                            future).
                         </p>
                         <p>
                             If it turns out that a particular term is not enforceable, the term will be modified such
