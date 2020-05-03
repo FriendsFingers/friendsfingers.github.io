@@ -10,15 +10,17 @@ body {
 }
 
 .navbar {
-  &.main-navbar {
-    background: #ffffff !important;
-  }
-
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 
   .navbar-brand {
     img {
       margin-top: -4px;
     }
+  }
+}
+
+.footer {
+  .list-group-item {
+    background: none;
   }
 }

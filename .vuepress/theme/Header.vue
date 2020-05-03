@@ -1,24 +1,22 @@
 <template>
-    <b-navbar toggleable="md" variant="light" fixed="top" :sticky="true" class="main-navbar">
+    <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" :sticky="true" class="main-navbar">
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
         <b-navbar-brand to="/">
-            <b-img :src="$withBase('/assets/images/logo/friendsfingers.svg')"
+            <b-img :src="$withBase('/assets/images/logo/friendsfingers-light.svg')"
                    rounded="circle"
                    height="24"
                    :alt="$site.title"/>
             {{ $site.title }}
         </b-navbar-brand>
 
-        <b-badge variant="danger">beta</b-badge>
+        <b-badge variant="warning">beta</b-badge>
 
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav>
                 <b-nav-item :to="$withBase('/dao')">DAO</b-nav-item>
                 <b-nav-item :to="$withBase('/dealer')">Dealer</b-nav-item>
                 <b-nav-item :to="$withBase('/faucet')">Faucet</b-nav-item>
-
-                <b-nav-item disabled class="d-none d-md-block">|</b-nav-item>
             </b-navbar-nav>
 
             <b-navbar-nav class="ml-auto">
@@ -42,7 +40,7 @@
                                   :class="{'is-invalid': errors.has('query')}"
                                   placeholder="0x123456789...">
                     </b-form-input>
-                    <b-button variant="primary" class="mt-1" type="submit" size="sm">
+                    <b-button variant="link" class="mt-1" type="submit" size="sm">
                         <font-awesome-icon icon="search"/>
                     </b-button>
                 </b-nav-form>
