@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-row class="masthead purple m-0">
+        <b-row class="masthead peach m-0">
             <b-col lg="10" offset-lg="1">
                 <h2>
                     <b-img :src="$withBase('/assets/images/logo/friendsfingers-light.svg')"

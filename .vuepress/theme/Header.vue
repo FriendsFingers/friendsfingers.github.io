@@ -1,9 +1,9 @@
 <template>
-    <b-navbar toggleable="md" type="dark" variant="dark" fixed="top" :sticky="true" class="main-navbar">
+    <b-navbar toggleable="md" type="light" variant="light" fixed="top" :sticky="true" class="main-navbar">
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
         <b-navbar-brand to="/">
-            <b-img :src="$withBase('/assets/images/logo/friendsfingers-light.svg')"
+            <b-img :src="$withBase('/assets/images/logo/friendsfingers.svg')"
                    rounded="circle"
                    height="24"
                    :alt="$site.title"/>
@@ -26,7 +26,7 @@
                 <b-nav-item v-if="dapp.metamask.address === ''" :to="$withBase('/dashboard')">Connect</b-nav-item>
                 <template v-else>
                     <b-nav-item :to="$withBase('/dashboard')">
-                        <b-avatar size="1.3em" variant="dark" class="mr-2">
+                        <b-avatar size="1.3em" variant="light" class="mr-2">
                             <template v-if="account.member">
                                 <ui--member-image :member="account.member"></ui--member-image>
                             </template>
@@ -47,7 +47,7 @@
                                   :class="{'is-invalid': errors.has('query')}"
                                   placeholder="0x123456789...">
                     </b-form-input>
-                    <b-button variant="link" class="mt-1 text-light" type="submit" size="sm">
+                    <b-button variant="link" class="mt-1 text-dark" type="submit" size="sm">
                         <font-awesome-icon icon="search"/>
                     </b-button>
                 </b-nav-form>

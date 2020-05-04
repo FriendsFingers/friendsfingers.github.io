@@ -8,13 +8,13 @@
                             <b-badge :variant="dapp.network.current.color">{{ dapp.network.current.name }}</b-badge>
                         </b-list-group-item>
                         <b-list-group-item>
-                            <font-awesome-icon class="purple" :icon="['fab', 'ethereum']"/>
+                            <font-awesome-icon class="peach" :icon="['fab', 'ethereum']"/>
                             <b-link :href="tokenLink" class="text-light" target="_blank">
                                 Explore Shaka Contract
                             </b-link>
                         </b-list-group-item>
                         <b-list-group-item>
-                            <font-awesome-icon class="purple" :icon="['fab', 'ethereum']"/>
+                            <font-awesome-icon class="peach" :icon="['fab', 'ethereum']"/>
                             <b-link :href="daoLink" class="text-light" target="_blank">
                                 Explore DAO Contract
                             </b-link>

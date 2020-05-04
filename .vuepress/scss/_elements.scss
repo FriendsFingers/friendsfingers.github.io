@@ -15,7 +15,7 @@
       padding: 4em 0.5em 4em 0.5em;
     }
 
-    &.purple {
+    &.peach {
       background: $primary-color;
       background-image: linear-gradient(to right, $primary-color, $primary-color-dark);
       color: #ffffff;
@@ -28,11 +28,11 @@
     }
   }
 
-  .purple {
+  .peach {
     color: $primary-color;
   }
 
-  .bg-purple {
+  .bg-peach {
     color: white;
     background: $primary-color;
     background-image: linear-gradient(to right, $primary-color, $primary-color-dark);
@@ -77,6 +77,14 @@
       a {
         color: $yellow-color;
       }
+    }
+  }
+
+  .navbar-brand {
+    color: $purple;
+
+    &:hover {
+      color: $purple;
     }
   }
 

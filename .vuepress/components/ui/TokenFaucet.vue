@@ -13,7 +13,7 @@
                     {{ token.name }} on <b-link :href="token.link" target="_blank">Etherscan</b-link>
                 </b-form-text>
             </b-card>
-            <b-card :title="`${token.name} Faucet status`" id="faucet-box" class="mt-4 bg-purple">
+            <b-card bg-variant="peach" :title="`${token.name} Faucet status`" id="faucet-box" class="mt-4">
                 <template v-if="loading">
                     <ui--loader :loading="true" color="#ffffff"></ui--loader>
                 </template>

@@ -1,7 +1,7 @@
 <template>
     <b-row>
         <b-col lg="12">
-            <b-card title="Dealer status" class="mt-4 bg-purple">
+            <b-card bg-variant="peach" title="Dealer status" class="mt-4">
                 <template v-if="loading">
                     <ui--loader :loading="true" color="#ffffff"></ui--loader>
                 </template>
