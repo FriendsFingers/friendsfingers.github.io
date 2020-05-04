@@ -136,7 +136,11 @@
 
           this.ready();
         } catch (e) {
-          alert(e);
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.$router.push({ path: '/' });
         }
       },
@@ -170,9 +174,13 @@
             this.account.isMember = await this.ethGetCall(this.dapp.instances.dao.isMember, this.dapp.metamask.address);
           }
         } catch (e) {
-          this.loading = false;
           console.log(e); // eslint-disable-line no-console
-          alert('Some error occurred.');
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
+          this.loading = false;
         }
       },
       async getTokenData () {
@@ -184,7 +192,11 @@
         } catch (e) {
           this.loading = false;
           console.log(e); // eslint-disable-line no-console
-          alert('Some error occurred.');
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
         }
       },
       async getMember (memberId) {

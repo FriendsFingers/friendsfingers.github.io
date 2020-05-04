@@ -16,8 +16,9 @@
                             <template v-else>
                                 <b-card header="Your account" class="mb-3">
                                     <b>Account:</b>
-                                    <b-link :href="`${dapp.network.current.etherscanLink}/address/${dapp.metamask.address}`">
-                                            target="_blank">{{ dapp.metamask.address}}
+                                    <b-link :href="`${dapp.network.current.etherscanLink}/address/${dapp.metamask.address}`"
+                                            target="_blank">
+                                        {{ dapp.metamask.address}}
                                     </b-link>
                                 </b-card>
                                 <b-card header="FriendsFingers DAO" class="mb-3">
@@ -122,7 +123,11 @@
 
           this.ready();
         } catch (e) {
-          alert(e);
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           document.location.href = this.$withBase('/');
         }
       },
@@ -144,7 +149,11 @@
         } catch (e) {
           console.log(e); // eslint-disable-line no-console
           this.loading = false;
-          alert('Some error occurred.');
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
         }
       },
       async getAccountData () {
@@ -169,8 +178,12 @@
           this.loadingData = false;
         } catch (e) {
           console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.loadingData = false;
-          alert('Some error occurred.');
         }
       },
       join () {
@@ -187,7 +200,12 @@
                 this.trx.hash = trxHash;
                 this.trx.link = this.dapp.network.current.etherscanLink + '/tx/' + this.trx.hash;
               } else {
-                alert('Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!');
+                console.log(err); // eslint-disable-line no-console
+                this.makeToast(
+                  'Some errors occurred',
+                  'Maybe you rejected the transaction or you have MetaMask locked!',
+                  'danger',
+                );
               }
               this.makingTransaction = false;
             },
@@ -195,7 +213,11 @@
         } catch (e) {
           console.log(e); // eslint-disable-line no-console
           this.makingTransaction = false;
-          alert('Cannot connect. Please verify that you have MetaMask installed and unlocked.');
+          this.makeToast(
+            'Cannot connect',
+            'Please verify that you have MetaMask installed and unlocked.',
+            'danger',
+          );
         }
       },
     },

@@ -1,4 +1,7 @@
 .body {
+  font-family: Catamaran,Helvetica,Arial,sans-serif;
+  letter-spacing: 1px;
+
   .masthead {
     text-align: center;
     &.main {
@@ -68,6 +71,12 @@
       color: $primary-color;
       font-size: 1.6em;
       margin: 0.2em;
+    }
+
+    &.inverse {
+      a {
+        color: $yellow-color;
+      }
     }
   }
 

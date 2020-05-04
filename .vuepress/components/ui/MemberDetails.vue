@@ -147,12 +147,20 @@
         this.$validator.validate('stakeAmount').then((result) => {
           if (result) {
             if (!this.dapp.metamask.installed) {
-              alert('Please verify that you have MetaMask installed and unlocked.');
+              this.makeToast(
+                'Some errors occurred',
+                'Please verify that you have MetaMask installed and unlocked.',
+                'danger',
+              );
               return;
             }
 
             if (this.dapp.metamask.netId !== this.dapp.network.current.id) {
-              alert(`You are on the wrong Network. Please switch MetaMask on ${this.dapp.network.current.name}.`);
+              this.makeToast(
+                'You are on the wrong Network',
+                `Please switch MetaMask on ${this.dapp.network.current.name}.`,
+                'danger',
+              );
               return;
             }
 
@@ -171,32 +179,53 @@
                     this.trx.hash = trxHash;
                     this.trx.link = this.dapp.network.current.etherscanLink + '/tx/' + this.trx.hash;
                   } else {
-                    alert('Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!');
+                    console.log(err); // eslint-disable-line no-console
+                    this.makeToast(
+                      'Some errors occurred',
+                      'Maybe you rejected the transaction or you have MetaMask locked!',
+                      'danger',
+                    );
                   }
                   this.makingTransaction = false;
                 },
               );
             } catch (e) {
               console.log(e); // eslint-disable-line no-console
-              alert('Cannot connect. Please verify that you have MetaMask installed and unlocked.');
+              this.makeToast(
+                'Cannot connect',
+                'Please verify that you have MetaMask installed and unlocked.',
+                'danger',
+              );
             }
           }
         }).catch((e) => {
           console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.makingTransaction = false;
-          alert('Some error occurred.');
         });
       },
       unstake () {
         this.$validator.validate('unstakeAmount').then((result) => {
           if (result) {
             if (!this.dapp.metamask.installed) {
-              alert('Please verify that you have MetaMask installed and unlocked.');
+              this.makeToast(
+                'Cannot connect',
+                'Please verify that you have MetaMask installed and unlocked.',
+                'danger',
+              );
               return;
             }
 
             if (this.dapp.metamask.netId !== this.dapp.network.current.id) {
-              alert(`You are on the wrong Network. Please switch MetaMask on ${this.dapp.network.current.name}.`);
+              this.makeToast(
+                'You are on the wrong Network',
+                `Please switch MetaMask on ${this.dapp.network.current.name}.`,
+                'danger',
+              );
               return;
             }
 
@@ -214,20 +243,33 @@
                     this.trx.hash = trxHash;
                     this.trx.link = this.dapp.network.current.etherscanLink + '/tx/' + this.trx.hash;
                   } else {
-                    alert('Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!');
+                    console.log(err); // eslint-disable-line no-console
+                    this.makeToast(
+                      'Some errors occurred',
+                      'Maybe you rejected the transaction or you have MetaMask locked!',
+                      'danger',
+                    );
                   }
                   this.makingTransaction = false;
                 },
               );
             } catch (e) {
               console.log(e); // eslint-disable-line no-console
-              alert('Cannot connect. Please verify that you have MetaMask installed and unlocked.');
+              this.makeToast(
+                'Cannot connect',
+                'Please verify that you have MetaMask installed and unlocked.',
+                'danger',
+              );
             }
           }
         }).catch((e) => {
           console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.makingTransaction = false;
-          alert('Some error occurred.');
         });
       },
     },

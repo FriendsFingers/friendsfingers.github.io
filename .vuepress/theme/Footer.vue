@@ -10,24 +10,33 @@
                         <b-list-group-item>
                             <font-awesome-icon class="purple" :icon="['fab', 'ethereum']"/>
                             <b-link :href="tokenLink" class="text-light" target="_blank">
-                                Shaka Token
+                                Explore Shaka Contract
                             </b-link>
                         </b-list-group-item>
                         <b-list-group-item>
                             <font-awesome-icon class="purple" :icon="['fab', 'ethereum']"/>
                             <b-link :href="daoLink" class="text-light" target="_blank">
-                                DAO
+                                Explore DAO Contract
                             </b-link>
                         </b-list-group-item>
                     </b-list-group>
                 </b-col>
-                <b-col lg="4" class="text-center">
-                    <div class="mt-4">
-                        <ui--social-links></ui--social-links>
-                    </div>
+                <b-col lg="4">
                     <b-list-group flush class="mt-4">
                         <b-list-group-item>
-                            <small>&copy; 2020 🤙 FriendsFingers</small>
+                            <b-link :to="$withBase('/dao')" class="text-light">
+                                DAO
+                            </b-link>
+                        </b-list-group-item>
+                        <b-list-group-item>
+                            <b-link :to="$withBase('/Dealer')" class="text-light">
+                                Dealer
+                            </b-link>
+                        </b-list-group-item>
+                        <b-list-group-item>
+                            <b-link :to="$withBase('/Faucet')" class="text-light">
+                                Faucet
+                            </b-link>
                         </b-list-group-item>
                     </b-list-group>
                 </b-col>
@@ -35,20 +44,30 @@
                     <b-list-group flush class="mt-4">
                         <b-list-group-item>
                             <b-link :to="$withBase('/privacy')" class="text-light">
-                                Privacy
+                                <small>Privacy</small>
                             </b-link>
                         </b-list-group-item>
                         <b-list-group-item>
                             <b-link :to="$withBase('/terms')" class="text-light">
-                                Terms and Conditions
+                                <small>Terms and Conditions</small>
                             </b-link>
                         </b-list-group-item>
                         <b-list-group-item>
                             <b-link :to="$withBase('/faq')" class="text-light">
-                                FAQ
+                                <small>FAQ</small>
                             </b-link>
                         </b-list-group-item>
                     </b-list-group>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col lg="12">
+                    <hr>
+                    <div class="mt-4 text-center">
+                        <ui--social-links></ui--social-links>
+
+                        <small>&copy; 2020 🤙 FriendsFingers</small>
+                    </div>
                 </b-col>
             </b-row>
         </b-container>

@@ -10,6 +10,12 @@ import {
   faCheckCircle,
   faExclamationCircle,
   faSearch,
+  faRocket,
+  faPeopleArrows,
+  faCogs,
+  faChartLine,
+  faAward,
+  faWallet,
   faExternalLinkAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -29,6 +35,12 @@ library.add(faInfoCircle);
 library.add(faCheckCircle);
 library.add(faExclamationCircle);
 library.add(faSearch);
+library.add(faRocket);
+library.add(faPeopleArrows);
+library.add(faCogs);
+library.add(faChartLine);
+library.add(faAward);
+library.add(faWallet);
 library.add(faExternalLinkAlt);
 library.add(faTelegramPlane);
 library.add(faMediumM);

@@ -286,7 +286,12 @@
 
           this.ready();
         } catch (e) {
-          alert(e);
+          console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.$router.push({ path: '/' });
         }
       },
@@ -328,8 +333,12 @@
           this.token.logo = this.$withBase(`/assets/images/faucet/token/${this.faucet.selectedToken.logo}`);
         } catch (e) {
           console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.loading = false;
-          alert('Some error occurred.');
         }
       },
       async getFaucetData () {
@@ -359,8 +368,12 @@
           this.faucet.percentage = 100 * this.faucet.distributedTokens / this.faucet.max;
         } catch (e) {
           console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.loading = false;
-          alert('Some error occurred.');
         }
       },
       async getAccountData () {
@@ -432,8 +445,12 @@
           this.loadingData = false;
         } catch (e) {
           console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.loadingData = false;
-          alert('Some error occurred.');
         }
       },
       getTokens () {
@@ -452,7 +469,12 @@
                   this.trx.hash = trxHash;
                   this.trx.link = this.dapp.network.current.etherscanLink + '/tx/' + this.trx.hash;
                 } else {
-                  alert('Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!');
+                  console.log(err); // eslint-disable-line no-console
+                  this.makeToast(
+                    'Some errors occurred',
+                    'Maybe you rejected the transaction or you have MetaMask locked!',
+                    'danger',
+                  );
                 }
                 this.makingTransaction = false;
               },
@@ -460,8 +482,12 @@
           }
         }).catch((e) => {
           console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.makingTransaction = false;
-          alert('Some error occurred.');
         });
       },
     },

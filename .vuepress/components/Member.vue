@@ -67,7 +67,12 @@
 
           this.ready();
         } catch (e) {
-          alert(e);
+          console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.$router.push({ path: '/' });
         }
       },
@@ -83,8 +88,12 @@
           this.token.logo = this.$withBase('/assets/images/logo/shaka_logo_white.png');
         } catch (e) {
           console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.loading = false;
-          alert('Some error occurred.');
         }
       },
       async getMember () {

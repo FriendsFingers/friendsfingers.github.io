@@ -24,10 +24,17 @@
                 <b-nav-item :to="$withBase('/whitepaper')">Whitepaper</b-nav-item>
                 <b-nav-item disabled class="d-none d-md-block">|</b-nav-item>
                 <b-nav-item v-if="dapp.metamask.address === ''" :to="$withBase('/dashboard')">Connect</b-nav-item>
-                <b-nav-item-dropdown v-else :text="dapp.metamask.address | truncate(10)" right>
-                    <b-dropdown-item :to="$withBase('/dashboard')">Dashboard</b-dropdown-item>
-                    <!--<b-dropdown-item @click="disconnect()">Disconnect</b-dropdown-item>-->
-                </b-nav-item-dropdown>
+                <template v-else>
+                    <b-nav-item :to="$withBase('/dashboard')">
+                        <b-avatar size="1.3em" variant="dark" class="mr-2">
+                            <template v-if="account.member">
+                                <ui--member-image :member="account.member"></ui--member-image>
+                            </template>
+                        </b-avatar>
+                        {{ dapp.metamask.address | truncate(10) }}
+                    </b-nav-item>
+                    <!--<b-nav-item @click="disconnect()">Disconnect</b-nav-item>-->
+                </template>
 
                 <b-nav-form @submit.prevent="search" class="ml-2 d-none d-lg-block d-xl-block">
                     <b-form-input id="query"
@@ -40,7 +47,7 @@
                                   :class="{'is-invalid': errors.has('query')}"
                                   placeholder="0x123456789...">
                     </b-form-input>
-                    <b-button variant="link" class="mt-1" type="submit" size="sm">
+                    <b-button variant="link" class="mt-1 text-light" type="submit" size="sm">
                         <font-awesome-icon icon="search"/>
                     </b-button>
                 </b-nav-form>
@@ -60,7 +67,15 @@
     data () {
       return {
         query: '',
+        account: {
+          isMember: false,
+          memberId: 0,
+          member: null,
+        },
       };
+    },
+    mounted () {
+      this.initDapp();
     },
     computed: {
       dapp: {
@@ -92,6 +107,35 @@
       }, 2000);
     },
     methods: {
+      initDapp () {
+        try {
+          if (this.dapp.metamask.address !== '') {
+            this.$store.dispatch('initDao');
+
+            this.ready();
+          }
+        } catch (e) {
+          console.log(e); // eslint-disable-line no-console
+        }
+      },
+      async ready () {
+        await this.getAccountData();
+      },
+      async getAccountData () {
+        try {
+          this.account.isMember = await this.ethGetCall(this.dapp.instances.dao.isMember, this.dapp.metamask.address);
+
+          if (this.account.isMember) {
+            const struct = await this.ethGetCall(
+              this.dapp.instances.dao.getMemberByAddress, this.dapp.metamask.address,
+            );
+            this.account.member = this.formatStructure(struct);
+            this.account.memberId = this.account.member.id;
+          }
+        } catch (e) {
+          console.log(e); // eslint-disable-line no-console
+        }
+      },
       search () {
         this.$validator.validateAll().then((result) => {
           if (result) {

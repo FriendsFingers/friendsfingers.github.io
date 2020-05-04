@@ -185,7 +185,12 @@
 
           this.ready();
         } catch (e) {
-          alert(e);
+          console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.$router.push({ path: '/' });
         }
       },
@@ -202,9 +207,13 @@
           this.token.link = this.dapp.network.current.etherscanLink + '/token/' + this.dapp.instances.token.address;
           this.token.logo = this.$withBase('/assets/images/logo/shaka_logo_white.png');
         } catch (e) {
-          this.loading = false;
           console.log(e); // eslint-disable-line no-console
-          alert('Some error occurred.');
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
+          this.loading = false;
         }
       },
       async getDealerData () {
@@ -225,9 +234,13 @@
 
           this.dealer.percentage = 100 * this.contributions.totalSoldTokens / this.dealer.max;
         } catch (e) {
-          this.loading = false;
           console.log(e); // eslint-disable-line no-console
-          alert('Some error occurred.');
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
+          this.loading = false;
         }
       },
       async getExpectedTokenAmount () {
@@ -245,12 +258,20 @@
         this.$validator.validate('ethAmount').then((result) => {
           if (result) {
             if (!this.dapp.metamask.installed) {
-              alert('Please verify that you have MetaMask installed and unlocked.');
+              this.makeToast(
+                'Cannot connect',
+                'Please verify that you have MetaMask installed and unlocked.',
+                'danger',
+              );
               return;
             }
 
             if (this.dapp.metamask.netId !== this.dapp.network.current.id) {
-              alert(`You are on the wrong Network. Please switch MetaMask on ${this.dapp.network.current.name}.`);
+              this.makeToast(
+                'You are on the wrong Network',
+                `Please switch MetaMask on ${this.dapp.network.current.name}.`,
+                'danger',
+              );
               return;
             }
 
@@ -268,20 +289,33 @@
                     this.trx.hash = trxHash;
                     this.trx.link = this.dapp.network.current.etherscanLink + '/tx/' + this.trx.hash;
                   } else {
-                    alert('Some error occurred. Maybe you rejected the transaction or you have MetaMask locked!');
+                    console.log(err); // eslint-disable-line no-console
+                    this.makeToast(
+                      'Some errors occurred',
+                      'Maybe you rejected the transaction or you have MetaMask locked!',
+                      'danger',
+                    );
                   }
                   this.makingTransaction = false;
                 },
               );
             } catch (e) {
               console.log(e); // eslint-disable-line no-console
-              alert('Cannot connect. Please verify that you have MetaMask installed and unlocked.');
+              this.makeToast(
+                'Cannot connect',
+                'Please verify that you have MetaMask installed and unlocked.',
+                'danger',
+              );
             }
           }
         }).catch((e) => {
           console.log(e); // eslint-disable-line no-console
+          this.makeToast(
+            'Some errors occurred',
+            e,
+            'danger',
+          );
           this.makingTransaction = false;
-          alert('Some error occurred.');
         });
       },
     },
