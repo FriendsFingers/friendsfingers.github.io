@@ -29,12 +29,12 @@
                             </b-link>
                         </b-list-group-item>
                         <b-list-group-item>
-                            <b-link :to="$withBase('/Dealer')" class="text-light">
+                            <b-link :to="$withBase('/dealer')" class="text-light">
                                 Dealer
                             </b-link>
                         </b-list-group-item>
                         <b-list-group-item>
-                            <b-link :to="$withBase('/Faucet')" class="text-light">
+                            <b-link :to="$withBase('/faucet')" class="text-light">
                                 Faucet
                             </b-link>
                         </b-list-group-item>
