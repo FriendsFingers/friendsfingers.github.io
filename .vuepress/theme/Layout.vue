@@ -1,13 +1,11 @@
 <template>
-    <ClientOnly>
-        <div :class="`body ${bodyClass}`">
-            <site-header />
-            <transition name="fade" mode="out-in">
-                <component v-if="page" :is="page" :key="page"/>
-            </transition>
-            <site-footer />
-        </div>
-    </ClientOnly>
+    <div :class="`body ${bodyClass}`">
+        <site-header />
+        <transition name="fade" mode="out-in">
+            <component v-if="page" :is="page" :key="page"/>
+        </transition>
+        <site-footer />
+    </div>
 </template>
 <script>
   import SiteHeader from './Header.vue';
