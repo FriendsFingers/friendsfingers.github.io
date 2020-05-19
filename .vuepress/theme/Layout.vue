@@ -1,5 +1,5 @@
 <template>
-    <client-only>
+    <ClientOnly>
         <div :class="`body ${bodyClass}`">
             <site-header />
             <transition name="fade" mode="out-in">
@@ -7,7 +7,7 @@
             </transition>
             <site-footer />
         </div>
-    </client-only>
+    </ClientOnly>
 </template>
 <script>
   import SiteHeader from './Header.vue';
