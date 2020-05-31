@@ -34,7 +34,7 @@
                     <b-col md="2" sm="4" cols="6" v-for="item in memberList" :key="item.id" class="p-2">
                         <b-card no-body>
                             <b-card-body>
-                                <b-link :to="{ path: '/member/', query: { ref: item.id } }">
+                                <b-link :to="{ path: '/member/', query: { ref: item.address } }">
                                     <ui--member-image :member="item"></ui--member-image>
                                 </b-link>
                             </b-card-body>

@@ -114,6 +114,14 @@
                 </b-form>
             </b-card>
         </b-col>
+
+        <b-col md="12">
+            <b-card class="mb-4">
+                <vue-disqus shortname="friendsfingers"
+                            :identifier="`MEMBER_${account.member.address}`">
+                </vue-disqus>
+            </b-card>
+        </b-col>
     </b-row>
 </template>
 

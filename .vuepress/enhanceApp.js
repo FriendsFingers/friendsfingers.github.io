@@ -2,6 +2,7 @@ import Vuex from 'vuex';
 
 import BootstrapVue from 'bootstrap-vue';
 import VeeValidate from 'vee-validate';
+import VueDisqus from 'vue-disqus'
 import { VueSpinners } from '@saeris/vue-spinners';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -56,6 +57,7 @@ export default ({ Vue }) => {
 
   Vue.use(BootstrapVue);
   Vue.use(VeeValidate);
+  Vue.use(VueDisqus);
   Vue.use(VueSpinners);
 
   Vue.component('font-awesome-icon', FontAwesomeIcon);

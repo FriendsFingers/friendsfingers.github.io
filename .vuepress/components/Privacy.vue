@@ -207,6 +207,21 @@
                                     </b-link>
                                 </p>
                             </li>
+                            <li>
+                                <b>Disqus (Disqus)</b>
+                                <p>
+                                    Disqus is a content commenting service provided by Big Heads Labs Inc.<br>
+                                    Personal Data collected: Cookies, Usage Data and various types of Data as specified
+                                    in the privacy policy of the service.
+                                </p>
+                                <p>
+                                    Place of processing: US –
+                                    <b-link href="https://help.disqus.com/customer/portal/articles/466259-privacy-policy"
+                                            target="_blank">
+                                        Privacy Policy
+                                    </b-link>
+                                </p>
+                            </li>
                         </ul>
                     </b-card-text>
                 </b-card>

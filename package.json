@@ -40,8 +40,8 @@
     "@saeris/vue-spinners": "^1.0.8",
     "@vuepress/plugin-google-analytics": "^1.5.0",
     "babel-eslint": "^10.1.0",
-    "bootstrap-vue": "^2.14.0",
-    "eslint": "^7.0.0",
+    "bootstrap-vue": "^2.15.0",
+    "eslint": "^7.1.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
@@ -52,6 +52,7 @@
     "qrcode": "1.4.2",
     "sass-loader": "^8.0.2",
     "vee-validate": "2.2.15",
+    "vue-disqus": "^3.0.5",
     "vue-eslint-parser": "^7.1.0",
     "vuepress": "^1.5.0",
     "vuex": "^3.4.0"
