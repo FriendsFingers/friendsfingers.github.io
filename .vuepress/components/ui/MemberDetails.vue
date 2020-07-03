@@ -117,9 +117,9 @@
 
         <b-col md="12">
             <b-card class="mb-4">
-                <vue-disqus shortname="friendsfingers"
+                <Disqus shortname="friendsfingers"
                             :identifier="`MEMBER_${account.member.address}`">
-                </vue-disqus>
+                </Disqus>
             </b-card>
         </b-col>
     </b-row>
