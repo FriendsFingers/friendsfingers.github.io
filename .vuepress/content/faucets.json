@@ -35,7 +35,8 @@
       "name": "TradeX Token",
       "symbol": "TXH",
       "decimals": 18,
-      "logo": "tradex.png"
+      "logo": "tradex.png",
+      "disabled": true
     },
     {
       "address": "0xb9892F9A892f3e251fc58B9076c56aDD528eb8A6",

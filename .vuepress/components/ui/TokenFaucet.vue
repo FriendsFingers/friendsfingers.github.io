@@ -3,7 +3,7 @@
         <b-col lg="12">
             <b-card header="Select your preferred Token" class="mt-4">
                 <b-form-select v-model="faucet.selectedToken" @change="initData">
-                    <option v-for="faucetToken in faucet.tokens" :value="faucetToken">
+                    <option v-for="faucetToken in faucet.tokens" :value="faucetToken" :disabled="faucetToken.disabled">
                         {{ `${faucetToken.name} (${faucetToken.symbol})` }}
                     </option>
                 </b-form-select>
