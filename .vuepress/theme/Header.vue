@@ -15,7 +15,7 @@
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav>
                 <b-nav-item :to="$withBase('/dao')">DAO</b-nav-item>
-                <b-nav-item :to="$withBase('/dealer')">Dealer</b-nav-item>
+                <!--<b-nav-item :to="$withBase('/dealer')">Dealer</b-nav-item>-->
                 <b-nav-item :to="$withBase('/faucet')">Faucet</b-nav-item>
             </b-navbar-nav>
 
@@ -74,21 +74,6 @@
         getMessage: field => 'Insert a valid Ethereum address.',
         validate: value => this.dapp.web3.isAddress(value),
       });
-      setTimeout(() => {
-        if (!this.dapp.metamask.installed) {
-          this.makeToast(
-            'No Ethereum Provider',
-            `Please install MetaMask ${(this.isMobile()) ? 'or a mobile Web3 browser' : ''} to use DApp.`, // eslint-disable-line max-len
-            'warning',
-          );
-        } else if (this.dapp.metamask.netId !== this.dapp.network.current.id) {
-          this.makeToast(
-            'Wrong Network',
-            `You are on the wrong Network. Please switch your Ethereum Provider on ${this.dapp.network.current.name}.`,
-            'warning',
-          );
-        }
-      }, 2000);
     },
     methods: {
       search () {

@@ -28,14 +28,19 @@
                                 DAO
                             </b-link>
                         </b-list-group-item>
-                        <b-list-group-item>
+                        <!--<b-list-group-item>
                             <b-link :to="$withBase('/dealer')" class="text-light">
                                 Dealer
                             </b-link>
-                        </b-list-group-item>
+                        </b-list-group-item>-->
                         <b-list-group-item>
                             <b-link :to="$withBase('/faucet')" class="text-light">
                                 Faucet
+                            </b-link>
+                        </b-list-group-item>
+                      <b-list-group-item>
+                            <b-link href="https://www.mintme.com/token/shaka'" target="_blank" class="text-warning">
+                                Get Shaka on MintMe
                             </b-link>
                         </b-list-group-item>
                     </b-list-group>
